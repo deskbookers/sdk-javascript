@@ -32,3 +32,9 @@ deskbookers.workplaces.list(params)
   })
   .then(workplace => handleWorkplaceData)
   .catch(err => handleError)
+  ```
+
+### Available resources & methods
+
+ * workplaces
+  * `retrieve(accountId)`
