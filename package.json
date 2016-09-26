@@ -1,0 +1,17 @@
+{
+  "name": "sdk-javascript",
+  "version": "0.0.0",
+  "description": "Deskbookers API JavaScript SDK",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "deskbookers",
+    "api",
+    "sdk",
+    "javascript"
+  ],
+  "author": "Yosh Talwar <yosh@deskbookers.com>",
+  "license": "MIT"
+}
