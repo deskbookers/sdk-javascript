@@ -37,4 +37,4 @@ deskbookers.workplaces.list(params)
 ### Available resources & methods
 
  * workplaces
-  * `retrieve(accountId)`
+  * `retrieve(workplaceId)`
