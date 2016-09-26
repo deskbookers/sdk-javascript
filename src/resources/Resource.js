@@ -1,20 +1,18 @@
 const fetch = require('node-fetch')
 
-const API_VERSION = 1
-const API_BASE = 'https://backoffice.2cnnct.com/userapi'
-
 class Resource {
-  constructor () {
-    this.apiVersion = API_VERSION
-    this.apiBase = API_BASE
+  constructor (api) {
+    this.api = api
   }
 
   get apiUrl () {
-    return `${this.apiBase}/v${this.apiVersion}`
+    const url = `https://${this.api.host}/userapi/v${this.api.version}`
+    return url
   }
 
   request (options) {
-    const url = `${this.apiUrl}${options.path}?__resellerID=10000&__fields=[]`
+    const url = `${this.apiUrl}${options.path}?__resellerID=10000&__fields=[${options.fields.join(',')}]`
+    console.log(url)
     return fetch(url, {
       method: options.method
     }).then(response => response.json())
