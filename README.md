@@ -34,5 +34,7 @@ for (let workplace of workplaces) {
 
 ### Available resources & methods
 
+ * users
+  * `login(email, password)`
  * workplaces
   * `retrieve(workplaceId)`
