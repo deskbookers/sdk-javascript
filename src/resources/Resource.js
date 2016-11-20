@@ -11,23 +11,24 @@ class Resource {
     return url
   }
 
-  request (options) {
-    let url = `${this.apiUrl}${options.path}?__resellerID=10000`
+  request (spec) {
+    let options = {
+      method: (spec.method || 'GET').toUpperCase()
+    }
+    let url = `${this.apiUrl}${spec.path}?__resellerID=10000`
 
-    if (options.fields) {
-      url += `&__fields=[${options.fields.join(',')}]`
+    if (spec.fields) {
+      url += `&__fields=[${spec.fields.join(',')}]`
     }
 
     // Generate query string
-    if (options.query) {
-      for (let query in options.query) {
-        url += `&${query}=${options.query[query]}`
+    if (spec.query) {
+      for (let query in spec.query) {
+        url += `&${query}=${spec.query[query]}`
       }
     }
 
-    return fetch(url, {
-      method: options.method
-    }).then(resp => resp.json())
+    return fetch(url, options).then(resp => resp.json())
   }
 }
 
