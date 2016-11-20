@@ -16,18 +16,23 @@ class Users extends Resource {
     })
   }
 
+  validateCredentials (email, password) {
+    return this.request({
+      method: 'GET',
+      path: '/login',
+      query: {
+        email: `"${email}"`,
+        password: `"${password}"`
+      }
+    })
+  }
+
   login (email, password) {
     return this.retrieveSalt(email)
       .then(resp => {
         if (resp.error) throw new Error(resp.errorMessage)
-        return this.request({
-          method: 'GET',
-          path: '/login',
-          query: {
-            email: `"${email}"`,
-            password: `"${bcrypt.hashSync(password, resp.result)}"`
-          }
-        })
+        const hashedPassword = bcrypt.hashSync(password, resp.result)
+        return this.validateCredentials(email, hashedPassword)
       })
       .then(resp => {
         if (resp.error) throw new Error('Incorrect login credentials.')
