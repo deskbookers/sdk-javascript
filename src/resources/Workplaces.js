@@ -13,6 +13,18 @@ class Workplaces extends Resource {
       fields: []
     })
   }
+
+  list (params) {
+    // Build query from params
+    // if Location, etc.
+
+    return this.request({
+      method: 'GET',
+      path: '/search/results',
+      fields: [],
+      query: []
+    })
+  }
 }
 
 module.exports = Workplaces

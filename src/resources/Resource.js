@@ -6,16 +6,28 @@ class Resource {
   }
 
   get apiUrl () {
-    const url = `https://${this.api.host}/userapi/v${this.api.version}`
+    const protocol = this.api.https ? 'https' : 'http'
+    const url = `${protocol}://${this.api.host}/userapi/v${this.api.version}`
     return url
   }
 
   request (options) {
-    const url = `${this.apiUrl}${options.path}?__resellerID=10000&__fields=[${options.fields.join(',')}]`
-    console.log(url)
+    let url = `${this.apiUrl}${options.path}?__resellerID=10000`
+
+    if (options.fields) {
+      url += `&__fields=[${options.fields.join(',')}]`
+    }
+
+    // Generate query string
+    if (options.query) {
+      for (let query in options.query) {
+        url += `&${query}=${options.query[query]}`
+      }
+    }
+
     return fetch(url, {
       method: options.method
-    }).then(response => response.json())
+    }).then(resp => resp.json())
   }
 }
 
