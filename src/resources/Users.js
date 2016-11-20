@@ -16,7 +16,7 @@ class Users extends Resource {
     })
   }
 
-  validateCredentials (email, password) {
+  validateCredentials (email, passwordHash) {
     return this.request({
       method: 'GET',
       path: '/login',
@@ -31,8 +31,8 @@ class Users extends Resource {
     return this.retrieveSalt(email)
       .then(resp => {
         if (resp.error) throw new Error(resp.errorMessage)
-        const hashedPassword = bcrypt.hashSync(password, resp.result)
-        return this.validateCredentials(email, hashedPassword)
+        const passwordHash = bcrypt.hashSync(password, resp.result)
+        return this.validateCredentials(email, passwordHash)
       })
       .then(resp => {
         if (resp.error) throw new Error('Incorrect login credentials.')
