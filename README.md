@@ -35,6 +35,6 @@ for (let workplace of workplaces) {
 ### Available resources & methods
 
  * users
-  * `[login(email, password)](docs/users.md)`
+  * `[login(email, password)](docs/users.md#loginemail-password)`
  * workplaces
   * `retrieve(workplaceId)`
