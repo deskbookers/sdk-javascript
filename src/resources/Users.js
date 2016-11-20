@@ -8,13 +8,16 @@ class Users extends Resource {
     this.endpoint = 'user'
   }
 
-  login (email, password) {
-    // Get password salt, then validate credentials
+  retrieveSalt (email) {
     return this.request({
       method: 'GET',
       path: '/prepareLogin',
       query: { email: `"${email}"` }
     })
+  }
+
+  login (email, password) {
+    return this.retrieveSalt(email)
       .then(resp => {
         if (resp.error) throw new Error(resp.errorMessage)
         return this.request({
