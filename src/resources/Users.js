@@ -8,12 +8,12 @@ class Users extends Resource {
     this.endpoint = 'user'
   }
 
-  login (params) {
+  login (email, password) {
     // Get password salt, then validate credentials
     return this.request({
       method: 'GET',
       path: '/prepareLogin',
-      query: { email: `"${params.email}"` }
+      query: { email: `"${email}"` }
     })
       .then(resp => {
         if (resp.error) throw new Error(resp.errorMessage)
@@ -21,8 +21,8 @@ class Users extends Resource {
           method: 'GET',
           path: '/login',
           query: {
-            email: `"${params.email}"`,
-            password: `"${bcrypt.hashSync(params.password, resp.result)}"`
+            email: `"${email}"`,
+            password: `"${bcrypt.hashSync(password, resp.result)}"`
           }
         })
       })
