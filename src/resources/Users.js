@@ -22,7 +22,7 @@ class Users extends Resource {
       path: '/login',
       query: {
         email: `"${email}"`,
-        password: `"${password}"`
+        password: `"${passwordHash}"`
       }
     })
   }
