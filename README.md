@@ -36,5 +36,6 @@ for (let workplace of workplaces) {
 
  * users
   * [`login(email, password)`](docs/users.md#loginemail-password)
+  * [`signup(params)`](docs/users.md#signupparams)
  * workplaces
   * `retrieve(workplaceId)`
