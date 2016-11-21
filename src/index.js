@@ -1,4 +1,3 @@
-const HTTPS = true
 const API_HOST = 'backoffice.2cnnct.com'
 const API_VERSION = 1
 
@@ -8,11 +7,9 @@ const resources = {
 }
 
 class Deskbookers {
-  constructor (apiHost = API_HOST) {
+  constructor (https = true, apiHost = API_HOST, apiVersion = API_VERSION) {
     this.api = {
-      https: HTTPS,
-      host: apiHost,
-      version: API_VERSION
+      https, host: apiHost, version: API_VERSION
     }
 
     for (let name in resources) {
