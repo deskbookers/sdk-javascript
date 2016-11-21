@@ -8,10 +8,10 @@ const resources = {
 }
 
 class Deskbookers {
-  constructor () {
+  constructor (apiHost = API_HOST) {
     this.api = {
       https: HTTPS,
-      host: API_HOST,
+      host: apiHost,
       version: API_VERSION
     }
 
