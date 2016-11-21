@@ -15,16 +15,16 @@ class Resource {
     let options = {
       method: (spec.method || 'GET').toUpperCase()
     }
-    let url = `${this.apiUrl}${spec.path}?__resellerID=10000`
+    let url = `${this.apiUrl}${spec.path}?__resellerID=10000&__i18n="en-gb"`
 
     if (spec.fields) {
       url += `&__fields=[${spec.fields.join(',')}]`
     }
 
     // Generate query string
-    if (spec.query) {
-      for (let query in spec.query) {
-        url += `&${query}=${spec.query[query]}`
+    if (spec.params) {
+      for (let param in spec.params) {
+        url += `&${param}=${spec.params[param]}`
       }
     }
 

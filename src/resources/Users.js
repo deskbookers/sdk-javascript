@@ -11,8 +11,8 @@ class Users extends Resource {
   retrieveSalt (email) {
     return this.request({
       method: 'GET',
-      path: '/prepareLogin',
-      query: { email: `"${email}"` }
+      path: email ? '/prepareLogin' : '/prepareRegister',
+      params: email ? { email: `"${email}"` } : {}
     })
   }
 
@@ -20,7 +20,7 @@ class Users extends Resource {
     return this.request({
       method: 'GET',
       path: '/login',
-      query: {
+      params: {
         email: `"${email}"`,
         password: `"${passwordHash}"`
       }
@@ -36,6 +36,36 @@ class Users extends Resource {
       })
       .then(resp => {
         if (resp.error) throw new Error('Incorrect login credentials.')
+        return {
+          token: resp.result.privateKey,
+          user: resp.result.user
+        }
+      })
+  }
+
+  signup (params) {
+    return this.retrieveSalt()
+      .then(resp => {
+        if (resp.error) throw new Error(resp.errorMessage)
+        const passwordHash = bcrypt.hashSync(params.password, resp.result)
+        return this.request({
+          method: 'GET',
+          path: '/register',
+          params: {
+            firstName: `"${params.firstName}"`,
+            lastName: `"${params.lastName}"`,
+            email: `"${encodeURIComponent(params.email)}"`,
+            password: `"${encodeURIComponent(passwordHash)}"`
+          }
+        })
+      })
+      .then(resp => {
+        if (resp.result.errors) {
+          for (let error in resp.result.errors) {
+            throw new Error(resp.result.errors[error])
+          }
+        }
+
         return {
           token: resp.result.privateKey,
           user: resp.result.user

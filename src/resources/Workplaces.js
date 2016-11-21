@@ -21,8 +21,7 @@ class Workplaces extends Resource {
     return this.request({
       method: 'GET',
       path: '/search/results',
-      fields: [],
-      query: []
+      fields: []
     })
   }
 }
