@@ -1,5 +1,5 @@
-# sdk-javascript
-JavaScript SDK for Deskbookers API (WORK IN PROGRESS)
+# Deskbookers JavaScript SDK
+JavaScript library to connect to the Deskbookers API. Available to use server-side or client-side.
 
 ## Installation
 ```bash
