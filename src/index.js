@@ -1,21 +1,30 @@
+import Users from './resources/Users'
+import Workplaces from './resources/Workplaces'
+import ShoppingCart from './resources/ShoppingCart'
+
 const API_HOST = 'backoffice.2cnnct.com'
 const API_VERSION = 1
+const API_LANG = 'en-gb'
 
 const resources = {
-  Users: require('./resources/Users'),
-  Workplaces: require('./resources/Workplaces')
+  Users,
+  Workplaces,
+  ShoppingCart
 }
 
-class Deskbookers {
-  constructor (https = true, apiHost = API_HOST, apiVersion = API_VERSION) {
-    this.api = {
-      https, host: apiHost, version: API_VERSION
-    }
+export default class Deskbookers {
+  constructor ({
+    https = true,
+    host = API_HOST,
+    version = API_VERSION,
+    lang = API_LANG
+  }) {
+    // Options
+    this.api = { https, host, version, lang }
 
+    // Init resources
     for (let name in resources) {
       this[`${name.toLowerCase()}`] = new resources[name](this.api)
     }
   }
 }
-
-module.exports = Deskbookers

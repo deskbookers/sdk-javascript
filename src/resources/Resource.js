@@ -1,4 +1,4 @@
-const fetch = require('node-fetch')
+import fetch from '../lib/fetch'
 
 class Resource {
   constructor (api) {
