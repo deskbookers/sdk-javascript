@@ -1,6 +1,6 @@
 require('dotenv').load()
 const test = require('ava')
-const Deskbookers = require('./src/index')
+const Deskbookers = require('./dist/index')
 
 const apiOptions = [(process.env.API_HTTPS === 'true'), process.env.API_HOST]
 const deskbookers = new Deskbookers(...apiOptions)
