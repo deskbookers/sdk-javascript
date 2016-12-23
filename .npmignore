@@ -39,5 +39,5 @@ jspm_packages
 # Dotenv
 .env
 
-# Distribution directory
-dist/
+# Source directory
+src/
