@@ -1,12 +1,15 @@
+import Users from './resources/Users'
+import Workplaces from './resources/Workplaces'
+
 const API_HOST = 'backoffice.2cnnct.com'
 const API_VERSION = 1
 
 const resources = {
-  Users: require('./resources/Users'),
-  Workplaces: require('./resources/Workplaces')
+  Users,
+  Workplaces
 }
 
-class Deskbookers {
+export default class Deskbookers {
   constructor (https = true, apiHost = API_HOST, apiVersion = API_VERSION) {
     this.api = {
       https, host: apiHost, version: API_VERSION
@@ -17,5 +20,3 @@ class Deskbookers {
     }
   }
 }
-
-module.exports = Deskbookers

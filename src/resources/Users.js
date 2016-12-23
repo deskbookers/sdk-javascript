@@ -1,8 +1,8 @@
-const Resource = require('./Resource')
-const Error = require('../Error')
-const bcrypt = require('bcryptjs')
+import Resource from './Resource'
+import Error from '../Error'
+import bcrypt from 'bcryptjs'
 
-class Users extends Resource {
+export default class Users extends Resource {
   constructor (api) {
     super(api)
     this.endpoint = 'user'
@@ -73,5 +73,3 @@ class Users extends Resource {
       })
   }
 }
-
-module.exports = Users
