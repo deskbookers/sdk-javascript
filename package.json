@@ -2,9 +2,11 @@
   "name": "sdk-javascript",
   "version": "0.0.0",
   "description": "Deskbookers API JavaScript SDK",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "ava --esnext test.js"
+    "test": "ava test.js",
+    "build": "babel src --out-dir dist",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "deskbookers",
@@ -24,7 +26,11 @@
     "rndm": "^1.2.0"
   },
   "devDependencies": {
-    "ava": "^0.17.0"
+    "ava": "^0.17.0",
+    "babel-cli": "^6.18.0",
+    "babel-plugin-transform-es2015-modules-umd": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0"
   }
 }
 

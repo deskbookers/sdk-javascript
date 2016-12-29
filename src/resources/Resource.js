@@ -1,6 +1,6 @@
 import fetch from '../lib/fetch'
 
-class Resource {
+export default class Resource {
   constructor (api) {
     this.api = api
   }
@@ -31,5 +31,3 @@ class Resource {
     return fetch(url, options).then(resp => resp.json())
   }
 }
-
-module.exports = Resource

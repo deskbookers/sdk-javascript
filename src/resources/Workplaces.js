@@ -1,4 +1,4 @@
-const Resource = require('./Resource')
+import Resource from './Resource'
 
 class Workplaces extends Resource {
   constructor (api) {
@@ -25,5 +25,3 @@ class Workplaces extends Resource {
     })
   }
 }
-
-module.exports = Workplaces
