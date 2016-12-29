@@ -124,8 +124,8 @@ export class Product extends Item {
     return {
       ...super(),
       productId: this.data.id,
-      start: moment(this.data.start).unix(),
-      end: moment(this.data.end).unix(),
+      start: unix(this.data.start),
+      end: unix(this.data.end),
       price: this.data.override || null
     }
   }
@@ -133,8 +133,8 @@ export class Product extends Item {
   export () {
     return {
       ...super(),
-      start: this.data.start ? moment(this.data.start).unix() : null,
-      end: this.data.end ? moment(this.data.end).unix() : null
+      start: unix(this.data.start),
+      end: unix(this.data.end)
     }
   }
 }
@@ -196,8 +196,8 @@ export class Space extends Item {
     this.setProducts(this.data.products)
 
     // Normalize start/end
-    this.data.start = this.data.start ? moment(this.data.start) : null
-    this.data.end = this.data.end ? moment(this.data.end) : null
+    this.data.start = normalizeDate(this.data.start)
+    this.data.end = normalizeDate(this.data.end)
 
     // Normalize people
     const { people, minimum_capacity: min, maximum_capacity: max } = this.data
@@ -211,8 +211,8 @@ export class Space extends Item {
       ...super(),
       workplaceId: this.data.id,
       people: this.data.people,
-      start: moment(this.data.start).unix(),
-      end: moment(this.data.end).unix(),
+      start: unix(this.data.start),
+      end: unix(this.data.end),
       price: this.data.override || null,
       recurring: !!(this.data.recurringData && this.data.recurringData.enabled)
     }
@@ -221,9 +221,16 @@ export class Space extends Item {
   export () {
     return {
       ...super(),
-      start: this.data.start ? moment(this.data.start).unix() : null,
-      end: this.data.end ? moment(this.data.end).unix() : null,
+      start: unix(this.data.start),
+      end: unix(this.data.end),
       products: map(this.products(), (product) => product.export())
     }
   }
+}
+
+export const normalizeDate = (date) => date ? moment(date) : null
+
+export const unix = (date) => {
+  const normalized = normalizeDate(date)
+  return normalized && normalized.unix() || null
 }

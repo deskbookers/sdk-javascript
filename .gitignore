@@ -38,3 +38,7 @@ jspm_packages
 
 # Dotenv
 .env
+
+# Mac
+.DS_Store
+

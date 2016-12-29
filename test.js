@@ -1,6 +1,6 @@
-require('dotenv').load()
-const test = require('ava')
-const Deskbookers = require('./src/index')
+import dotenv from 'dotenv'
+import test from 'ava'
+import Deskbookers from './src'
 
 const apiOptions = [(process.env.API_HTTPS === 'true'), process.env.API_HOST]
 const deskbookers = new Deskbookers(...apiOptions)
@@ -21,3 +21,12 @@ test('Signup', async t => {
     password: process.env.SIGNUP_PASSWORD
   }))
 })
+
+// Test shopping cart
+test('ShoppingCart', async t => await t.notThrows(async () => {
+  const cart = deskbookers.cart
+  cart.addSpace({id: 13235})
+  await cart.refresh()
+
+  console.log(cart.data)
+}))

@@ -7,9 +7,9 @@ const API_VERSION = 1
 const API_LANG = 'en-gb'
 
 const resources = {
-  Users,
-  Workplaces,
-  ShoppingCart
+  users: Users,
+  workplaces: Workplaces,
+  cart: ShoppingCart
 }
 
 export default class Deskbookers {
@@ -24,7 +24,7 @@ export default class Deskbookers {
 
     // Init resources
     for (let name in resources) {
-      this[`${name.toLowerCase()}`] = new resources[name](this.api)
+      this[name] = new resources[name](this.api)
     }
   }
 }
