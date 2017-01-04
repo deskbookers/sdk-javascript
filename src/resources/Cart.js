@@ -14,23 +14,12 @@ export default class Cart extends Resource {
     this.possibleVouchers_ = {}
   }
 
-  /**
-   * Update
-   *
-   * @param object data
-   * @return Cart
-   */
   update (data) {
     this.data = data || {}
     this.data.spaces = this.data.spaces || {}
     return this
   }
 
-  /**
-   * Create a new shopping cart instance.
-   *
-   * @return Cart
-   */
   newInstance () {
     return new this.constructor(this.api)
   }
@@ -55,6 +44,17 @@ export default class Cart extends Resource {
 
   possibleVouchers () {
     return this.possibleVouchers_
+  }
+
+  items () {
+    const items = []
+    forEach(this.data.spaces, (space) => {
+      items.push(space)
+      forEach(space.products(), (product) => {
+        items.push(product)
+      })
+    })
+    return items
   }
 
   spaces () {
@@ -143,6 +143,17 @@ export default class Cart extends Resource {
         }
       })
     })
+  }
+
+  available () {
+    let available = true
+    forEach(this.items(), (item) => {
+      if (!item.available()) {
+        available = false
+        return false
+      }
+    })
+    return available
   }
 }
 
