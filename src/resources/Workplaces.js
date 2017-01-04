@@ -1,6 +1,6 @@
 import Resource from './Resource'
 
-class Workplaces extends Resource {
+export default class Workplaces extends Resource {
   constructor (api) {
     super(api)
     this.endpoint = 'workplace'

@@ -7,17 +7,18 @@ import forEach from 'lodash/forEach'
 import map from 'lodash/map'
 import isPlainObject from 'lodash/isPlainObject'
 
-export default class ShoppingCart extends Resource {
+export default class Cart extends Resource {
   constructor (api, data) {
     super(api)
     this.update(data)
+    this.possibleVouchers_ = {}
   }
 
   /**
    * Update
    *
    * @param object data
-   * @return ShoppingCart
+   * @return Cart
    */
   update (data) {
     this.data = data || {}
@@ -28,10 +29,32 @@ export default class ShoppingCart extends Resource {
   /**
    * Create a new shopping cart instance.
    *
-   * @return ShoppingCart
+   * @return Cart
    */
   newInstance () {
     return new this.constructor(this.api)
+  }
+
+  setGroup (groupId) {
+    this.data.group = groupId
+    return this
+  }
+
+  getGroup () {
+    return this.data.group || null
+  }
+
+  setVoucherCode (code) {
+    this.data.voucherCode = code
+    return this
+  }
+
+  getVoucherCode () {
+    return this.data.voucherCode
+  }
+
+  possibleVouchers () {
+    return this.possibleVouchers_
   }
 
   spaces () {
@@ -63,26 +86,70 @@ export default class ShoppingCart extends Resource {
       batch.push({ bookingIndex, ...space.checkData() })
 
       // Add space products
-      forEach (space.products(), (product) =>
+      forEach(space.products(), (product) =>
         batch.push({ bookingIndex, ...product.checkData() })
       )
 
-      ++bookingIndex;
+      ++bookingIndex
     })
 
     return batch
   }
 
-  async refresh () {
-    const data = this.batchCheckData()
-    console.log(data)
+  async refresh (ignoreBooking = null) {
+    const batch = this.batchCheckData()
+    const { voucherCodes, results } = await this.request({
+      method: 'POST',
+      path: 'booking/batchCheck',
+      params: {
+        group: this.getGroup(),
+        voucherCode: this.getVoucherCode(),
+        ignoreBooking: ignoreBooking && ignoreBooking.id || null,
+        action: ignoreBooking && ignoreBooking.action || null,
+        batch
+      }
+    })
+
+    // Vouchers
+    this.possibleVouchers_ = {}
+    for (let i = 0; i < voucherCodes.length; ++i) {
+      this.possibleVouchers_[`c${voucherCodes[i].code}`] = voucherCodes[i]
+    }
+    if (!this.getVoucherCode() && voucherCodes.length > 0) {
+      this.setVoucherCode(voucherCodes[0].code)
+
+      // Refresh with first voucher
+      await this.refresh(ignoreBooking)
+      return
+    }
+
+    // Update items
+    forEach(this.spaces(), (space) => {
+      // Update space
+      if (space.hash() in results) {
+        space.update({
+          ...space.data,
+          ...results[space.hash()]
+        })
+      }
+
+      forEach(space.products(), (product) => {
+        // Update product
+        if (product.hash() in results) {
+          product.update({
+            ...product.data,
+            ...results[product.hash()]
+          })
+        }
+      })
+    })
   }
 }
 
 export class Item {
-  constructor (shoppingCart, data) {
-    this.shoppingCart = shoppingCart
-    this.updateData(data)
+  constructor (cart, data) {
+    this.cart = cart
+    this.update(data)
   }
 
   static generateHash () {
@@ -104,7 +171,23 @@ export class Item {
     // Make sure it has a quantity
     if (!this.data.quantity) this.data.quantity = 1
 
+    // Normalize start/end
+    this.data.start = normalizeDate(this.data.start)
+    this.data.end = normalizeDate(this.data.end)
+
     return this
+  }
+
+  meta () {
+    return this.data.meta || {}
+  }
+
+  start () {
+    return this.data.start || null
+  }
+
+  end () {
+    return this.data.end || null
   }
 
   checkData () {
@@ -117,12 +200,24 @@ export class Item {
   export () {
     return this.data
   }
+
+  available () {
+    return (
+      this.data.ranges &&
+      this.data.ranges.length > 0 &&
+      this.start() &&
+      this.end() &&
+      this.data.ranges[0].start <= this.start().unix() &&
+      this.data.ranges[0].end >= this.end().unix() &&
+      this.data.ranges[0].quantity >= this.data.quantity
+    )
+  }
 }
 
 export class Product extends Item {
   checkData () {
     return {
-      ...super(),
+      ...super.checkData(),
       productId: this.data.id,
       start: unix(this.data.start),
       end: unix(this.data.end),
@@ -132,7 +227,7 @@ export class Product extends Item {
 
   export () {
     return {
-      ...super(),
+      ...super.export(),
       start: unix(this.data.start),
       end: unix(this.data.end)
     }
@@ -141,12 +236,12 @@ export class Product extends Item {
 
 export class SpaceProduct extends Product {
   constructor (space, data) {
-    super(space.shoppingCart, data)
+    super(space.cart, data)
     this.space = space
   }
 
   update (...args) {
-    super(...args)
+    super.update(...args)
 
     // Copy start / end from space
     this.data.start = this.space.data.start
@@ -190,14 +285,14 @@ export class Space extends Item {
   }
 
   update (...args) {
-    super(...args)
+    super.update(...args)
 
     // Normalize products
     this.setProducts(this.data.products)
 
-    // Normalize start/end
-    this.data.start = normalizeDate(this.data.start)
-    this.data.end = normalizeDate(this.data.end)
+    // Normalize workplace
+    if (this.data.workplace) this.data.meta = this.data.workplace
+    delete this.data.workplace
 
     // Normalize people
     const { people, minimum_capacity: min, maximum_capacity: max } = this.data
@@ -208,7 +303,7 @@ export class Space extends Item {
 
   checkData () {
     return {
-      ...super(),
+      ...super.checkData(),
       workplaceId: this.data.id,
       people: this.data.people,
       start: unix(this.data.start),
@@ -220,7 +315,7 @@ export class Space extends Item {
 
   export () {
     return {
-      ...super(),
+      ...super.export(),
       start: unix(this.data.start),
       end: unix(this.data.end),
       products: map(this.products(), (product) => product.export())
