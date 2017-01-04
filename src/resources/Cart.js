@@ -193,12 +193,18 @@ export class Item {
   checkData () {
     return {
       id: this.data.hash,
-      quantity: this.data.quantity
+      quantity: this.data.quantity,
+      start: unix(this.data.start),
+      end: unix(this.data.end)
     }
   }
 
   export () {
-    return this.data
+    return {
+      ...this.data,
+      start: unix(this.data.start),
+      end: unix(this.data.end)
+    }
   }
 
   available () {
@@ -207,8 +213,8 @@ export class Item {
       this.data.ranges.length > 0 &&
       this.start() &&
       this.end() &&
-      this.data.ranges[0].start <= this.start().unix() &&
-      this.data.ranges[0].end >= this.end().unix() &&
+      this.data.ranges[0].start <= unix(this.start()) &&
+      this.data.ranges[0].end >= unix(this.end()) &&
       this.data.ranges[0].quantity >= this.data.quantity
     )
   }
@@ -219,17 +225,7 @@ export class Product extends Item {
     return {
       ...super.checkData(),
       productId: this.data.id,
-      start: unix(this.data.start),
-      end: unix(this.data.end),
       price: this.data.override || null
-    }
-  }
-
-  export () {
-    return {
-      ...super.export(),
-      start: unix(this.data.start),
-      end: unix(this.data.end)
     }
   }
 }
@@ -306,8 +302,6 @@ export class Space extends Item {
       ...super.checkData(),
       workplaceId: this.data.id,
       people: this.data.people,
-      start: unix(this.data.start),
-      end: unix(this.data.end),
       price: this.data.override || null,
       recurring: !!(this.data.recurringData && this.data.recurringData.enabled)
     }
@@ -316,8 +310,6 @@ export class Space extends Item {
   export () {
     return {
       ...super.export(),
-      start: unix(this.data.start),
-      end: unix(this.data.end),
       products: map(this.products(), (product) => product.export())
     }
   }
