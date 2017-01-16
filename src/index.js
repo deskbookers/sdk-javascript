@@ -66,14 +66,16 @@ export default class Deskbookers {
   }
 
   setSession (session) {
-    this.session = (
+    if (
       session &&
       session.privateKey &&
       session.publicKey &&
-      session.user &&
-      session ||
-      null
-    )
+      session.user
+    ) {
+      this.session = session
+    } else {
+      this.session = null
+    }
     return this
   }
 
