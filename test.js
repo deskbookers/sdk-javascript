@@ -35,17 +35,23 @@ test('Cart 1', async t => {
   )
 
   // Test cart
-  deskbookers.cart.addSpace({
+  const space = deskbookers.cart.addSpace({
     id: 13235,
     start: moment('2016-12-30 12:00'),
     end: moment('2016-12-30 14:00')
   })
+  space.addProduct({
+    id: 10469
+  })
   await deskbookers.cart.refresh()
 
-
+  t.is(deskbookers.cart.available(), true)
 
   for (let key in deskbookers.cart.spaces()) {
     const space = deskbookers.cart.getSpace(key)
+
+    console.log(space)
+
     console.log(
       `${space.start().format('YYYY-MM-DD HH:mm')} - ${space.end().format('YYYY-MM-DD HH:mm')} ::`,
       `${space.available() ? 'available' : 'unavailable'} ::`,

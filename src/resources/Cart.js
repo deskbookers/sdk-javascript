@@ -64,7 +64,7 @@ export default class Cart extends Resource {
   addSpace (space) {
     space = new Space(this, space)
     this.data.spaces[space.hash()] = space
-    return this
+    return space
   }
 
   getSpace (hash) {
@@ -129,7 +129,7 @@ export default class Cart extends Resource {
       if (space.hash() in results) {
         space.update({
           ...space.data,
-          ...results[space.hash()]
+          info: results[space.hash()]
         })
       }
 
@@ -138,7 +138,7 @@ export default class Cart extends Resource {
         if (product.hash() in results) {
           product.update({
             ...product.data,
-            ...results[product.hash()]
+            info: results[product.hash()]
           })
         }
       })
@@ -220,18 +220,27 @@ export class Item {
 
   available () {
     return (
-      this.data.ranges &&
-      this.data.ranges.length > 0 &&
+      this.data.info.ranges &&
+      this.data.info.ranges.length > 0 &&
       this.start() &&
       this.end() &&
-      this.data.ranges[0].start <= unix(this.start()) &&
-      this.data.ranges[0].end >= unix(this.end()) &&
-      this.data.ranges[0].quantity >= this.data.quantity
+      this.data.info.ranges[0].start <= unix(this.start()) &&
+      this.data.info.ranges[0].end >= unix(this.end()) &&
+      this.data.info.ranges[0].quantity >= this.data.quantity
     )
   }
 }
 
 export class Product extends Item {
+  update (...args) {
+    super.update(...args)
+
+    // Normalize workplace
+    if (this.data.info && this.data.info.product) {
+      this.data.meta = this.data.info.product
+    }
+  }
+
   checkData () {
     return {
       ...super.checkData(),
@@ -245,14 +254,17 @@ export class SpaceProduct extends Product {
   constructor (space, data) {
     super(space.cart, data)
     this.space = space
+    this.update(data)
   }
 
   update (...args) {
     super.update(...args)
 
     // Copy start / end from space
-    this.data.start = this.space.data.start
-    this.data.end = this.space.data.end
+    if (this.space) {
+      this.data.start = this.space.data.start
+      this.data.end = this.space.data.end
+    }
 
     return this
   }
@@ -266,7 +278,7 @@ export class Space extends Item {
   addProduct (product) {
     product = new SpaceProduct(this, product)
     this.data.products[product.hash()] = product
-    return this
+    return product
   }
 
   getProduct (hash) {
@@ -298,8 +310,9 @@ export class Space extends Item {
     this.setProducts(this.data.products)
 
     // Normalize workplace
-    if (this.data.workplace) this.data.meta = this.data.workplace
-    delete this.data.workplace
+    if (this.data.info && this.data.info.workplace) {
+      this.data.meta = this.data.info.workplace
+    }
 
     // Normalize people
     const { people, minimum_capacity: min, maximum_capacity: max } = this.data
