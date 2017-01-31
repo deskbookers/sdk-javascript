@@ -41,13 +41,8 @@ export default class Resource {
       options: requestOptions
     } = await this.prepareRequest(url, options, args)
 
-    try {
-      const response = await fetch(requestUrl, requestOptions)
-      return await this.parseResponse(response)
-    } catch (e) {
-      console.error(e)
-      throw e
-    }
+    const response = await fetch(requestUrl, requestOptions)
+    return await this.parseResponse(response)
   }
 
   async parseResponse (response) {
