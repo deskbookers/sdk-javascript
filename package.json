@@ -1,5 +1,5 @@
 {
-  "name": "sdk-javascript",
+  "name": "deskbookers",
   "version": "0.0.0",
   "description": "Deskbookers API JavaScript SDK",
   "main": "dist/index.js",
