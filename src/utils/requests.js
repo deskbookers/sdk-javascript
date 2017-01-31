@@ -1,6 +1,8 @@
 import { hmac, sha512 } from 'hash.js'
 import { parse } from 'url'
 import { stringify } from 'qs'
+import jsonEncode from 'json_encode'
+import urlencode from 'urlencode-for-php'
 
 export const signer = ({ publicKey, privateKey }, url, options, args) => {
   // Prepare vars
@@ -46,25 +48,9 @@ export const buildCheckData = (url, options, args, timestamp) => [
   phpJsonEncode(jsonifyArgs(args))
 ].join('\n')
 
-export const phpJsonEncode = (s) => {
-  const chars = JSON.stringify(typeof s === 'undefined' ? null : s)
-  let newS = ''
-  for (let i = 0; i < chars.length; ++i) {
-    if (chars[i] === '/') newS += '\\/'
-    else if (chars[i].charCodeAt(0) > 127) {
-      newS += '\\u' + ('000' + chars[i].charCodeAt(0).toString(16)).slice(-4)
-    } else newS += chars[i]
-  }
-  return newS
-}
+export const phpJsonEncode = jsonEncode
 
 export const onlyAmpEncode = (str) => (str + '').toString()
   .replace('&', '%26')
 
-export const phpUrlEncode = (str) => encodeURIComponent((str + '').toString())
-  .replace(/!/g, '%21')
-  .replace(/'/g, '%27')
-  .replace(/\(/g, '%28')
-  .replace(/\)/g, '%29')
-  .replace(/\*/g, '%2A')
-  .replace(/%20/g, '+')
+export const phpUrlEncode = urlencode

@@ -2,9 +2,7 @@ import Resource from './Resource'
 import md5 from 'md5-hex'
 import moment from 'moment'
 import random from 'rndm'
-import isArray from 'lodash/isArray'
 import forEach from 'lodash/forEach'
-import map from 'lodash/map'
 import isPlainObject from 'lodash/isPlainObject'
 
 export default class Cart extends Resource {
@@ -293,7 +291,7 @@ export class Space extends Item {
   setProducts (products) {
     // Normalize the products object
     this.data.products = {}
-    if (isArray(products) || isPlainObject(products)) {
+    if (Array.isArray(products) || isPlainObject(products)) {
       forEach(products, (product) => {
         product = new SpaceProduct(this, product)
         this.data.products[product.hash()] = product
@@ -334,7 +332,7 @@ export class Space extends Item {
   export () {
     return {
       ...super.export(),
-      products: map(this.products(), (product) => product.export())
+      products: this.products().map(product => product.export())
     }
   }
 }
