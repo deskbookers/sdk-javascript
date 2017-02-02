@@ -1,5 +1,4 @@
 import Resource from './Resource'
-import Error from '../Error'
 import bcrypt from 'bcryptjs'
 
 export default class Users extends Resource {
@@ -8,68 +7,63 @@ export default class Users extends Resource {
     this.endpoint = 'user'
   }
 
-  retrieveSalt (email) {
-    return this.request({
+  async retrieveSalt (email) {
+    return await this.request({
       method: 'GET',
-      path: email ? '/prepareLogin' : '/prepareRegister',
-      params: email ? { email: `"${email}"` } : {}
+      path: email ? 'prepareLogin' : 'prepareRegister',
+      params: email ? { email } : {}
     })
   }
 
-  validateCredentials (email, passwordHash) {
-    return this.request({
+  async validateCredentials (email, passwordHash) {
+    return await this.request({
       method: 'GET',
-      path: '/login',
+      path: 'login',
       params: {
-        email: `"${email}"`,
-        password: `"${passwordHash}"`
+        email,
+        password: passwordHash
       }
     })
   }
 
-  login (email, password) {
-    return this.retrieveSalt(email)
-      .then(resp => {
-        if (resp.error) throw new Error(resp.errorMessage)
-        const passwordHash = bcrypt.hashSync(password, resp.result)
-        return this.validateCredentials(email, passwordHash)
-      })
-      .then(resp => {
-        if (resp.error) throw new Error('Incorrect login credentials.')
-        return {
-          token: resp.result.privateKey,
-          user: resp.result.user
-        }
-      })
+  async login (email, password) {
+    try {
+      const salt = await this.retrieveSalt(email || '') || ''
+      const hash = await bcrypt.hash(password || '', salt)
+      const result = await this.validateCredentials(email, hash)
+      return {
+        privateKey: result.privateKey,
+        publicKey: result.publicKey,
+        user: result.user
+      }
+    } catch (e) {
+      console.error(e)
+      throw e
+    }
   }
 
-  signup (params) {
-    return this.retrieveSalt()
-      .then(resp => {
-        if (resp.error) throw new Error(resp.errorMessage)
-        const passwordHash = bcrypt.hashSync(params.password, resp.result)
-        return this.request({
-          method: 'GET',
-          path: '/register',
-          params: {
-            firstName: `"${params.firstName}"`,
-            lastName: `"${params.lastName}"`,
-            email: `"${encodeURIComponent(params.email)}"`,
-            password: `"${encodeURIComponent(passwordHash)}"`
-          }
-        })
-      })
-      .then(resp => {
-        if (resp.result.errors) {
-          for (let error in resp.result.errors) {
-            throw new Error(resp.result.errors[error])
-          }
-        }
-
-        return {
-          token: resp.result.privateKey,
-          user: resp.result.user
+  async signup ({ password, email, firstName, lastName }) {
+    try {
+      const salt = await this.retrieveSalt()
+      const hash = await bcrypt.hash(password || '', salt)
+      const result = await this.request({
+        method: 'GET',
+        path: 'register',
+        params: {
+          firstName,
+          lastName,
+          email,
+          password: hash
         }
       })
+      return {
+        privateKey: result.privateKey,
+        publicKey: result.publicKey,
+        user: result.user
+      }
+    } catch (e) {
+      console.error(e)
+      throw e
+    }
   }
 }
