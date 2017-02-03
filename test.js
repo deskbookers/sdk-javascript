@@ -31,6 +31,22 @@ test('Signup', async t => {
     password
   }))
 })
+test('Logout', async t => {
+  // Login and store session
+  await deskbookers.login(
+    process.env.LOGIN_EMAIL,
+    process.env.LOGIN_PASSWORD
+  )
+  const session = deskbookers.session
+
+  // Logout
+  await deskbookers.logout()
+  t.is(deskbookers.session, null)
+
+  // Reuse previous session
+  deskbookers.session = session
+  t.false(await deskbookers.validateSession())
+})
 
 // Validate session
 test('Validate session', async t => {

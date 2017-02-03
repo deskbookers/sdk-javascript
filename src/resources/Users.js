@@ -59,8 +59,8 @@ export default class Users extends Resource {
 
   async logout () {
     return await this.request({
-      method: 'GET',
-      path: 'user/logout'
+      method: 'POST',
+      path: 'logout'
     })
   }
 
