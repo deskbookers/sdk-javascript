@@ -10,53 +10,93 @@ const deskbookers = new Deskbookers({
 })
 
 // Users
-// test('Login', async t => {
-//   await t.notThrows(deskbookers.users.login(
-//     process.env.LOGIN_EMAIL,
-//     process.env.LOGIN_PASSWORD
-//   ))
-// })
+test('Login', async t => {
+  await t.notThrows(async () => await deskbookers.login(
+    process.env.LOGIN_EMAIL,
+    process.env.LOGIN_PASSWORD
+  ))
+})
+test('Signup', async t => {
+  // Generate random data
+  const firstName = `First${Math.random()}`
+  const lastName = `Last${Math.random()}`
+  const email = `email${Math.random()}@example.org`
+  const password = 'pass1234'
 
-// test('Signup', async t => {
-//   await t.notThrows(deskbookers.users.signup({
-//     firstName: process.env.SIGNUP_FIRST_NAME,
-//     lastName: process.env.SIGNUP_LAST_NAME,
-//     email: process.env.SIGNUP_EMAIL,
-//     password: process.env.SIGNUP_PASSWORD
-//   }))
-// })
+  // Test signup
+  await t.notThrows(async () => await deskbookers.signup({
+    firstName,
+    lastName,
+    email,
+    password
+  }))
+})
+test('Logout', async t => {
+  // Login and store session
+  await deskbookers.login(
+    process.env.LOGIN_EMAIL,
+    process.env.LOGIN_PASSWORD
+  )
+  const session = deskbookers.session
 
-// Test shopping cart
-test('Cart 1', async t => {
+  // Logout
+  await deskbookers.logout()
+  t.is(deskbookers.session, null)
+
+  // Reuse previous session
+  deskbookers.session = session
+  t.false(await deskbookers.validateSession())
+})
+
+// Validate session
+test('Validate session', async t => {
   // Login
   await deskbookers.login(
     process.env.LOGIN_EMAIL,
     process.env.LOGIN_PASSWORD
   )
 
-  // Test cart
-  const space = deskbookers.cart.addSpace({
-    id: 13235,
-    start: moment('2016-12-30 12:00'),
-    end: moment('2016-12-30 14:00')
-  })
-  space.addProduct({
-    id: 10469
-  })
-  await deskbookers.cart.refresh()
+  // Validate session
+  t.true(await deskbookers.validateSession())
 
-  t.is(deskbookers.cart.available(), true)
-
-  for (let key in deskbookers.cart.spaces()) {
-    const space = deskbookers.cart.getSpace(key)
-
-    console.log(space)
-
-    console.log(
-      `${space.start().format('YYYY-MM-DD HH:mm')} - ${space.end().format('YYYY-MM-DD HH:mm')} ::`,
-      `${space.available() ? 'available' : 'unavailable'} ::`,
-      `${space.meta().name} - ${space.meta().location_name}`
-    )
+  // Check email for logged in user
+  const current = await deskbookers.users.current()
+  t.not(current, null)
+  if (current) {
+    t.is(current.email, process.env.LOGIN_EMAIL)
   }
-  console.log('Possible vouchers:', deskbookers.cart.possibleVouchers())
 })
+
+// Shopping cart
+test('Test cart availability', async t => {
+  const cart = await prepareCart(t)
+
+  t.true(deskbookers.cart.available())
+
+  // TODO: test more
+})
+const prepareCart = async (t) => {
+  try {
+    // Login
+    await deskbookers.login(
+      process.env.LOGIN_EMAIL,
+      process.env.LOGIN_PASSWORD
+    )
+
+    // Test cart
+    const space = deskbookers.cart.addSpace({
+      id: 13235,
+      start: moment('2016-12-30 12:00'),
+      end: moment('2016-12-30 14:00')
+    })
+    space.addProduct({
+      id: 10469
+    })
+    await deskbookers.cart.refresh()
+
+    return deskbookers.cart
+  } catch (e) {
+    t.fail(`Error while preparing cart: ${e && e.message || 'Exception occurred'}`)
+    return deskbookers.cart
+  }
+}

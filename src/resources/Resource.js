@@ -60,10 +60,13 @@ export default class Resource {
       } else if (data.errors && data.errors.length > 0) {
         for (let i = 0; i < data.errors.length; ++i) {
           const msg = data.errors[i].title || data.errors[i].detail
-          console.error(data.errors[i])
           throw new Error(`${data.errors[i].code || 500}: ${msg}`)
         }
-      } else if ('result' in data) return data.result
+      } else if ('result' in data) {
+        return data.result
+      } else if ('data' in data) {
+        return data.data
+      }
     }
 
     // Error

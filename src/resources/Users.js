@@ -27,43 +27,47 @@ export default class Users extends Resource {
   }
 
   async login (email, password) {
-    try {
-      const salt = await this.retrieveSalt(email || '') || ''
-      const hash = await bcrypt.hash(password || '', salt)
-      const result = await this.validateCredentials(email, hash)
-      return {
-        privateKey: result.privateKey,
-        publicKey: result.publicKey,
-        user: result.user
-      }
-    } catch (e) {
-      console.error(e)
-      throw e
+    const salt = await this.retrieveSalt(email || '') || ''
+    const hash = await bcrypt.hash(password || '', salt)
+    const result = await this.validateCredentials(email, hash)
+    return {
+      privateKey: result.privateKey,
+      publicKey: result.publicKey,
+      user: result.user
     }
   }
 
   async signup ({ password, email, firstName, lastName }) {
-    try {
-      const salt = await this.retrieveSalt()
-      const hash = await bcrypt.hash(password || '', salt)
-      const result = await this.request({
-        method: 'GET',
-        path: 'register',
-        params: {
-          firstName,
-          lastName,
-          email,
-          password: hash
-        }
-      })
-      return {
-        privateKey: result.privateKey,
-        publicKey: result.publicKey,
-        user: result.user
+    const salt = await this.retrieveSalt()
+    const hash = await bcrypt.hash(password || '', salt)
+    const result = await this.request({
+      method: 'GET',
+      path: 'register',
+      params: {
+        firstName,
+        lastName,
+        email,
+        password: hash
       }
-    } catch (e) {
-      console.error(e)
-      throw e
+    })
+    return {
+      privateKey: result.privateKey,
+      publicKey: result.publicKey,
+      user: result.user
     }
+  }
+
+  async logout () {
+    return await this.request({
+      method: 'POST',
+      path: 'logout'
+    })
+  }
+
+  async current () {
+    return await this.request({
+      method: 'GET',
+      path: 'user'
+    })
   }
 }
