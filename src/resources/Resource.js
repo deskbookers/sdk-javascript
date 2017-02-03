@@ -6,14 +6,13 @@ export default class Resource {
     this.api = api
   }
 
-  getApiUrl (userApi = true) {
+  get apiUrl () {
     const protocol = this.api.https ? 'https' : 'http'
-    const api = userApi ? 'userapi' : 'api'
-    const url = `${protocol}://${this.api.host}/${api}/v${this.api.version}`
+    const url = `${protocol}://${this.api.host}/userapi/v${this.api.version}`
     return url
   }
 
-  async request ({ path, fields = [], params = {}, userApi = true, method = 'get' }) {
+  async request ({ path, fields = [], params = {}, method = 'get' }) {
     const options = {
       method: method.toLowerCase(),
       headers: {}
@@ -28,13 +27,13 @@ export default class Resource {
     const queryStr = formatArgs(args, options.method === 'post')
     const pathFixed = path.replace(/^\/+|\/+$/, '')
 
-    let url = this.getApiUrl(userApi) + '/'
+    let url
     if (options.method === 'post') {
       options.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
       options.body = queryStr
-      url += pathFixed
+      url = `${this.apiUrl}/${pathFixed}`
     } else {
-      url += `${pathFixed}?${queryStr}`
+      url = `${this.apiUrl}/${pathFixed}?${queryStr}`
     }
 
     const {
