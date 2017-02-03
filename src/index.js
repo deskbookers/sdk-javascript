@@ -1,4 +1,3 @@
-import Resource from './resources/Resource'
 import Users from './resources/Users'
 import Workplaces from './resources/Workplaces'
 import Cart from './resources/Cart'
@@ -57,9 +56,8 @@ export default class Deskbookers {
         return true
       }
     } catch (e) {
-      console.error(e)
+      return false
     }
-    return false
   }
 
   set session (session) {

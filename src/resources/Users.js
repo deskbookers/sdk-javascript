@@ -1,6 +1,5 @@
 import Resource from './Resource'
 import bcrypt from 'bcryptjs'
-import { hmac, sha512 } from 'hash.js'
 
 export default class Users extends Resource {
   constructor (api) {
@@ -70,32 +69,5 @@ export default class Users extends Resource {
       method: 'GET',
       path: 'user'
     })
-  }
-
-  async validateSession ({ publicKey, privateKey } = {}) {
-    // Prepare security data
-    const nonce = `${new Date().getTime()}${Math.random()}`
-    const hash = hmac(sha512, privateKey)
-      .update(nonce)
-      .digest('hex')
-
-    // Make the request
-    const result = await this.request({
-      method: 'POST',
-      path: 'validateSession',
-      userApi: false,
-      params: { publicKey, nonce, hash }
-    })
-
-    // Check result
-    if (!result || !result.valid) {
-      return null
-    } else {
-      const checkHash = hmac(sha512, privateKey)
-        .update(nonce + result.user.id)
-        .digest('hex')
-      if (checkHash !== result.hash) return null
-      else return result.user
-    }
   }
 }

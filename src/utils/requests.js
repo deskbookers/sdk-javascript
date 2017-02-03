@@ -12,8 +12,6 @@ export const signer = ({ publicKey, privateKey }, url, options, args) => {
   const checkData = buildCheckData(url, options, args, timestamp)
   const hash = signData(checkData, privateKey)
 
-  console.log(checkData, hash)
-
   // Add headers
   return {
     url,

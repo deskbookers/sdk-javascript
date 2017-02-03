@@ -98,7 +98,7 @@ export default class Cart extends Resource {
     const batch = this.batchCheckData()
     const { voucherCodes, results } = await this.request({
       method: 'POST',
-      path: 'booking/batchCheck',
+      path: 'booking/batchCheck', // TODO: implement this method in User API
       params: {
         group: this.getGroup(),
         voucherCode: this.getVoucherCode(),
