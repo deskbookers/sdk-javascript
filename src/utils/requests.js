@@ -2,7 +2,7 @@ import { hmac, sha512 } from 'hash.js'
 import { parse } from 'url'
 import { stringify } from 'qs'
 import jsonEncode from 'json_encode'
-import urlencode from 'urlencode-for-php'
+import urlencode from 'phpurlencode'
 
 export const signer = ({ publicKey, privateKey }, url, options, args) => {
   // Prepare vars
@@ -11,6 +11,8 @@ export const signer = ({ publicKey, privateKey }, url, options, args) => {
   // Sign data
   const checkData = buildCheckData(url, options, args, timestamp)
   const hash = signData(checkData, privateKey)
+
+  console.log(checkData, hash)
 
   // Add headers
   return {
@@ -45,10 +47,16 @@ export const buildCheckData = (url, options, args, timestamp) => [
   options.method.toUpperCase(),
   timestamp,
   parse(url).path,
-  phpJsonEncode(jsonifyArgs(args))
+  options.method.toUpperCase() === 'POST'
+    ? phpJsonEncode(jsonifyArgs(args))
+    : phpJsonEncode([])
 ].join('\n')
 
-export const phpJsonEncode = jsonEncode
+export const phpJsonEncode = (val) => jsonEncode(
+  typeof val === 'undefined'
+    ? null
+    : val
+)
 
 export const onlyAmpEncode = (str) => (str + '').toString()
   .replace('&', '%26')

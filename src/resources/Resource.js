@@ -6,13 +6,14 @@ export default class Resource {
     this.api = api
   }
 
-  get apiUrl () {
+  getApiUrl (userApi = true) {
     const protocol = this.api.https ? 'https' : 'http'
-    const url = `${protocol}://${this.api.host}/userapi/v${this.api.version}`
+    const api = userApi ? 'userapi' : 'api'
+    const url = `${protocol}://${this.api.host}/${api}/v${this.api.version}`
     return url
   }
 
-  async request ({ path, fields = [], params = {}, method = 'get' }) {
+  async request ({ path, fields = [], params = {}, userApi = true, method = 'get' }) {
     const options = {
       method: method.toLowerCase(),
       headers: {}
@@ -27,13 +28,13 @@ export default class Resource {
     const queryStr = formatArgs(args, options.method === 'post')
     const pathFixed = path.replace(/^\/+|\/+$/, '')
 
-    let url
+    let url = this.getApiUrl(userApi) + '/'
     if (options.method === 'post') {
       options.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
       options.body = queryStr
-      url = `${this.apiUrl}/${pathFixed}`
+      url += pathFixed
     } else {
-      url = `${this.apiUrl}/${pathFixed}?${queryStr}`
+      url += `${pathFixed}?${queryStr}`
     }
 
     const {
@@ -60,10 +61,13 @@ export default class Resource {
       } else if (data.errors && data.errors.length > 0) {
         for (let i = 0; i < data.errors.length; ++i) {
           const msg = data.errors[i].title || data.errors[i].detail
-          console.error(data.errors[i])
           throw new Error(`${data.errors[i].code || 500}: ${msg}`)
         }
-      } else if ('result' in data) return data.result
+      } else if ('result' in data) {
+        return data.result
+      } else if ('data' in data) {
+        return data.data
+      }
     }
 
     // Error

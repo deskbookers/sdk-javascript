@@ -50,19 +50,16 @@ export default class Deskbookers {
     if (!this.hasSession()) return false
 
     try {
-      const resource = new Resource(this)
-      const result = await resource.request({
-        method: 'GET',
-
-        // TODO
-        path: 'test'
-      })
-
-      return !!result
+      const result = await this.users.current()
+      if (result && result.id === this.session.user.id) {
+        // Update user info
+        this.session_.user = result
+        return true
+      }
     } catch (e) {
       console.error(e)
-      return false
     }
+    return false
   }
 
   set session (session) {
@@ -80,6 +77,7 @@ export default class Deskbookers {
   }
 
   async logout () {
+    await this.users.logout()
     this.session = null
     return this
   }
