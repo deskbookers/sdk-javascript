@@ -1,7 +1,6 @@
 import dotenv from 'dotenv'
 import test from 'ava'
-import Deskbookers from './dist'
-import moment from 'moment'
+import Deskbookers from '../src'
 dotenv.load()
 
 const deskbookers = new Deskbookers({
@@ -9,13 +8,13 @@ const deskbookers = new Deskbookers({
   host: process.env.API_HOST
 })
 
-// Users
 test('Login', async t => {
   await t.notThrows(async () => await deskbookers.login(
     process.env.LOGIN_EMAIL,
     process.env.LOGIN_PASSWORD
   ))
 })
+
 test('Signup', async t => {
   // Generate random data
   const firstName = `First${Math.random()}`
@@ -31,6 +30,7 @@ test('Signup', async t => {
     password
   }))
 })
+
 test('Logout', async t => {
   // Login and store session
   await deskbookers.login(
@@ -60,43 +60,9 @@ test('Validate session', async t => {
   t.true(await deskbookers.validateSession())
 
   // Check email for logged in user
-  const current = await deskbookers.users.current()
+  const current = await deskbookers.account.retrieve()
   t.not(current, null)
   if (current) {
     t.is(current.email, process.env.LOGIN_EMAIL)
   }
 })
-
-// Shopping cart
-test('Test cart availability', async t => {
-  const cart = await prepareCart(t)
-
-  t.true(deskbookers.cart.available())
-
-  // TODO: test more
-})
-const prepareCart = async (t) => {
-  try {
-    // Login
-    await deskbookers.login(
-      process.env.LOGIN_EMAIL,
-      process.env.LOGIN_PASSWORD
-    )
-
-    // Test cart
-    const space = deskbookers.cart.addSpace({
-      id: 13235,
-      start: moment('2016-12-30 12:00'),
-      end: moment('2016-12-30 14:00')
-    })
-    space.addProduct({
-      id: 10469
-    })
-    await deskbookers.cart.refresh()
-
-    return deskbookers.cart
-  } catch (e) {
-    t.fail(`Error while preparing cart: ${e && e.message || 'Exception occurred'}`)
-    return deskbookers.cart
-  }
-}
