@@ -1,7 +1,7 @@
 import Resource from './Resource'
 import bcrypt from 'bcryptjs'
 
-export default class Users extends Resource {
+export default class Account extends Resource {
   constructor (api) {
     super(api)
     this.endpoint = 'user'
@@ -30,7 +30,6 @@ export default class Users extends Resource {
     const salt = await this.retrieveSalt(email || '') || ''
     const hash = await bcrypt.hash(password || '', salt)
     const result = await this.validateCredentials(email, hash)
-    console.log(result)
     return {
       privateKey: result.privateKey,
       publicKey: result.publicKey,
