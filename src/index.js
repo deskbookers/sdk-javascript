@@ -49,7 +49,7 @@ export default class Deskbookers {
     if (!this.hasSession()) return false
 
     try {
-      const result = await this.users.current()
+      const result = await this.users.retrieve()
       if (result && result.id === this.session.user.id) {
         // Update user info
         this.session_.user = result

@@ -17,7 +17,7 @@ password | User account password | Yes
 
 ### Example response
 
-```js
+```json
 {
   "token": "$2a$04$038Bl0lYgwa37ejCTAtVhuanJAOuyHnHA.3UBjaDxvAdLB9Q6Au8W",
   "user": {
@@ -50,7 +50,7 @@ password | User account password | Yes
 
 ### Example response
 
-```js
+```json
 {
   "token": "$2a$04$038Bl0lYgwa37ejCTAtVhuanJAOuyHnHA.3UBjaDxvAdLB9Q6Au8W",
   "user": {
@@ -58,5 +58,22 @@ password | User account password | Yes
     "name": "Albert Einstein",
     "email": "einstein@example.com"
   }
+}
+```
+
+## `retrieve()`
+Retrieves the current logged in user.
+
+```js
+const user = await deskbookers.users.retrieve()
+```
+
+### Example response
+
+```json
+{
+  "id": 10001,
+  "name": "Albert Einstein",
+  "email": "einstein@example.com",
 }
 ```
