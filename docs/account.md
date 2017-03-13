@@ -1,4 +1,4 @@
-# Users
+# Account
 
 ## `login(email, password)`
 Retrieves a login token, if valid credentials are provided.
