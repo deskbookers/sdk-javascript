@@ -1,7 +1,7 @@
 # Events
 
 ## `unread()`
-Retrieves the unread count of the events, and returns a breakdown of tabs by unread count.
+Retrieves the unread count of the events, and returns a breakdown of unread counts by tab.
 
 ```js
 const unread = await deskbookers.events.unread()
