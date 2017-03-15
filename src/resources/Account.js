@@ -4,7 +4,6 @@ import bcrypt from 'bcryptjs'
 export default class Account extends Resource {
   constructor (api) {
     super(api)
-    this.endpoint = 'user'
   }
 
   async retrieveSalt (email) {

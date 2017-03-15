@@ -1,6 +1,7 @@
 import Account from './resources/Account'
-import Workplaces from './resources/Workplaces'
 import Cart from './resources/Cart'
+import Events from './resources/Events'
+import Workplaces from './resources/Workplaces'
 
 const API_HOST = 'backoffice.2cnnct.com'
 const API_VERSION = 1
@@ -9,8 +10,9 @@ const API_RESELLER_ID = 10000
 
 const resources = {
   account: Account,
-  workplaces: Workplaces,
-  cart: Cart
+  cart: Cart,
+  events: Events,
+  workplaces: Workplaces
 }
 
 export default class Deskbookers {

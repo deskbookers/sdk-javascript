@@ -41,3 +41,6 @@ for (let workplace of workplaces) {
   * [`contexts(params)`](docs/account.md#contextsparams)
  * workplaces
   * `retrieve(workplaceId)`
+ * events
+  * [`unread()`](docs/events.md#unread)
+  * [`list(tabId, limit)`](docs/events.md#listparams)
