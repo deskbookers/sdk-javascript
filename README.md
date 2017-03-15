@@ -34,13 +34,13 @@ for (let workplace of workplaces) {
 
 ### Available resources & methods
 
- * account
+* account
   * [`login(email, password)`](docs/account.md#loginemail-password)
   * [`signup(params)`](docs/account.md#signupparams)
   * [`retrieve()`](docs/account.md#retrieve)
   * [`contexts(params)`](docs/account.md#contextsparams)
- * workplaces
+* workplaces
   * `retrieve(workplaceId)`
- * events
+* events
   * [`unread()`](docs/events.md#unread)
   * [`list(tabId, limit)`](docs/events.md#listparams)
