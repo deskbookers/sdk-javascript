@@ -5,7 +5,14 @@ export default class Events extends Resource {
     super(api)
   }
 
-  async list (tabId = null, offset = 10) {
+  async unread () {
+    return await this.request({
+      method: 'GET',
+      path: 'event/unreadCounts'
+    })
+  }
+
+  async list (tabId = null, limit = 10) {
     if (!tabId) {
       throw new Error('No tab id')
     }
@@ -15,25 +22,29 @@ export default class Events extends Resource {
       path: `event/${parseInt(tabId)}`
     })
 
+    if (!events.length) {
+      return false
+    }
+
     // Get most recent event id
     const startId = events[0].event_id
 
     // Return async generator
-    return this.iterateEvents(tabId, startId, offset)
+    return this.iterateEvents(tabId, startId, limit, 0)
   }
 
-  async * iterateEvents (tabId, startId, offset) {
-    const events = await this.getEvents(tabId, startId, offset)
+  async * iterateEvents (tabId, startId, limit, offset) {
+    const events = await this.getEvents(tabId, startId, limit, offset)
     yield events
 
     if (!events.length) {
       return events
     } else {
-      yield * this.iterateEvents(tabId, startId, offset + offset)
+      yield * this.iterateEvents(tabId, startId, limit, offset + offset)
     }
   }
 
-  getEvents (tabId, startId, offset) {
+  getEvents (tabId, startId, limit, offset) {
     return new Promise(async (resolve, reject) => {
       try {
         const events = await this.request({
@@ -41,6 +52,7 @@ export default class Events extends Resource {
           path: `event/${parseInt(tabId)}`,
           params: {
             startId,
+            limit,
             offset
           }
         })
