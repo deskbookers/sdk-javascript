@@ -23,7 +23,7 @@ export default class Events extends Resource {
     })
 
     if (!events.length) {
-      return false
+      throw new Error('No events')
     }
 
     // Get most recent event id
@@ -58,7 +58,6 @@ export default class Events extends Resource {
         })
         resolve(events)
       } catch (e) {
-        console.log(e.message)
         reject(e.message)
       }
     })
