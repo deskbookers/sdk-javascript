@@ -13,7 +13,7 @@ const unread = await deskbookers.events.unread()
 {
   "total": 25,
   "tabs": [{
-    "id": 1,
+    "id": 7,
     "name": "First tab",
     "unread": 22
   }]
@@ -21,10 +21,10 @@ const unread = await deskbookers.events.unread()
 ```
 
 ## `list(tabId, limit)`
-Lists the events for a given tab `id`. Returns an [async generator](https://github.com/tc39/proposal-async-iteration), or throws and `Error` if no events are returned.
+Lists the events for a given tab `id`. Returns an [async generator](https://github.com/tc39/proposal-async-iteration), or throws an `Error` if no events are returned.
 
 ```js
-const tabId = 22
+const tabId = 7
 const eventsLimit = 10
 const eventsIterator = deskbookers.events.list(tabId, eventsLimit)
 
