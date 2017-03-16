@@ -26,7 +26,7 @@ Lists the events for a given tab `id`. Returns an [async generator](https://gith
 ```js
 const tabId = 7
 const eventsLimit = 10
-const eventsIterator = deskbookers.events.list(tabId, eventsLimit)
+const eventsIterator = await deskbookers.events.list(tabId, eventsLimit)
 
 
 // Use async generator directly
