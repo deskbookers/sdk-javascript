@@ -1,10 +1,9 @@
 import Resource from './Resource'
 import bcrypt from 'bcryptjs'
 
-export default class Users extends Resource {
+export default class Account extends Resource {
   constructor (api) {
     super(api)
-    this.endpoint = 'user'
   }
 
   async retrieveSalt (email) {
@@ -64,10 +63,18 @@ export default class Users extends Resource {
     })
   }
 
-  async current () {
+  async retrieve () {
     return await this.request({
       method: 'GET',
       path: 'user'
+    })
+  }
+
+  async contexts ({ ...params } = {}) {
+    return await this.request({
+      method: 'GET',
+      path: 'user/contexts',
+      params
     })
   }
 }

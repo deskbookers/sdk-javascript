@@ -1,6 +1,7 @@
-import Users from './resources/Users'
-import Workplaces from './resources/Workplaces'
+import Account from './resources/Account'
 import Cart from './resources/Cart'
+import Events from './resources/Events'
+import Workplaces from './resources/Workplaces'
 
 const API_HOST = 'backoffice.2cnnct.com'
 const API_VERSION = 1
@@ -8,9 +9,10 @@ const API_LANGUAGE = 'en-gb'
 const API_RESELLER_ID = 10000
 
 const resources = {
-  users: Users,
-  workplaces: Workplaces,
-  cart: Cart
+  account: Account,
+  cart: Cart,
+  events: Events,
+  workplaces: Workplaces
 }
 
 export default class Deskbookers {
@@ -49,7 +51,7 @@ export default class Deskbookers {
     if (!this.hasSession()) return false
 
     try {
-      const result = await this.users.current()
+      const result = await this.account.retrieve()
       if (result && result.id === this.session.user.id) {
         // Update user info
         this.session_.user = result
@@ -75,19 +77,19 @@ export default class Deskbookers {
   }
 
   async logout () {
-    await this.users.logout()
+    await this.account.logout()
     this.session = null
     return this
   }
 
   async login (email, password, ...args) {
-    const session = await this.users.login(email, password, ...args)
+    const session = await this.account.login(email, password, ...args)
     this.session = session
     return session.user
   }
 
   async signup (params, ...args) {
-    const session = await this.users.signup(params, ...args)
+    const session = await this.account.signup(params, ...args)
     this.session = session
     return session.user
   }

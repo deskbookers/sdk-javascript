@@ -36,13 +36,17 @@ export default class Resource {
       url = `${this.apiUrl}/${pathFixed}?${queryStr}`
     }
 
-    const {
-      url: requestUrl,
-      options: requestOptions
-    } = await this.prepareRequest(url, options, args)
+    try {
+      const {
+        url: requestUrl,
+        options: requestOptions
+      } = await this.prepareRequest(url, options, args)
 
-    const response = await fetch(requestUrl, requestOptions)
-    return await this.parseResponse(response)
+      const response = await fetch(requestUrl, requestOptions)
+      return await this.parseResponse(response)
+    } catch (e) {
+      return false
+    }
   }
 
   async parseResponse (response) {
