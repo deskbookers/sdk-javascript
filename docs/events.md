@@ -43,4 +43,4 @@ for await (let currentBatch of eventsIterator) {
 Name | Type | Description | Required
 --- | --- | --- | ---
 tabId | Number | Tab id | Yes
-eventsLimit | Number | Amount of events to return | Yes
+eventsLimit | Number | Amount of events to return | No
