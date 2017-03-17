@@ -1,5 +1,5 @@
 # Deskbookers JavaScript SDK
-JavaScript library to connect to the Deskbookers API. Available to use server-side or client-side.
+JavaScript library to connect to the Deskbookers API. Available to use server-side or client-side, but you must bring your own `fetch` polyfill ([`fetch-everywhere`](https://github.com/lucasfeliciano/fetch-everywhere) recommended).
 
 ## Installation
 ```bash
@@ -9,7 +9,9 @@ npm install deskbookers
 ## Overview
 
 ```js
+import 'fetch-everywhere'
 import Deskbookers from 'deskbookers'
+
 const deskbookers = new Deskbookers()
 ```
 

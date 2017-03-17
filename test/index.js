@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import 'fetch-everywhere'
 import test from 'ava'
 import Deskbookers from '../src'
 import moment from 'moment'
@@ -20,7 +21,7 @@ test('Test cart availability', async t => {
 const prepareCart = async (t) => {
   try {
     // Login
-    await deskbookers.login(
+    await deskbookers.account.login(
       process.env.LOGIN_EMAIL,
       process.env.LOGIN_PASSWORD
     )

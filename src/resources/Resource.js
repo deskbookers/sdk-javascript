@@ -1,4 +1,3 @@
-import fetch from '../utils/fetch'
 import { signer, formatArgs } from '../utils/requests'
 
 export default class Resource {

@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import 'fetch-everywhere'
 import test from 'ava'
 import Deskbookers from '../src'
 dotenv.load()
@@ -9,7 +10,7 @@ const deskbookers = new Deskbookers({
 })
 
 test('Unread count', async t => {
-  await deskbookers.login(
+  await deskbookers.account.login(
     process.env.LOGIN_EMAIL,
     process.env.LOGIN_PASSWORD
   )
@@ -19,7 +20,7 @@ test('Unread count', async t => {
 })
 
 test('Events', async t => {
-  await deskbookers.login(
+  await deskbookers.account.login(
     process.env.LOGIN_EMAIL,
     process.env.LOGIN_PASSWORD
   )
