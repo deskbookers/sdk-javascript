@@ -4,7 +4,7 @@
 Validates given login credentials and sets the authentication tokens to `deskbookers.session`, enabling future authenticated requests.
 
 ```js
-const email = 's.jobs@example.com'
+const email = 's.jobs@apple.com'
 const password = 'm4c1nt0sh'
 const user = await deskbookers.account.login(email, password)
 ```
@@ -32,10 +32,10 @@ Registers a new user and returns newly-created user object. Will throw an `Error
 
 ```js
 const user = await deskbookers.account.signup({
-  firstName: 'Albert',
-  lastName: 'Einstein',
-  email: 'einstein@example.com',
-  password: 'e=mc2'
+  firstName: 'Steve',
+  lastName: 'Jobs',
+  email: 's.jobs@apple.com',
+  password: 'm4c1nt0sh'
 })
 ```
 
@@ -51,12 +51,12 @@ password | String | User account password | Yes
 
 ```json
 {
-  "id": 10001,
-  "fullName": "Albert Einstein",
-  "firstName": "Albert",
-  "lastName": "Einstein",
-  "email": "einstein@example.com",
-  "country": "Germany"
+  "id": 10000,
+  "fullName": "Steve Jobs",
+  "firstName": "Steve",
+  "lastName": "Jobs",
+  "email": "s.jobs@example.com",
+  "country": "United States of America"
 }
 ```
 
@@ -71,12 +71,12 @@ const user = await deskbookers.account.retrieve()
 
 ```json
 {
-  "id": 10001,
-  "fullName": "Albert Einstein",
-  "firstName": "Albert",
-  "lastName": "Einstein",
-  "email": "einstein@example.com",
-  "country": "Germany"
+  "id": 10000,
+  "fullName": "Steve Jobs",
+  "firstName": "Steve",
+  "lastName": "Jobs",
+  "email": "s.jobs@example.com",
+  "country": "United States of America"
 }
 ```
 

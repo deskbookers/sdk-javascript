@@ -45,4 +45,4 @@ for (let workplace of workplaces) {
   * `retrieve(workplaceId)`
 * events
   * [`unread()`](docs/events.md#unread)
-  * [`list(tabId, limit)`](docs/events.md#listparams)
+  * [`list(tabId, limit)`](docs/events.md##listtabid-limit)

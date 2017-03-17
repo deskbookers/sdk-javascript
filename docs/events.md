@@ -24,7 +24,7 @@ const unread = await deskbookers.events.unread()
 Lists the events for a given tab `id`. Returns an [async generator](https://github.com/tc39/proposal-async-iteration), or throws and `Error` if no events are returned.
 
 ```js
-const tabId = 22
+const tabId = 1
 const eventsLimit = 10
 const eventsIterator = deskbookers.events.list(tabId, eventsLimit)
 
