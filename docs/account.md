@@ -1,12 +1,12 @@
 # Account
 
 ## `login(email, password)`
-Retrieves a login token, if valid credentials are provided.
+Validates given login credentials and sets the authentication tokens to `deskbookers.session`, enabling future authenticated requests.
 
 ```js
 const email = 's.jobs@example.com'
 const password = 'm4c1nt0sh'
-const { token } = await deskbookers.account.login(email, password)
+const user = await deskbookers.account.login(email, password)
 ```
 
 ### Arguments
@@ -19,20 +19,19 @@ password | String | User account password | Yes
 
 ```json
 {
-  "token": "$2a$04$038Bl0lYgwa37ejCTAtVhuanJAOuyHnHA.3UBjaDxvAdLB9Q6Au8W",
-  "user": {
-    "id": 10000,
-    "name": "Steve Jobs",
-    "email": "s.jobs@example.com"
-  }
+  "id": 10000,
+  "fullName": "Steve Jobs",
+  "firstName": "Steve",
+  "lastName": "Jobs",
+  "email": "s.jobs@example.com"
 }
 ```
 
 ## `signup(params)`
-Registers a new user and returns a login token.
+Registers a new user and returns newly-created user object. Will throw an `Error` on bad requests/responses.
 
 ```js
-const { token } = await deskbookers.account.signup({
+const user = await deskbookers.account.signup({
   firstName: 'Albert',
   lastName: 'Einstein',
   email: 'einstein@example.com',
@@ -52,12 +51,11 @@ password | String | User account password | Yes
 
 ```json
 {
-  "token": "$2a$04$038Bl0lYgwa37ejCTAtVhuanJAOuyHnHA.3UBjaDxvAdLB9Q6Au8W",
-  "user": {
-    "id": 10001,
-    "name": "Albert Einstein",
-    "email": "einstein@example.com"
-  }
+  "id": 10001,
+  "fullName": "Albert Einstein",
+  "firstName": "Albert",
+  "lastName": "Einstein",
+  "email": "einstein@example.com"
 }
 ```
 

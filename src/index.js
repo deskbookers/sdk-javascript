@@ -29,7 +29,7 @@ export default class Deskbookers {
     this.version = version
     this.language = language
     this.resellerId = resellerId
-    this.session_ = null
+    this.session = null
 
     // Init resources
     for (let name in resources) {
@@ -38,13 +38,7 @@ export default class Deskbookers {
   }
 
   hasSession () {
-    return !!(this.session_ && this.session_.privateKey)
-  }
-
-  get session () {
-    return this.hasSession()
-      ? { ...this.session_ }
-      : null
+    return !!(this.session && this.session.privateKey)
   }
 
   async validateSession () {
@@ -54,7 +48,7 @@ export default class Deskbookers {
       const result = await this.account.retrieve()
       if (result && result.id === this.session.user.id) {
         // Update user info
-        this.session_.user = result
+        this.session.user = result
         return true
       }
     } catch (e) {
@@ -62,35 +56,9 @@ export default class Deskbookers {
     }
   }
 
-  set session (session) {
-    if (
-      session &&
-      session.privateKey &&
-      session.publicKey &&
-      session.user
-    ) {
-      this.session_ = session
-    } else {
-      this.session_ = null
-    }
-    return this
-  }
-
   async logout () {
     await this.account.logout()
     this.session = null
     return this
-  }
-
-  async login (email, password, ...args) {
-    const session = await this.account.login(email, password, ...args)
-    this.session = session
-    return session.user
-  }
-
-  async signup (params, ...args) {
-    const session = await this.account.signup(params, ...args)
-    this.session = session
-    return session.user
   }
 }

@@ -25,35 +25,68 @@ export default class Account extends Resource {
     })
   }
 
-  async login (email, password) {
-    const salt = await this.retrieveSalt(email || '') || ''
-    const hash = await bcrypt.hash(password || '', salt)
-    const result = await this.validateCredentials(email, hash)
-    return {
-      privateKey: result.privateKey,
-      publicKey: result.publicKey,
-      user: result.user
-    }
-  }
+  login (email, password) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const salt = await this.retrieveSalt(email) || ''
+        const hash = await bcrypt.hash(password, salt)
+        const result = await this.validateCredentials(email, hash)
 
-  async signup ({ password, email, firstName, lastName }) {
-    const salt = await this.retrieveSalt()
-    const hash = await bcrypt.hash(password || '', salt)
-    const result = await this.request({
-      method: 'GET',
-      path: 'register',
-      params: {
-        firstName,
-        lastName,
-        email,
-        password: hash
+        // Set session on parent class
+        this.api.session = {
+          privateKey: result.privateKey,
+          publicKey: result.publicKey,
+          user: result.user
+        }
+
+        const user = await this.retrieve()
+        resolve(user)
+      } catch (e) {
+        reject(e.message)
       }
     })
-    return {
-      privateKey: result.privateKey,
-      publicKey: result.publicKey,
-      user: result.user
-    }
+  }
+
+  signup ({
+    firstName: suppliedFirstName,
+    lastName: suppliedLastName,
+    email: suppliedEmail,
+    password: suppliedPassword
+  }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const salt = await this.retrieveSalt()
+        const hash = await bcrypt.hash(suppliedPassword || '', salt)
+        const result = await this.request({
+          method: 'GET',
+          path: 'register',
+          params: {
+            firstName: suppliedFirstName,
+            lastName: suppliedLastName,
+            email: suppliedEmail,
+            password: hash
+          }
+        })
+
+        const {
+          id,
+          email,
+          name: fullName,
+          first_name: firstName,
+          lastName,
+        } = result.user
+
+        resolve({
+          id,
+          email,
+          fullName,
+          firstName,
+          lastName
+        })
+      } catch (e) {
+        reject(e.message)
+      }
+    })
   }
 
   async logout () {
@@ -63,10 +96,40 @@ export default class Account extends Resource {
     })
   }
 
-  async retrieve () {
-    return await this.request({
-      method: 'GET',
-      path: 'user'
+  retrieve () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const {
+          id,
+          email,
+          firstName,
+          lastName,
+          name_without_title: fullName,
+          country,
+          organisations,
+          timezone,
+          lang: language,
+          balance
+        } = await this.request({
+          method: 'GET',
+          path: 'user'
+        })
+
+        resolve({
+          id,
+          email,
+          firstName,
+          lastName,
+          fullName,
+          country,
+          organisations,
+          timezone,
+          language,
+          balance
+        })
+      } catch (e) {
+        reject(e.message)
+      }
     })
   }
 
