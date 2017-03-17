@@ -55,10 +55,4 @@ export default class Deskbookers {
       return false
     }
   }
-
-  async logout () {
-    await this.account.logout()
-    this.session = null
-    return this
-  }
 }

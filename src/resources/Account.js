@@ -25,7 +25,7 @@ export default class Account extends Resource {
     })
   }
 
-  login (email, password) {
+  login (email, password = '') {
     return new Promise(async (resolve, reject) => {
       try {
         const salt = await this.retrieveSalt(email) || ''
@@ -51,12 +51,12 @@ export default class Account extends Resource {
     firstName: suppliedFirstName,
     lastName: suppliedLastName,
     email: suppliedEmail,
-    password: suppliedPassword
+    password: suppliedPassword = ''
   }) {
     return new Promise(async (resolve, reject) => {
       try {
-        const salt = await this.retrieveSalt()
-        const hash = await bcrypt.hash(suppliedPassword || '', salt)
+        const salt = await this.retrieveSalt() || ''
+        const hash = await bcrypt.hash(suppliedPassword, salt)
         const result = await this.request({
           method: 'GET',
           path: 'register',
@@ -90,9 +90,18 @@ export default class Account extends Resource {
   }
 
   async logout () {
-    return await this.request({
-      method: 'POST',
-      path: 'logout'
+    return new Promise(async (resolve, reject) => {
+      try {
+        await this.request({
+          method: 'POST',
+          path: 'logout'
+        })
+
+        this.api.session = null
+        resolve(true)
+      } catch (e) {
+        reject(e.message)
+      }
     })
   }
 
