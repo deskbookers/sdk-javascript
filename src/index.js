@@ -36,23 +36,4 @@ export default class Deskbookers {
       this[name] = new resources[name](this)
     }
   }
-
-  hasSession () {
-    return !!(this.session && this.session.privateKey)
-  }
-
-  async validateSession () {
-    if (!this.hasSession()) return false
-
-    try {
-      const result = await this.account.retrieve()
-      if (result && result.id === this.session.user.id) {
-        // Update user info
-        this.session.user = result
-        return true
-      }
-    } catch (e) {
-      return false
-    }
-  }
 }

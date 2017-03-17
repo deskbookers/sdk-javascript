@@ -35,34 +35,9 @@ test('Logout', async t => {
     process.env.LOGIN_EMAIL,
     process.env.LOGIN_PASSWORD
   )
-  const session = deskbookers.session
+  const session = Object.assign({}, deskbookers.session)
 
   // Logout
   await deskbookers.account.logout()
   t.is(deskbookers.session, null)
-
-  // Try to reuse previous session
-  deskbookers.session = session
-  t.false(await deskbookers.validateSession())
 })
-
-  /*
-// Validate session
-test('Validate session', async t => {
-  // Login
-  await deskbookers.login(
-    process.env.LOGIN_EMAIL,
-    process.env.LOGIN_PASSWORD
-  )
-
-  // Validate session
-  t.true(await deskbookers.validateSession())
-
-  // Check email for logged in user
-  const current = await deskbookers.account.retrieve()
-  t.not(current, null)
-  if (current) {
-    t.is(current.email, process.env.LOGIN_EMAIL)
-  }
-})
-   */

@@ -55,7 +55,8 @@ password | String | User account password | Yes
   "fullName": "Albert Einstein",
   "firstName": "Albert",
   "lastName": "Einstein",
-  "email": "einstein@example.com"
+  "email": "einstein@example.com",
+  "country": "Germany"
 }
 ```
 
@@ -71,8 +72,11 @@ const user = await deskbookers.account.retrieve()
 ```json
 {
   "id": 10001,
-  "name": "Albert Einstein",
+  "fullName": "Albert Einstein",
+  "firstName": "Albert",
+  "lastName": "Einstein",
   "email": "einstein@example.com",
+  "country": "Germany"
 }
 ```
 

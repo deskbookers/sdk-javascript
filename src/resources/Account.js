@@ -89,7 +89,7 @@ export default class Account extends Resource {
     })
   }
 
-  async logout () {
+  logout () {
     return new Promise(async (resolve, reject) => {
       try {
         await this.request({

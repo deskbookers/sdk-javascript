@@ -93,9 +93,9 @@ export default class Resource {
     throw new Error('Invalid response received')
   }
 
-  async prepareRequest (url, options, args) {
+  prepareRequest (url, options, args) {
     // Sign request?
-    if (this.api.hasSession()) {
+    if (this.api.session) {
       return signer(this.api.session, url, options, args)
     } else {
       return { url, options }
