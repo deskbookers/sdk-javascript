@@ -35,7 +35,8 @@ test('Logout', async t => {
     process.env.LOGIN_EMAIL,
     process.env.LOGIN_PASSWORD
   )
-  const session = Object.assign({}, deskbookers.session)
+
+  t.truthy(deskbookers.session)
 
   // Logout
   await deskbookers.account.logout()
