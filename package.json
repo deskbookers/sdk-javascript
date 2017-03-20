@@ -15,6 +15,10 @@
     "javascript"
   ],
   "author": "Yosh Talwar <yosh@deskbookers.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deskbookers/sdk-javascript"
+  },
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.0",
