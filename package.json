@@ -14,7 +14,7 @@
     "sdk",
     "javascript"
   ],
-  "author": "Yosh Talwar <yosh@deskbookers.com>",
+  "author": "Deskbookers <admin@deskbookers.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/deskbookers/sdk-javascript"
