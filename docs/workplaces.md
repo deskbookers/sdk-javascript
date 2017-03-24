@@ -6,7 +6,7 @@ Retrieves the urgency data for a workspace; the amount of visitors or bookings f
 Supply parameters as either an `Object`, or `Array` for multiple sets of data.
 
 ```js
-const urgency = await deskbookers.account.login(12345, {
+const urgency = await deskbookers.workplaces.urgency(12345, {
   type: 'visitors',
   city: 'amsterdam',
   start: Date,
