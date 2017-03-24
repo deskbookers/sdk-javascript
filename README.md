@@ -42,7 +42,7 @@ for (let workplace of workplaces) {
   * [`retrieve()`](docs/account.md#retrieve)
   * [`contexts(params)`](docs/account.md#contextsparams)
 * workplaces
-  * `retrieve(workplaceId)`
+  * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
 * events
   * [`unread()`](docs/events.md#unread)
   * [`list(tabId, limit)`](docs/events.md##listtabid-limit)
