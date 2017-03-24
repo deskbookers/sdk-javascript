@@ -24,4 +24,14 @@ export default class Workplaces extends Resource {
       fields: []
     })
   }
+
+  urgencyData (workplaceId, what) {
+    return this.request({
+      method: 'GET',
+      path: `/${this.endpoint}/${workplaceId}/urgency`,
+      params: {
+        what
+      }
+    })
+  }
 }
