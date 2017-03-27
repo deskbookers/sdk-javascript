@@ -1,4 +1,3 @@
-import fetch from '../utils/fetch'
 import { signer, formatArgs } from '../utils/requests'
 
 export default class Resource {
@@ -36,46 +35,66 @@ export default class Resource {
       url = `${this.apiUrl}/${pathFixed}?${queryStr}`
     }
 
-    const {
-      url: requestUrl,
-      options: requestOptions
-    } = await this.prepareRequest(url, options, args)
+    try {
+      const {
+        url: requestUrl,
+        options: requestOptions
+      } = await this.prepareRequest(url, options, args)
 
-    const response = await fetch(requestUrl, requestOptions)
-    return await this.parseResponse(response)
+      const response = await fetch(requestUrl, requestOptions)
+      return this.parseResponse(response)
+    } catch (e) {
+      return false
+    }
   }
 
   async parseResponse (response) {
-    // Retrieve json data
     const data = await response.json()
 
-    // Parse response data
-    if (data && typeof data === 'object') {
-      if (data.error) {
-        const msg = data.errorMessage || 'An error occurred'
-        const extra = data.errorTrace && data.errorTrace.length > 0
-          ? ` (${data.errorTrace[0].file}:${data.errorTrace[0].line})`
-          : null
-        throw new Error(`${data.errorCode || 500}: ${msg}${extra}`)
-      } else if (data.errors && data.errors.length > 0) {
-        for (let i = 0; i < data.errors.length; ++i) {
-          const msg = data.errors[i].title || data.errors[i].detail
-          throw new Error(`${data.errors[i].code || 500}: ${msg}`)
+    const {
+      data: dataProp,
+      result,
+      errors,
+      error
+    } = data
+
+    // If "data" exists in response
+    if (dataProp) {
+      return dataProp
+    }
+
+    // If "result" exists in response
+    else if (result) {
+      const { errors } = result
+      if (errors) {
+        for (let error in errors) {
+          throw new Error(errors[error])
         }
-      } else if ('result' in data) {
-        return data.result
-      } else if ('data' in data) {
-        return data.data
+      }
+      return result
+    }
+
+    // If "error" exists in response
+    else if (error) {
+      const msg = data.errorMessage || 'An error occurred'
+      throw new Error(msg)
+    }
+
+    // If "errors" exists in response
+    else if (errors) {
+      for (let error in errors) {
+        const msg = errors[error].title || errors[error].detail
+        throw new Error(msg)
       }
     }
 
-    // Error
-    throw new Error('500: Invalid response received')
+    // Reject
+    throw new Error('Invalid response received')
   }
 
-  async prepareRequest (url, options, args) {
+  prepareRequest (url, options, args) {
     // Sign request?
-    if (this.api.hasSession()) {
+    if (this.api.session) {
       return signer(this.api.session, url, options, args)
     } else {
       return { url, options }
