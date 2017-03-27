@@ -55,10 +55,24 @@ password | String | User account password | Yes
   "fullName": "Steve Jobs",
   "firstName": "Steve",
   "lastName": "Jobs",
-  "email": "s.jobs@example.com",
+  "email": "s.jobs@apple.com",
   "country": "United States of America"
 }
 ```
+
+## `forgot(email)`
+Resets the users password and sends an email with a reset link. Will throw an `Error` on bad requests/responses. Always returns true.
+
+```js
+const email = 's.jobs@apple.com'
+const res = await deskbookers.account.forgot(email)
+```
+
+### Arguments
+Name | Type | Description | Required
+--- | --- | --- | ---
+email | String | Email address | Yes
+
 
 ## `retrieve()`
 Retrieves the current logged in user information.

@@ -47,6 +47,25 @@ export default class Account extends Resource {
     })
   }
 
+  forgot (email) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const result = await this.request({
+          method: 'GET',
+          path: 'forgot-password',
+          params: {
+            email
+          }
+        })
+
+        // Api always returns true, regardless of what happens
+        resolve(true)
+      } catch (e) {
+        reject(e.message)
+      }
+    })
+  }
+
   signup ({
     firstName: suppliedFirstName,
     lastName: suppliedLastName,
