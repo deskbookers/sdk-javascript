@@ -30,6 +30,12 @@ test('Signup', async t => {
   t.truthy(signup.id)
 })
 
+test('Forgot', async t => {
+  const forgot = await deskbookers.account.forgot(faker.internet.email())
+
+  t.truthy(forgot)
+})
+
 test('Logout', async t => {
   // Login and store session
   await deskbookers.account.login(
