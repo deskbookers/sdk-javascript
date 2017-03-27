@@ -39,6 +39,13 @@ const user = await deskbookers.account.signup({
 })
 ```
 
+## `forgot(params)`
+Resets the users password and sends an email with a reset link. Will throw an `Error` on bad requests/responses. Always returns true.
+
+```js
+const res = await deskbookers.account.forgot('s.jobs@apple.com')
+```
+
 ### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
