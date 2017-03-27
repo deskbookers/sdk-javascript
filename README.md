@@ -39,7 +39,7 @@ for (let workplace of workplaces) {
 * account
   * [`login(email, password)`](docs/account.md#loginemail-password)
   * [`signup(params)`](docs/account.md#signupparams)
-  * [`forgot(params)`](docs/account.md#forgot)
+  * [`forgot(email)`](docs/account.md#forgotemail)
   * [`retrieve()`](docs/account.md#retrieve)
   * [`contexts(params)`](docs/account.md#contextsparams)
 * workplaces
