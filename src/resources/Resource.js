@@ -11,34 +11,28 @@ export default class Resource {
     return url
   }
 
-  buildArguments (args = {}) {
-    return {
-      __resellerID: this.api.resellerId,
-      __i18n: this.api.language,
-      ...args
-    }
-  }
-
-  formatArguments (args, isPost) {
-    return formatArgs(args || {}, isPost)
-  }
-
   async request ({
     path,
     fields = [],
     params = {},
-    method = 'get'
+    method = 'get',
+    mode = 'cors',
+    credentials = 'include'
   }) {
     const options = {
+      mode,
+      credentials,
       method: method.toLowerCase(),
       headers: {}
     }
 
-    const args = this.buildArguments({
+    const args = {
+      __resellerID: this.api.resellerId,
+      __i18n: this.api.language,
       __fields: fields,
       ...params
-    })
-    const queryStr = this.formatArguments(args, options.method === 'post')
+    }
+    const queryStr = formatArgs(args, options.method === 'post')
     const pathFixed = path.replace(/^\/+|\/+$/, '')
 
     let url
