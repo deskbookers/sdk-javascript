@@ -15,14 +15,14 @@ export default class Resource {
     path,
     fields = [],
     params = {},
-    method = 'get',
+    method = 'GET',
     mode = 'cors',
     credentials = 'omit'
   }) {
     const options = {
       mode,
       credentials,
-      method: method.toLowerCase(),
+      method: method,
       headers: {}
     }
     const args = {
