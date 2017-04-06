@@ -6,16 +6,16 @@ export default class Account extends Resource {
     super(api)
   }
 
-  retrieveSalt (email) {
-    return this.request({
+  async retrieveSalt (email) {
+    return await this.request({
       method: 'GET',
       path: email ? 'prepareLogin' : 'prepareRegister',
       params: email ? { email } : {}
     })
   }
 
-  validateCredentials (email, passwordHash) {
-    return this.request({
+  async validateCredentials (email, passwordHash) {
+    return await this.request({
       method: 'GET',
       path: 'login',
       params: {
@@ -40,14 +40,15 @@ export default class Account extends Resource {
     return await this.retrieve()
   }
 
-  forgot (email) {
-    return this.request({
+  async forgot (email) {
+    await this.request({
       method: 'GET',
       path: 'forgot-password',
       params: {
         email
       }
-    }).then(() => true)
+    })
+    return true
   }
 
   async signup ({
@@ -86,49 +87,47 @@ export default class Account extends Resource {
     }
   }
 
-  logout () {
-    return this.request({
+  async logout () {
+    await this.request({
       method: 'POST',
       path: 'logout'
-    }).then(() => {
-      this.api.session = null
-      return true
     })
+    this.api.session = null
+    return true
   }
 
-  retrieve () {
-    return this.request({
+  async retrieve () {
+    const ({
+      id,
+      email,
+      firstName,
+      lastName,
+      name_without_title: fullName,
+      country,
+      organisations,
+      timezone,
+      lang: language,
+      balance
+    }) = await this.request({
       method: 'GET',
       path: 'user'
-    }).then(
-      ({
-        id,
-        email,
-        firstName,
-        lastName,
-        name_without_title: fullName,
-        country,
-        organisations,
-        timezone,
-        lang: language,
-        balance
-      }) => ({
-        id,
-        email,
-        firstName,
-        lastName,
-        fullName,
-        country,
-        organisations,
-        timezone,
-        language,
-        balance
-      })
-    )
+    })
+    return {
+      id,
+      email,
+      firstName,
+      lastName,
+      fullName,
+      country,
+      organisations,
+      timezone,
+      language,
+      balance
+    }
   }
 
-  contexts ({ ...params } = {}) {
-    return this.request({
+  async contexts ({ ...params } = {}) {
+    return await this.request({
       method: 'GET',
       path: 'user/contexts',
       params

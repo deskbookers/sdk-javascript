@@ -44,8 +44,8 @@ export default class Events extends Resource {
     }
   }
 
-  getEvents (tabId, startId, limit, offset) {
-    return this.request({
+  async getEvents (tabId, startId, limit, offset) {
+    return await this.request({
       method: 'GET',
       path: `event/${parseInt(tabId)}`,
       params: {
