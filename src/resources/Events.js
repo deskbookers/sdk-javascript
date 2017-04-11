@@ -44,21 +44,14 @@ export default class Events extends Resource {
     }
   }
 
-  getEvents (tabId, startId, limit, offset) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const events = await this.request({
-          method: 'GET',
-          path: `event/${parseInt(tabId)}`,
-          params: {
-            startId,
-            limit,
-            offset
-          }
-        })
-        resolve(events)
-      } catch (e) {
-        reject(e.message)
+  async getEvents (tabId, startId, limit, offset) {
+    return await this.request({
+      method: 'GET',
+      path: `event/${parseInt(tabId)}`,
+      params: {
+        startId,
+        limit,
+        offset
       }
     })
   }

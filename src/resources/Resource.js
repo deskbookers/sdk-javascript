@@ -11,12 +11,20 @@ export default class Resource {
     return url
   }
 
-  async request ({ path, fields = [], params = {}, method = 'get' }) {
+  async request ({
+    path,
+    fields = [],
+    params = {},
+    method = 'GET',
+    mode = 'cors',
+    credentials = 'include'
+  }) {
     const options = {
-      method: method.toLowerCase(),
+      mode,
+      credentials,
+      method,
       headers: {}
     }
-
     const args = {
       __resellerID: this.api.resellerId,
       __i18n: this.api.language,

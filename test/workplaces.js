@@ -16,11 +16,18 @@ test('Urgency', async t => {
   const start = monthAgo.toISOString()
   const end = now.toISOString()
 
-  const urgency = await deskbookers.workplaces.urgency(17657, [
+  const request = [
     { type: 'bookings', start, end },
     { type: 'visitors', start, end },
     { type: 'visitors', city: 'amsterdam', start, end },
-  ])
+  ]
 
-  t.truthy(urgency.length)
+  const response = await deskbookers.workplaces.urgency(17657, request)
+
+  t.truthy(Array.isArray(response), `Expected response to be an array but got ${JSON.stringify(response)}`)
+  t.truthy(response.length === request.length, 'Expected response to be the same length as the request')
+
+  for (let i = 0; i < request.length; ++i) {
+    t.truthy(typeof response[i] === 'number', `Expected response['${i}'] to be a number`)
+  }
 })
