@@ -11,8 +11,17 @@ export default class Resource {
     return url
   }
 
-  async request ({ path, fields = [], params = {}, method = 'get' }) {
+  async request ({
+    path,
+    fields = [],
+    params = {},
+    method = 'get',
+    mode = 'cors',
+    credentials = 'include'
+  }) {
     const options = {
+      mode,
+      credentials,
       method: method.toLowerCase(),
       headers: {}
     }
