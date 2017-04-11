@@ -17,12 +17,12 @@ export default class Resource {
     params = {},
     method = 'GET',
     mode = 'cors',
-    credentials = 'omit'
+    credentials = 'include'
   }) {
     const options = {
       mode,
       credentials,
-      method: method,
+      method,
       headers: {}
     }
     const args = {
