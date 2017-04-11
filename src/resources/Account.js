@@ -97,7 +97,7 @@ export default class Account extends Resource {
   }
 
   async retrieve () {
-    const ({
+    const {
       id,
       email,
       firstName,
@@ -108,10 +108,11 @@ export default class Account extends Resource {
       timezone,
       lang: language,
       balance
-    }) = await this.request({
+    } = await this.request({
       method: 'GET',
       path: 'user'
     })
+
     return {
       id,
       email,
