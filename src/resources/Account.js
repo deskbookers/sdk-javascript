@@ -40,6 +40,13 @@ export default class Account extends Resource {
     return await this.retrieve()
   }
 
+  async backofficeLogin () {
+    return await this.request({
+      method: 'post',
+      path: 'backoffice/login'
+    })
+  }
+
   async forgot (email) {
     await this.request({
       method: 'GET',
@@ -132,6 +139,12 @@ export default class Account extends Resource {
       method: 'GET',
       path: 'user/contexts',
       params
+    })
+  }
+
+  async menuForContext (context) {
+    return await this.request({
+      path: `user/menu/${context}`
     })
   }
 }
