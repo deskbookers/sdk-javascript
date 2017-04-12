@@ -27,6 +27,15 @@ password | String | User account password | Yes
 }
 ```
 
+## `backofficeLogin()`
+Make sure that the current account is also logged in at the backoffice.
+
+```js
+await deskbookers.account.backofficeLogin()
+```
+
+The typical use case to call this function is right after a successful login. When successful it returns `true` or gives an error otherwise.
+
 ## `signup(params)`
 Registers a new user and returns newly-created user object. Will throw an `Error` on bad requests/responses.
 
@@ -124,4 +133,83 @@ supported | Array | Context type returned: 'provider' or 'venue'  | No
   "context": "v10001",
   "name": "Cool Venue",
 }]
+```
+
+## `menuForContext(context)`
+Retrieves the menu structure for the current account and given context.
+
+```js
+const context = contexts[0].context
+const menu = await deskbookers.account.menuForContext(context)
+```
+
+### Arguments
+Name | Type | Description | Required
+--- | --- | --- | ---
+context | String | Context code | Yes
+
+### Example response
+```json
+{
+  "top": [{
+    "id": "events",
+    "title": "Notifications",
+    "route": null,
+    "params": {},
+    "url": null,
+    "sidebar": [{
+      "id": "event-tab",
+      "title": "Gebeurtenissen",
+      "route": "events",
+      "params": {
+        "eventTabId": 1
+      },
+      "url": "http://example.org/events/1",
+      "unread": 583409
+    }]
+  }, {
+    "id": "settings",
+    "title": "Settings",
+    "route": null,
+    "params": {},
+    "url": null,
+    "sidebar": [{
+      "id": "venue-details",
+      "title": "Venue details",
+      "route": null,
+      "params": {},
+      "url": null,
+      "tabs": [{
+        "id": "location-edit",
+        "title": "Venue details",
+        "route": "location-edit",
+        "params": {
+          "groupID": 37711
+        },
+        "url": "http://example.org/location/37711/edit"
+      }, {
+        "id": "location-timesettings",
+        "title": "Time settings",
+        "route": "location-timesettings",
+        "params": {
+          "groupID": 37711
+        },
+        "url": "http://example.org/location/37711/timeSettings"
+      }]
+    }]
+  }],
+  "user": [{
+    "id": "account-edit",
+    "title": "Account details",
+    "route": "account-edit",
+    "params": {},
+    "url": "http://example.org/account/edit"
+  }, {
+    "id": "logout",
+    "title": "Logout",
+    "route": "logout",
+    "params": {},
+    "url": "http://example.org/logout"
+  }]
+}
 ```
