@@ -38,10 +38,12 @@ for (let workplace of workplaces) {
 
 * account
   * [`login(email, password)`](docs/account.md#loginemail-password)
+  * [`backofficeLogin()`](docs/account.md##backofficelogin)
   * [`signup(params)`](docs/account.md#signupparams)
   * [`forgot(email)`](docs/account.md#forgotemail)
   * [`retrieve()`](docs/account.md#retrieve)
   * [`contexts(params)`](docs/account.md#contextsparams)
+  * [`menuForContext(context)`](docs/account.md#menuforcontextcontext)
 * workplaces
   * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
 * events
