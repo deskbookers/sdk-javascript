@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.3.0 - 2017-04-19
+### Changed
+- Added `backoffice` parameter to `account.login`
+
+### Added
+- Account method `menu()`
+
 ## 1.2.0 - 2017-04-11
 ### Changed
 - Pass `mode` and `credentials` options to Fetch
