@@ -1,6 +1,6 @@
 # Account
 
-## `login(email, password, backofficeLogin = false)`
+## `login(email, password)`
 Validates given login credentials and sets the authentication tokens to `deskbookers.session`, enabling future authenticated requests.
 
 When passing `True` for `backofficeLogin` the `account.backofficeLogin()` will be called as well.
@@ -28,15 +28,6 @@ password | String | User account password | Yes
   "email": "s.jobs@example.com"
 }
 ```
-
-## `backofficeLogin()`
-Make sure that the current account is also logged in at the backoffice.
-
-```js
-await deskbookers.account.backofficeLogin()
-```
-
-The typical use case to call this function is right after a successful login. When successful it returns `true` or gives an error otherwise.
 
 ## `signup(params)`
 Registers a new user and returns newly-created user object. Will throw an `Error` on bad requests/responses.

@@ -25,7 +25,7 @@ export default class Account extends Resource {
     })
   }
 
-  async login (email, password = '', backofficeLogin = false) {
+  async login (email, password = '', backoffice = false) {
     const salt = await this.retrieveSalt(email) || ''
     const hash = await bcrypt.hash(password, salt)
     const result = await this.validateCredentials(email, hash)
@@ -37,13 +37,11 @@ export default class Account extends Resource {
       user: result.user
     }
 
-    const user = await this.retrieve()
-
-    if (backofficeLogin) {
+    if (backoffice) {
       await this.backofficeLogin()
     }
 
-    return user
+    return await this.retrieve()
   }
 
   async backofficeLogin () {

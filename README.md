@@ -37,8 +37,7 @@ for (let workplace of workplaces) {
 ### Available resources & methods
 
 * account
-  * [`login(email, password, backofficeLogin)`](docs/account.md#loginemail-password-backofficelogin)
-  * [`backofficeLogin()`](docs/account.md##backofficelogin)
+  * [`login(email, password)`](docs/account.md#loginemail-password)
   * [`signup(params)`](docs/account.md#signupparams)
   * [`forgot(email)`](docs/account.md#forgotemail)
   * [`retrieve()`](docs/account.md#retrieve)
