@@ -25,7 +25,7 @@ export default class Account extends Resource {
     })
   }
 
-  async login (email, password = '') {
+  async login (email, password = '', backoffice = false) {
     const salt = await this.retrieveSalt(email) || ''
     const hash = await bcrypt.hash(password, salt)
     const result = await this.validateCredentials(email, hash)
@@ -37,7 +37,18 @@ export default class Account extends Resource {
       user: result.user
     }
 
+    if (backoffice) {
+      await this.backofficeLogin()
+    }
+
     return await this.retrieve()
+  }
+
+  async backofficeLogin () {
+    return await this.request({
+      method: 'POST',
+      path: 'backoffice/login'
+    })
   }
 
   async forgot (email) {
@@ -132,6 +143,12 @@ export default class Account extends Resource {
       method: 'GET',
       path: 'user/contexts',
       params
+    })
+  }
+
+  async menu (context) {
+    return await this.request({
+      path: `user/menu/${context}`
     })
   }
 }
