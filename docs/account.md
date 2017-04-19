@@ -1,7 +1,9 @@
 # Account
 
-## `login(email, password)`
+## `login(email, password, backofficeLogin = false)`
 Validates given login credentials and sets the authentication tokens to `deskbookers.session`, enabling future authenticated requests.
+
+When passing `True` for `backofficeLogin` the `account.backofficeLogin()` will be called as well.
 
 ```js
 const email = 's.jobs@apple.com'
@@ -135,12 +137,12 @@ supported | Array | Context type returned: 'provider' or 'venue'  | No
 }]
 ```
 
-## `menuForContext(context)`
+## `menu(context)`
 Retrieves the menu structure for the current account and given context.
 
 ```js
 const context = contexts[0].context
-const menu = await deskbookers.account.menuForContext(context)
+const menu = await deskbookers.account.menu(context)
 ```
 
 ### Arguments
