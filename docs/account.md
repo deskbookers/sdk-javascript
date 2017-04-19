@@ -10,7 +10,7 @@ const user = await deskbookers.account.login(email, password)
 ```
 
 ### Arguments
-Name | Type |Description | Required
+Name | Type | Description | Required
 --- | --- | --- | ---
 email | String | User account email address | Yes
 password | String | User account password | Yes
@@ -124,4 +124,83 @@ supported | Array | Context type returned: 'provider' or 'venue'  | No
   "context": "v10001",
   "name": "Cool Venue",
 }]
+```
+
+## `menu(context)`
+Retrieves the menu structure for the current account and given context.
+
+```js
+const context = contexts[0].context
+const menu = await deskbookers.account.menu(context)
+```
+
+### Arguments
+Name | Type | Description | Required
+--- | --- | --- | ---
+context | String | Context code | Yes
+
+### Example response
+```json
+{
+  "top": [{
+    "id": "events",
+    "title": "Notifications",
+    "route": null,
+    "params": {},
+    "url": null,
+    "sidebar": [{
+      "id": "event-tab",
+      "title": "Gebeurtenissen",
+      "route": "events",
+      "params": {
+        "eventTabId": 1
+      },
+      "url": "http://example.org/events/1",
+      "unread": 583409
+    }]
+  }, {
+    "id": "settings",
+    "title": "Settings",
+    "route": null,
+    "params": {},
+    "url": null,
+    "sidebar": [{
+      "id": "venue-details",
+      "title": "Venue details",
+      "route": null,
+      "params": {},
+      "url": null,
+      "tabs": [{
+        "id": "location-edit",
+        "title": "Venue details",
+        "route": "location-edit",
+        "params": {
+          "groupID": 37711
+        },
+        "url": "http://example.org/location/37711/edit"
+      }, {
+        "id": "location-timesettings",
+        "title": "Time settings",
+        "route": "location-timesettings",
+        "params": {
+          "groupID": 37711
+        },
+        "url": "http://example.org/location/37711/timeSettings"
+      }]
+    }]
+  }],
+  "user": [{
+    "id": "account-edit",
+    "title": "Account details",
+    "route": "account-edit",
+    "params": {},
+    "url": "http://example.org/account/edit"
+  }, {
+    "id": "logout",
+    "title": "Logout",
+    "route": "logout",
+    "params": {},
+    "url": "http://example.org/logout"
+  }]
+}
 ```

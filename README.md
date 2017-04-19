@@ -42,6 +42,7 @@ for (let workplace of workplaces) {
   * [`forgot(email)`](docs/account.md#forgotemail)
   * [`retrieve()`](docs/account.md#retrieve)
   * [`contexts(params)`](docs/account.md#contextsparams)
+  * [`menu(context)`](docs/account.md#menucontext)
 * workplaces
   * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
 * events
