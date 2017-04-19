@@ -3,8 +3,6 @@
 ## `login(email, password)`
 Validates given login credentials and sets the authentication tokens to `deskbookers.session`, enabling future authenticated requests.
 
-When passing `True` for `backofficeLogin` the `account.backofficeLogin()` will be called as well.
-
 ```js
 const email = 's.jobs@apple.com'
 const password = 'm4c1nt0sh'
@@ -12,7 +10,7 @@ const user = await deskbookers.account.login(email, password)
 ```
 
 ### Arguments
-Name | Type |Description | Required
+Name | Type | Description | Required
 --- | --- | --- | ---
 email | String | User account email address | Yes
 password | String | User account password | Yes
