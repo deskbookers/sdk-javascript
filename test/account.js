@@ -52,6 +52,6 @@ test('Logout', async t => {
 
 test('Retrieve', async t => {
   t.throws(deskbookers.account.retrieve())
-  const login = await deskbookers.account.login(LOGIN_EMAIL, LOGIN_PASSWORD)
+  await deskbookers.account.login(LOGIN_EMAIL, LOGIN_PASSWORD)
   t.notThrows(deskbookers.account.retrieve())
 })

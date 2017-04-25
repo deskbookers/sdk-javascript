@@ -14,7 +14,7 @@ const deskbookers = new Deskbookers({
 test('Test cart availability', async t => {
   const cart = await prepareCart(t)
 
-  t.true(deskbookers.cart.available())
+  t.true(cart.available())
 
   // TODO: test more
 })
@@ -39,7 +39,7 @@ const prepareCart = async (t) => {
 
     return deskbookers.cart
   } catch (e) {
-    t.fail(`Error while preparing cart: ${e && e.message || 'Exception occurred'}`)
+    t.fail(`Error while preparing cart: ${(e && e.message) || 'Exception occurred'}`)
     return deskbookers.cart
   }
 }

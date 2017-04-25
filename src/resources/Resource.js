@@ -19,6 +19,7 @@ export default class Resource {
     mode = 'cors',
     credentials = 'include'
   }) {
+    method = method.toUpperCase()
     const options = {
       mode,
       credentials,
@@ -31,11 +32,11 @@ export default class Resource {
       __fields: fields,
       ...params
     }
-    const queryStr = formatArgs(args, options.method === 'post')
+    const queryStr = formatArgs(args, options.method === 'POST')
     const pathFixed = path.replace(/^\/+|\/+$/, '')
 
     let url
-    if (options.method === 'post') {
+    if (options.method === 'POST') {
       options.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
       options.body = queryStr
       url = `${this.apiUrl}/${pathFixed}`
@@ -69,10 +70,9 @@ export default class Resource {
     // If "data" exists in response
     if (dataProp) {
       return dataProp
-    }
 
     // If "result" exists in response
-    else if (result) {
+    } else if (result) {
       const { errors } = result
       if (errors) {
         for (let error in errors) {
@@ -80,16 +80,14 @@ export default class Resource {
         }
       }
       return result
-    }
 
     // If "error" exists in response
-    else if (error) {
+    } else if (error) {
       const msg = data.errorMessage || 'An error occurred'
       throw new Error(msg)
-    }
 
     // If "errors" exists in response
-    else if (errors) {
+    } else if (errors) {
       for (let error in errors) {
         const msg = errors[error].title || errors[error].detail
         throw new Error(msg)
