@@ -19,7 +19,7 @@ test('Urgency', async t => {
   const request = [
     { type: 'bookings', start, end },
     { type: 'visitors', start, end },
-    { type: 'visitors', city: 'amsterdam', start, end },
+    { type: 'visitors', city: 'amsterdam', start, end }
   ]
 
   const response = await deskbookers.workplaces.urgency(17657, request)

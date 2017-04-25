@@ -2,10 +2,6 @@ import Resource from './Resource'
 import bcrypt from 'bcryptjs'
 
 export default class Account extends Resource {
-  constructor (api) {
-    super(api)
-  }
-
   async retrieveSalt (email) {
     return await this.request({
       method: 'GET',
@@ -86,7 +82,7 @@ export default class Account extends Resource {
       email,
       name: fullName,
       first_name: firstName,
-      lastName,
+      lastName
     } = result.user
 
     return {

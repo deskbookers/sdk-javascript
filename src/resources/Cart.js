@@ -102,8 +102,8 @@ export default class Cart extends Resource {
       params: {
         group: this.getGroup(),
         voucherCode: this.getVoucherCode(),
-        ignoreBooking: ignoreBooking && ignoreBooking.id || null,
-        action: ignoreBooking && ignoreBooking.action || null,
+        ignoreBooking: (ignoreBooking && ignoreBooking.id) || null,
+        action: (ignoreBooking && ignoreBooking.action) || null,
         batch
       }
     })
@@ -341,5 +341,5 @@ export const normalizeDate = (date) => date ? moment(date) : null
 
 export const unix = (date) => {
   const normalized = normalizeDate(date)
-  return normalized && normalized.unix() || null
+  return (normalized && normalized.unix()) || null
 }

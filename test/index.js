@@ -2,9 +2,7 @@ import dotenv from 'dotenv'
 import 'fetch-everywhere'
 import test from 'ava'
 import Deskbookers from '../src'
-import moment from 'moment'
 dotenv.load()
-
 
 // Shopping cart
 test('Initialise', async t => {
