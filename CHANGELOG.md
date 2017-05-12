@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.0 - 2017-05-12
+### Changed
+- Rename `list` method to `retrieve` in Events resource
+
+### Added
+- `list` method (list all) to Events resource
+- `markAllAsRead` method to Events resource
+
 ## 1.3.1 - 2017-04-25
 ### Fixed
 - `POST` request bug
