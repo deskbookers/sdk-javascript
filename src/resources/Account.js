@@ -114,7 +114,8 @@ export default class Account extends Resource {
       organisations,
       timezone,
       lang: language,
-      balance
+      balance,
+      created: createdAt
     } = await this.request({
       method: 'GET',
       path: 'user'
@@ -130,7 +131,8 @@ export default class Account extends Resource {
       organisations,
       timezone,
       language,
-      balance
+      balance,
+      createdAt: new Date(parseInt(createdAt) * 1e3)
     }
   }
 
