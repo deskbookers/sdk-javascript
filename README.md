@@ -28,7 +28,7 @@ And every resource returns a [`Promise`](https://developer.mozilla.org/en/docs/W
 
 ```js
 
-const workplaces = await deskbookers.workplaces.list(params)
+const workplaces = await deskbookers.workplaces.retrieve(params)
 for (let workplace of workplaces) {
   // Use workplace data
 }
@@ -47,4 +47,6 @@ for (let workplace of workplaces) {
   * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
 * events
   * [`unread()`](docs/events.md#unread)
-  * [`list(tabId, limit)`](docs/events.md##listtabid-limit)
+  * [`retrieve(tabId, limit)`](docs/events.md##retrievetabid-limit)
+  * [`list(limit, offset, tags)`](docs/events.md##list)
+  * [`markAllAsRead(tags)`](docs/events.md##mark-all-as-read)

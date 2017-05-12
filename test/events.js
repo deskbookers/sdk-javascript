@@ -29,8 +29,31 @@ test('Events', async t => {
   const unread = await deskbookers.events.unread()
   const tabId = unread.tabs[0].id
 
-  // List events
-  const events = await deskbookers.events.list(tabId)
+  // Retrieve events
+  const events = await deskbookers.events.retrieve(tabId)
   const firstBatch = await events.next()
   t.truthy(firstBatch.value.length)
 })
+
+test('Can retrieve first page containing all events', async t => {
+  await deskbookers.account.login(
+    process.env.LOGIN_EMAIL,
+    process.env.LOGIN_PASSWORD
+  )
+
+  const res = await deskbookers.events.list(30, 0)
+
+  t.truthy(Array.isArray(res))
+})
+
+test('Can mark all events as read', async t => {
+  await deskbookers.account.login(
+    process.env.LOGIN_EMAIL,
+    process.env.LOGIN_PASSWORD
+  )
+
+  const res = await deskbookers.events.markAllAsRead()
+
+  t.truthy(res)
+})
+
