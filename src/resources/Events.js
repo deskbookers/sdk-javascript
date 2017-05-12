@@ -12,7 +12,7 @@ export default class Events extends Resource {
     })
   }
 
-  async list (tabId = null, limit = 10) {
+  async retrieve (tabId = null, limit = 10) {
     if (!tabId) {
       throw new Error('No tab id')
     }
@@ -42,6 +42,28 @@ export default class Events extends Resource {
     } else {
       yield * this.iterateEvents(tabId, startId, limit, offset + offset)
     }
+  }
+
+  async list (limit, offset, tags = []) {
+    return await this.request({
+      method: 'GET',
+      path: 'event',
+      params: {
+        limit,
+        offset,
+        tags
+      }
+    })
+  }
+
+  async markAllAsRead (tags = []) {
+    return await this.request({
+      method: 'POST',
+      path: 'event/read',
+      params: {
+        tags
+      }
+    })
   }
 
   async getEvents (tabId, startId, limit, offset) {
