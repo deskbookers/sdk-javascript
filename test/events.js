@@ -34,3 +34,26 @@ test('Events', async t => {
   const firstBatch = await events.next()
   t.truthy(firstBatch.value.length)
 })
+
+test.only('Can retrieve first page containing all events', async t => {
+  await deskbookers.account.login(
+    process.env.LOGIN_EMAIL,
+    process.env.LOGIN_PASSWORD
+  )
+
+  const res = await deskbookers.events.getAllEvents(30, 0)
+
+  t.truthy(Array.isArray(res))
+})
+
+test('Can mark all events as read', async t => {
+  await deskbookers.account.login(
+    process.env.LOGIN_EMAIL,
+    process.env.LOGIN_PASSWORD
+  )
+
+  const res = await deskbookers.events.markAllAsRead()
+
+  t.truthy(res)
+})
+

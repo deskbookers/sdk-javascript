@@ -44,6 +44,28 @@ export default class Events extends Resource {
     }
   }
 
+  async getAllEvents (limit, offset, tags = []) {
+    return await this.request({
+      method: 'GET',
+      path: 'event',
+      params: {
+        limit,
+        offset,
+        tags
+      }
+    })
+  }
+
+  async markAllAsRead (tags = []) {
+    return await this.request({
+      method: 'POST',
+      path: 'event/read',
+      params: {
+        tags
+      }
+    })
+  }
+
   async getEvents (tabId, startId, limit, offset) {
     return await this.request({
       method: 'GET',

@@ -48,3 +48,5 @@ for (let workplace of workplaces) {
 * events
   * [`unread()`](docs/events.md#unread)
   * [`list(tabId, limit)`](docs/events.md##listtabid-limit)
+  * [`getAllEvents(limit, offset, tags)`](docs/events.md##get-all-events)
+  * [`markAllAsRead(tags)`](docs/events.md##mark-all-as-read)
