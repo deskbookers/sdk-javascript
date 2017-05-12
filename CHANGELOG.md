@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.1 - 2017-05-12
+### Added
+- `createdAt` attribute to `Account` retrieval method
+
 ## 2.0.0 - 2017-05-12
 ### Changed
 - Rename `list` method to `retrieve` in Events resource

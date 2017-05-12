@@ -47,6 +47,6 @@ for (let workplace of workplaces) {
   * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
 * events
   * [`unread()`](docs/events.md#unread)
-  * [`retrieve(tabId, limit)`](docs/events.md##retrievetabid-limit)
-  * [`list(limit, offset, tags)`](docs/events.md##list)
-  * [`markAllAsRead(tags)`](docs/events.md##mark-all-as-read)
+  * [`retrieve(tabId, limit)`](docs/events.md#retrievetabid-limit)
+  * [`list(limit, offset, tags)`](docs/events.md#listlimit-offset-tags)
+  * [`markAllAsRead(tags)`](docs/events.md#mark-all-as-read)
