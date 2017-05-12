@@ -20,13 +20,13 @@ const unread = await deskbookers.events.unread()
 }
 ```
 
-## `list(tabId, limit)`
+## `retrieve(tabId, limit)`
 Lists the events for a given tab `id`. Returns an [async generator](https://github.com/tc39/proposal-async-iteration), or throws and `Error` if no events are returned.
 
 ```js
 const tabId = 1
 const eventsLimit = 10
-const eventsIterator = deskbookers.events.list(tabId, eventsLimit)
+const eventsIterator = deskbookers.events.retrieve(tabId, eventsLimit)
 
 
 // Use async generator directly
@@ -45,7 +45,7 @@ Name | Type | Description | Required
 tabId | Number | Tab id | Yes
 eventsLimit | Number | Amount of events to return | Yes
 
-## `getAllEvents(limit, offset, tags)`
+## `list(limit, offset, tags)`
 Gets all the events for a specific user, if only events of certain type where to be required you can specify them in the tags array.
 
 ```js
