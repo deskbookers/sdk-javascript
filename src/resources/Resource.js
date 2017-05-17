@@ -1,5 +1,7 @@
 import { signer, formatArgs } from '../utils/requests'
 
+const MAX_ERROR_LENGTH = 100
+
 export default class Resource {
   constructor (api) {
     this.api = api
@@ -58,7 +60,16 @@ export default class Resource {
   }
 
   async parseResponse (response) {
-    const data = await response.json()
+    let text = await response.text()
+    let data
+    try {
+      data = JSON.parse(text)
+    } catch (e) {
+      if (text.length > MAX_ERROR_LENGTH) {
+        text = `${text.substr(0, MAX_ERROR_LENGTH)}...`
+      }
+      throw new Error(`Invalid API response received: ${text}`)
+    }
 
     const {
       data: dataProp,
