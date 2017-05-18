@@ -5,7 +5,7 @@ import moment from 'moment'
 import Deskbookers from '../src'
 dotenv.load()
 
-function api () {
+function client () {
   return new Deskbookers({
     https: process.env.API_HTTPS === 'true',
     host: process.env.API_HOST
@@ -13,7 +13,7 @@ function api () {
 }
 
 test('Urgency', async t => {
-  const deskbookers = api()
+  const deskbookers = client()
 
   const now = moment()
   const monthAgo = now.clone().subtract(31, 'days')
