@@ -1,3 +1,4 @@
+import DeskbookersError from '../../DeskbookersError'
 import Resource from '../Resource'
 
 export default class Preferences extends Resource {
@@ -7,30 +8,52 @@ export default class Preferences extends Resource {
   }
 
   async list () {
-    return await this.request({
+    const preferences = await this.request({
       method: 'GET',
       path: this.endpoint
     })
+
+    const map = new Map()
+    for (const item in preferences) {
+      map.set(item, preferences[item])
+    }
+
+    return map
   }
 
-  async retrieve (key) {
-    return await this.request({
+  async retrieve (...keys) {
+    if (!keys.length) {
+      throw new DeskbookersError('Keys are required')
+    }
+
+    const preferences = await this.request({
       method: 'GET',
-      path: `${this.endpoint}/${key}`
+      path: this.endpoint,
+      params: {
+        keys
+      }
     })
+
+    // Return singleton
+    if (keys.length === 1) {
+      return preferences[0]
+    }
+
+    // Return Map for multiple
+    const map = new Map()
+    keys.forEach((key, i) => map.set(key, preferences[i]))
+    return map
   }
 
-  async create (params = {}) {
-    const { key, value } = params
-    const isBulk = (!key && !value) && Array.isArray(params)
-
-    return this.request({
+  async update (preferences = {}) {
+    const res = this.request({
       method: 'POST',
       path: this.endpoint,
       params: {
-        isBulk,
-        preferences: isBulk ? params : { key, value }
+        preferences
       }
     })
+
+    return this.list()
   }
 }
