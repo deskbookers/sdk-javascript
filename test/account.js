@@ -10,7 +10,7 @@ const {
   LOGIN_PASSWORD
 } = process.env
 
-function api () {
+function client () {
   return new Deskbookers({
     https: process.env.API_HTTPS === 'true',
     host: process.env.API_HOST
@@ -29,13 +29,13 @@ async function login (t, deskbookers, dbg) {
 }
 
 test('Login', async t => {
-  const user = await login(t, api(), 'Login')
+  const user = await login(t, client(), 'Login')
 
   t.truthy(user.id)
 })
 
 test('Signup', async t => {
-  const signup = await api().account.signup({
+  const signup = await client().account.signup({
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     email: faker.internet.email(),
@@ -46,13 +46,13 @@ test('Signup', async t => {
 })
 
 test('Forgot', async t => {
-  const forgot = await api().account.forgot(faker.internet.email())
+  const forgot = await client().account.forgot(faker.internet.email())
 
   t.truthy(forgot)
 })
 
 test('Logout', async t => {
-  const deskbookers = api()
+  const deskbookers = client()
   await login(t, deskbookers, 'Logout')
 
   t.truthy(deskbookers.session)
@@ -64,7 +64,7 @@ test('Logout', async t => {
 })
 
 test('Retrieve', async t => {
-  const deskbookers = api()
+  const deskbookers = client()
 
   // Should fail whilte logged out
   t.throws(deskbookers.account.retrieve())
@@ -77,7 +77,7 @@ test('Retrieve', async t => {
 
 test('Set language', async t => {
   // Login
-  const deskbookers = api()
+  const deskbookers = client()
   await login(t, deskbookers, 'Set language')
 
   // Set language test
