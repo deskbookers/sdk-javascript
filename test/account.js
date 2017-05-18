@@ -82,20 +82,22 @@ test('Set language', async t => {
 test('Preferences', async t => {
   const deskbookers = await client(true)
 
-  // Create preference
-  const create = await deskbookers.account.preferences.create({
-    key: 'foo',
-    value: 'bar'
+  // Create / Update preferences
+  const update = await deskbookers.account.preferences.update({
+    foo: 'bar',
+    baz: 'bat'
   })
 
   // Retrieve single
-  const retrieve = await deskbookers.account.preferences.retrieve('foo')
+  const retrieveSingle = await deskbookers.account.preferences.retrieve('foo')
+  const retrieveMultiple = await deskbookers.account.preferences.retrieve('foo', 'baz')
 
   // List all
   const list = await deskbookers.account.preferences.list()
 
   // Test
-  t.is(create.foo, 'bar')
-  t.is(retrieve, 'bar')
+  t.is(update.get('foo'), 'bar')
+  t.is(retrieveSingle, 'bar')
+  t.is(retrieveMultiple.get('baz'), 'bat')
   t.truthy(list)
 })
