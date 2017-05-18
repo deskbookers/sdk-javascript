@@ -293,12 +293,14 @@ Accepts an object of key/values to update. Returns `preferences.list()`.
 ```js
 const preferences = deskbookers.account.preferences
 
-const city = await preferences.update({
+const prefs = await preferences.update({
   city: 'London',
   country: 'United Kingdom',
   timezone: 'Europe/London',
   language: 'en-gb'
 })
+
+prefs.get('country') // 'United Kingdom'
 ```
 
 #### Example response
