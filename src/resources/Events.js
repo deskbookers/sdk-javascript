@@ -1,4 +1,5 @@
 import Resource from './Resource'
+import DeskbookersError from '../DeskbookersError'
 
 export default class Events extends Resource {
   constructor (api) {
@@ -14,7 +15,7 @@ export default class Events extends Resource {
 
   async retrieve (tabId = null, limit = 10) {
     if (!tabId) {
-      throw new Error('No tab id')
+      throw new DeskbookersError('No tab id')
     }
 
     const events = await this.request({
@@ -23,7 +24,7 @@ export default class Events extends Resource {
     })
 
     if (!events.length) {
-      throw new Error('No events')
+      throw new DeskbookersError('No events')
     }
 
     // Get most recent event id
