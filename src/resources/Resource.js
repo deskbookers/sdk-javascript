@@ -1,6 +1,4 @@
 import { signer, formatArgs } from '../utils/requests'
-import DeskbookersError from '../DeskbookersError'
-import InvalidResponseError from '../InvalidResponseError'
 
 export default class Resource {
   constructor (api) {
@@ -60,15 +58,7 @@ export default class Resource {
   }
 
   async parseResponse (response) {
-    // In case of an incorrect response we want to know that the raw response
-    // was. Because of this we can't use response.json()
-    let text = await response.text()
-    let data
-    try {
-      data = JSON.parse(text)
-    } catch (e) {
-      throw new InvalidResponseError(text)
-    }
+    const data = await response.json()
 
     const {
       data: dataProp,
@@ -86,7 +76,7 @@ export default class Resource {
       const { errors } = result
       if (errors) {
         for (let error in errors) {
-          throw new DeskbookersError(errors[error])
+          throw new Error(errors[error])
         }
       }
       return result
@@ -94,18 +84,18 @@ export default class Resource {
     // If "error" exists in response
     } else if (error) {
       const msg = data.errorMessage || 'An error occurred'
-      throw new DeskbookersError(msg)
+      throw new Error(msg)
 
     // If "errors" exists in response
     } else if (errors) {
       for (let error in errors) {
         const msg = errors[error].title || errors[error].detail
-        throw new DeskbookersError(msg)
+        throw new Error(msg)
       }
     }
 
     // Reject
-    throw new DeskbookersError('Invalid response received')
+    throw new Error('Invalid response received')
   }
 
   prepareRequest (url, options, args) {

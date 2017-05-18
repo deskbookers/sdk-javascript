@@ -204,37 +204,3 @@ context | String | Context code | Yes
   }]
 }
 ```
-
-## `setLanguage(language)`
-Store user language.
-
-```js
-await deskbookers.account.setLanguage('en-gb')
-```
-
-### Arguments
-Name | Type | Description | Required
---- | --- | --- | ---
-language | String | Language code | Yes
-
-### Example response
-```json
-true
-```
-
-## `setTimezone(timezone)`
-Store user timezone.
-
-```js
-await deskbookers.account.setTimezone('Europe/Amsterdam')
-```
-
-### Arguments
-Name | Type | Description | Required
---- | --- | --- | ---
-timezone | String | Timezone | Yes
-
-### Example response
-```json
-true
-```

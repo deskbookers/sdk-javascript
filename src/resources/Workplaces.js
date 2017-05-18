@@ -1,5 +1,4 @@
 import Resource from './Resource'
-import DeskbookersError from '../DeskbookersError'
 
 export default class Workplaces extends Resource {
   constructor (api) {
@@ -18,6 +17,7 @@ export default class Workplaces extends Resource {
   async list (params) {
     // Build query from params
     // if Location, etc.
+
     return await this.request({
       method: 'GET',
       path: '/search/results',
@@ -32,9 +32,7 @@ export default class Workplaces extends Resource {
     if (!isArray && typeof params === 'object') {
       params = [ params ]
     } else if (!isArray) {
-      throw new DeskbookersError(
-        'Parameters must be an Object or Array'
-      )
+      throw new Error('Parameters must be an Object or Array')
     }
 
     return await this.request({
