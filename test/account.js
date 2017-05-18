@@ -5,87 +5,53 @@ import Deskbookers from '../src'
 import faker from 'faker'
 dotenv.load()
 
+const deskbookers = new Deskbookers({
+  https: process.env.API_HTTPS === 'true',
+  host: process.env.API_HOST
+})
+
 const {
   LOGIN_EMAIL,
   LOGIN_PASSWORD
 } = process.env
 
-function client () {
-  return new Deskbookers({
-    https: process.env.API_HTTPS === 'true',
-    host: process.env.API_HOST
-  })
-}
-
-async function login (t, deskbookers, dbg) {
-  const user = await deskbookers.account.login(
-    LOGIN_EMAIL,
-    LOGIN_PASSWORD
-  )
-
-  t.truthy(deskbookers.session)
-
-  return user
-}
-
 test('Login', async t => {
-  const user = await login(t, client(), 'Login')
-
-  t.truthy(user.id)
+  const login = await deskbookers.account.login(LOGIN_EMAIL, LOGIN_PASSWORD)
+  t.truthy(login.id)
 })
 
 test('Signup', async t => {
-  const signup = await client().account.signup({
+  const signup = await deskbookers.account.signup({
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     email: faker.internet.email(),
     password: 'p4ssw0rd'
   })
-
   t.truthy(signup.id)
 })
 
 test('Forgot', async t => {
-  const forgot = await client().account.forgot(faker.internet.email())
+  const forgot = await deskbookers.account.forgot(faker.internet.email())
 
   t.truthy(forgot)
 })
 
 test('Logout', async t => {
-  const deskbookers = client()
-  await login(t, deskbookers, 'Logout')
+  // Login and store session
+  await deskbookers.account.login(
+    process.env.LOGIN_EMAIL,
+    process.env.LOGIN_PASSWORD
+  )
 
   t.truthy(deskbookers.session)
 
   // Logout
   await deskbookers.account.logout()
-
   t.is(deskbookers.session, null)
 })
 
 test('Retrieve', async t => {
-  const deskbookers = client()
-
-  // Should fail whilte logged out
   t.throws(deskbookers.account.retrieve())
-
-  await login(t, deskbookers, 'Retrieve')
-
-  // Should succeed while logged in
+  await deskbookers.account.login(LOGIN_EMAIL, LOGIN_PASSWORD)
   t.notThrows(deskbookers.account.retrieve())
-})
-
-test('Set language', async t => {
-  // Login
-  const deskbookers = client()
-  await login(t, deskbookers, 'Set language')
-
-  // Set language test
-  for (let language of ['en-gb']) { // 'en-gb', 'nl-nl', 'de-de']) {
-    const result = await deskbookers.account.setLanguage(language)
-    const user = await deskbookers.account.retrieve()
-
-    t.truthy(result)
-    t.is(user.language, language)
-  }
 })

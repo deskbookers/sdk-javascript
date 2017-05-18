@@ -4,16 +4,12 @@ import test from 'ava'
 import Deskbookers from '../src'
 dotenv.load()
 
-function client () {
-  return new Deskbookers({
-    https: process.env.API_HTTPS === 'true',
-    host: process.env.API_HOST
-  })
-}
+const deskbookers = new Deskbookers({
+  https: process.env.API_HTTPS === 'true',
+  host: process.env.API_HOST
+})
 
 test('Unread count', async t => {
-  const deskbookers = client()
-
   await deskbookers.account.login(
     process.env.LOGIN_EMAIL,
     process.env.LOGIN_PASSWORD
@@ -24,8 +20,6 @@ test('Unread count', async t => {
 })
 
 test('Events', async t => {
-  const deskbookers = client()
-
   await deskbookers.account.login(
     process.env.LOGIN_EMAIL,
     process.env.LOGIN_PASSWORD
@@ -42,8 +36,6 @@ test('Events', async t => {
 })
 
 test('Can retrieve first page containing all events', async t => {
-  const deskbookers = client()
-
   await deskbookers.account.login(
     process.env.LOGIN_EMAIL,
     process.env.LOGIN_PASSWORD
@@ -55,8 +47,6 @@ test('Can retrieve first page containing all events', async t => {
 })
 
 test('Can mark all events as read', async t => {
-  const deskbookers = client()
-
   await deskbookers.account.login(
     process.env.LOGIN_EMAIL,
     process.env.LOGIN_PASSWORD
@@ -66,3 +56,4 @@ test('Can mark all events as read', async t => {
 
   t.truthy(res)
 })
+

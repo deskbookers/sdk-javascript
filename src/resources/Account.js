@@ -136,26 +136,6 @@ export default class Account extends Resource {
     }
   }
 
-  async setLanguage (language) {
-    return await this.request({
-      method: 'POST',
-      path: 'user/language',
-      params: {
-        lang: language
-      }
-    })
-  }
-
-  async setTimezone (timezone) {
-    return await this.request({
-      method: 'POST',
-      path: 'user/timezone',
-      params: {
-        timezone
-      }
-    })
-  }
-
   async contexts ({ ...params } = {}) {
     return await this.request({
       method: 'GET',
