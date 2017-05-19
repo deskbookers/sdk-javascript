@@ -49,6 +49,8 @@ for (let workplace of workplaces) {
     * [`list(keys)`](docs/account.md#listkeys)
     * [`retrieve(key)`](docs/account.md#retrievekey)
     * [`update(params)`](docs/account.md#updateparams)
+* actions
+  * [`report(params)`](docs/actions.md#reportparams)
 * workplaces
   * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
 * events
