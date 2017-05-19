@@ -10,32 +10,27 @@ const {
   LOGIN_PASSWORD
 } = process.env
 
-function client () {
-  return new Deskbookers({
+async function client (login = false) {
+  const deskbookers = new Deskbookers({
     https: process.env.API_HTTPS === 'true',
     host: process.env.API_HOST
   })
-}
 
-async function login (t, deskbookers, dbg) {
-  const user = await deskbookers.account.login(
-    LOGIN_EMAIL,
-    LOGIN_PASSWORD
-  )
+  if (login) {
+    await deskbookers.account.login(LOGIN_EMAIL, LOGIN_PASSWORD)
+  }
 
-  t.truthy(deskbookers.session)
-
-  return user
+  return deskbookers
 }
 
 test('Login', async t => {
-  const user = await login(t, client(), 'Login')
-
-  t.truthy(user.id)
+  const deskbookers = await client(true)
+  t.truthy(deskbookers.session)
 })
 
 test('Signup', async t => {
-  const signup = await client().account.signup({
+  const deskbookers = await client()
+  const signup = await deskbookers.account.signup({
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     email: faker.internet.email(),
@@ -46,15 +41,13 @@ test('Signup', async t => {
 })
 
 test('Forgot', async t => {
-  const forgot = await client().account.forgot(faker.internet.email())
-
+  const deskbookers = await client()
+  const forgot = await deskbookers.account.forgot(faker.internet.email())
   t.truthy(forgot)
 })
 
 test('Logout', async t => {
-  const deskbookers = client()
-  await login(t, deskbookers, 'Logout')
-
+  const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
   // Logout
@@ -64,28 +57,49 @@ test('Logout', async t => {
 })
 
 test('Retrieve', async t => {
-  const deskbookers = client()
+  const deskbookers = await client()
 
-  // Should fail whilte logged out
+  // Fail when logged out
   t.throws(deskbookers.account.retrieve())
 
-  await login(t, deskbookers, 'Retrieve')
 
-  // Should succeed while logged in
+  // Succeed when logged in
+  await deskbookers.account.login(LOGIN_EMAIL, LOGIN_PASSWORD)
   t.notThrows(deskbookers.account.retrieve())
 })
 
 test('Set language', async t => {
-  // Login
-  const deskbookers = client()
-  await login(t, deskbookers, 'Set language')
+  const deskbookers = await client(true)
 
-  // Set language test
-  for (let language of ['en-gb']) { // 'en-gb', 'nl-nl', 'de-de']) {
-    const result = await deskbookers.account.setLanguage(language)
-    const user = await deskbookers.account.retrieve()
+  const language = 'en-gb'
+  const result = await deskbookers.account.setLanguage(language)
+  const user = await deskbookers.account.retrieve()
 
-    t.truthy(result)
-    t.is(user.language, language)
-  }
+  t.truthy(result)
+  t.is(user.language, language)
+})
+
+test('Preferences', async t => {
+  const deskbookers = await client(true)
+
+  // Create / Update preferences
+  const update = await deskbookers.account.preferences.update({
+    foo: 'bar',
+    baz: 'bat'
+  })
+
+  // Retrieve single
+  const retrieve = await deskbookers.account.preferences.retrieve('foo')
+
+  // List partial
+  const listPartial = await deskbookers.account.preferences.list('foo', 'baz')
+
+  // List all
+  const list = await deskbookers.account.preferences.list()
+
+  // Test
+  t.is(update.get('foo'), 'bar')
+  t.is(retrieve, 'bar')
+  t.is(listPartial.get('baz'), 'bat')
+  t.truthy(list)
 })
