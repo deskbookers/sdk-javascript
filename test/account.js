@@ -89,15 +89,17 @@ test('Preferences', async t => {
   })
 
   // Retrieve single
-  const retrieveSingle = await deskbookers.account.preferences.retrieve('foo')
-  const retrieveMultiple = await deskbookers.account.preferences.retrieve('foo', 'baz')
+  const retrieve = await deskbookers.account.preferences.retrieve('foo')
+
+  // List partial
+  const listPartial = await deskbookers.account.preferences.list('foo', 'baz')
 
   // List all
   const list = await deskbookers.account.preferences.list()
 
   // Test
   t.is(update.get('foo'), 'bar')
-  t.is(retrieveSingle, 'bar')
-  t.is(retrieveMultiple.get('baz'), 'bat')
+  t.is(retrieve, 'bar')
+  t.is(listPartial.get('baz'), 'bat')
   t.truthy(list)
 })

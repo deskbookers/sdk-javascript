@@ -7,25 +7,19 @@ export default class Preferences extends Resource {
     this.endpoint = 'user/preferences'
   }
 
-  async list () {
-    const preferences = await this.request({
+  async retrieve (key) {
+    const value = await this.request({
       method: 'GET',
-      path: this.endpoint
+      path: this.endpoint,
+      params: {
+        keys: [key]
+      }
     })
 
-    const map = new Map()
-    for (const item in preferences) {
-      map.set(item, preferences[item])
-    }
-
-    return map
+    return value[0]
   }
 
-  async retrieve (...keys) {
-    if (!keys.length) {
-      throw new DeskbookersError('Keys are required')
-    }
-
+  async list (...keys) {
     const preferences = await this.request({
       method: 'GET',
       path: this.endpoint,
@@ -34,19 +28,14 @@ export default class Preferences extends Resource {
       }
     })
 
-    // Return singleton
-    if (keys.length === 1) {
-      return preferences[0]
-    }
-
-    // Return Map for multiple
+    // Construct and return Map
     const map = new Map()
     keys.forEach((key, i) => map.set(key, preferences[i]))
     return map
   }
 
   async update (preferences = {}) {
-    const res = this.request({
+    const prefs = await this.request({
       method: 'POST',
       path: this.endpoint,
       params: {
@@ -54,6 +43,9 @@ export default class Preferences extends Resource {
       }
     })
 
-    return this.list()
+    // Construct and return Map
+    const map = new Map()
+    Object.keys(prefs).forEach(key => map.set(key, prefs[key]))
+    return map
   }
 }

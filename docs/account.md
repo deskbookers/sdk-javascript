@@ -242,13 +242,24 @@ true
 ## `preferences`
 This sub-resource handles user account preferences.
 
-### `list()`
+### `list(keys)`
 
-Returns a `Map` of all account preferences.
+Returns a `Map` of account preferences. Specify an array of keys to return, or omit to return all.
 
 ```js
-const prefs = await deskbookers.account.preferences.list()
+// Get subset of keys
+const keys = ['city', 'country', 'language', 'timezone']
+await deskbookers.account.preferences.list(...keys)
+
+// Get all
+await deskbookers.account.preferences.list()
 ```
+
+#### Arguments
+Name | Type | Description | Required
+--- | --- | --- | ---
+keys | Array | List of keys to retrieve | No
+
 
 #### Example response
 
@@ -261,34 +272,18 @@ Map {
 }
 ```
 
-### `retrieve(params)`
+### `retrieve(key)`
 
-Retrieves the account preferences based on supplied parameters. Returns the single result if one key is supplied as the parameter, else a `Map` if multiple parameters are supplied as a bulk query.
+Retrieves the account preference value for the supplied key.
 
 ```js
-const preferences = deskbookers.account.preferences
-
-// Singleton
-const city = await preferences.retrieve('city')
-console.log(city) // Amsterdam
-
-// Bulk query
-const prefs = await preferences.retrieve('language', 'timezone')
-prefs.get('language') // nl-nl
-```
-
-#### Example response
-Singleton returns the result, but a bulk query will return a map:
-```js
-Map {
-  "language": "nl-nl",
-  "timezone": "Europe/Amsterdam"
-}
+const city = await deskbookers.account.preferences.retrieve('city')
+console.log(city) // 'Amsterdam'
 ```
 
 ### `update(params)`
 
-Accepts an object of key/values to update. Returns `preferences.list()`.
+Accepts an object of key/values to update. Returns a `Map` of all preferences.
 
 ```js
 const preferences = deskbookers.account.preferences
