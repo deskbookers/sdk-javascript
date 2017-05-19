@@ -46,8 +46,8 @@ for (let workplace of workplaces) {
   * [`setLanguage(language)`](docs/account.md#setlanguagelanguage)
   * [`setTimezone(timezone)`](docs/account.md#settimezonetimezone)
   * [`preferences`](docs/account.md#preferences)
-    * [`list()`](docs/account.md#list)
-    * [`retrieve(params)`](docs/account.md#retrieveparams)
+    * [`list(keys)`](docs/account.md#listkeys)
+    * [`retrieve(key)`](docs/account.md#retrievekey)
     * [`update(params)`](docs/account.md#updateparams)
 * workplaces
   * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
