@@ -169,19 +169,4 @@ export default class Account extends Resource {
       path: `user/menu/${context}`
     })
   }
-
-  async report (message, category, browser, page, context, extras = []) {
-    return await this.request({
-      method: 'POST',
-      path: 'report',
-      params: {
-        message,
-        category,
-        browser,
-        page,
-        context,
-        extras
-      }
-    })
-  }
 }

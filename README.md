@@ -45,6 +45,8 @@ for (let workplace of workplaces) {
   * [`menu(context)`](docs/account.md#menucontext)
   * [`setLanguage(language)`](docs/account.md#setlanguagelanguage)
   * [`setTimezone(timezone)`](docs/account.md#settimezonetimezone)
+* actions
+  * [`report(params)`](docs/actions.md#reportparams)
 * workplaces
   * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
 * events
