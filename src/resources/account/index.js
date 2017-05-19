@@ -1,7 +1,15 @@
-import Resource from './Resource'
+import Resource from '../Resource'
+import Preferences from './Preferences'
 import bcrypt from 'bcryptjs'
 
 export default class Account extends Resource {
+  constructor (api) {
+    super(api)
+
+    // Create sub-resources
+    this.preferences = new Preferences(api)
+  }
+
   async retrieveSalt (email) {
     return await this.request({
       method: 'GET',

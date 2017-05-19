@@ -9,13 +9,13 @@ const password = 'm4c1nt0sh'
 const user = await deskbookers.account.login(email, password)
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 email | String | User account email address | Yes
 password | String | User account password | Yes
 
-### Example response
+#### Example response
 
 ```json
 {
@@ -39,7 +39,7 @@ const user = await deskbookers.account.signup({
 })
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 firstName | String | User first name | Yes
@@ -47,7 +47,7 @@ lastName | String |User last name | Yes
 email | String | User account email address | Yes
 password | String | User account password | Yes
 
-### Example response
+#### Example response
 
 ```json
 {
@@ -68,7 +68,7 @@ const email = 's.jobs@apple.com'
 const res = await deskbookers.account.forgot(email)
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 email | String | Email address | Yes
@@ -81,7 +81,7 @@ Retrieves the current logged in user information.
 const user = await deskbookers.account.retrieve()
 ```
 
-### Example response
+#### Example response
 
 ```json
 {
@@ -105,14 +105,14 @@ const contexts = await deskbookers.account.contexts({
 })
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 query | String | Autocomplete value | No
 page | Number | Pagination number (1 indexed) | No
 supported | Array | Context type returned: 'provider' or 'venue'  | No
 
-### Example response
+#### Example response
 
 ```json
 [{
@@ -134,12 +134,12 @@ const context = contexts[0].context
 const menu = await deskbookers.account.menu(context)
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 context | String | Context code | Yes
 
-### Example response
+#### Example response
 ```json
 {
   "top": [{
@@ -212,12 +212,12 @@ Store user language.
 await deskbookers.account.setLanguage('en-gb')
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 language | String | Language code | Yes
 
-### Example response
+#### Example response
 ```json
 true
 ```
@@ -229,12 +229,81 @@ Store user timezone.
 await deskbookers.account.setTimezone('Europe/Amsterdam')
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 timezone | String | Timezone | Yes
 
-### Example response
+#### Example response
 ```json
 true
+```
+
+## `preferences`
+This sub-resource handles user account preferences.
+
+### `list(keys)`
+
+Returns a `Map` of account preferences. Specify an array of keys to return, or omit to return all.
+
+```js
+// Get subset of keys
+const keys = ['city', 'country', 'language', 'timezone']
+await deskbookers.account.preferences.list(...keys)
+
+// Get all
+await deskbookers.account.preferences.list()
+```
+
+#### Arguments
+Name | Type | Description | Required
+--- | --- | --- | ---
+keys | Array | List of keys to retrieve | No
+
+
+#### Example response
+
+```js
+Map {
+  'city' => 'Amsterdam',
+  'country' => 'Netherlands',
+  'language' => 'nl-nl',
+  'timezone' => 'Europe/Amsterdam'
+}
+```
+
+### `retrieve(key)`
+
+Retrieves the account preference value for the supplied key.
+
+```js
+const city = await deskbookers.account.preferences.retrieve('city')
+console.log(city) // 'Amsterdam'
+```
+
+### `update(params)`
+
+Accepts an object of key/values to update. Returns a `Map` of all preferences.
+
+```js
+const preferences = deskbookers.account.preferences
+
+const prefs = await preferences.update({
+  city: 'London',
+  country: 'United Kingdom',
+  timezone: 'Europe/London',
+  language: 'en-gb'
+})
+
+prefs.get('country') // 'United Kingdom'
+```
+
+#### Example response
+```js
+Map {
+  "city": "London",
+  "country": "United Kingdom",
+  "language": "en-gb",
+  "timezone": "Europe/London"
+}
 ```
