@@ -1,4 +1,4 @@
-# Account
+# Actions
 
 ## `report(params)`
 Reports a problem to Deskbookers.
