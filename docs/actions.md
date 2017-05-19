@@ -5,7 +5,7 @@ Reports a problem to Deskbookers.
 
 ```js
 await deskbookers.actions.report({
-  message: 'This function aint working!',
+  message: `This button ain't working!`,
   category: 'Bugs',
   browser: 'IE6',
   page: '/home',
@@ -17,7 +17,7 @@ await deskbookers.actions.report({
 })
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 message | String | Problem message | Yes
@@ -27,7 +27,7 @@ page | String | Page the problem occured | Yes
 context | String | Context in which problem occured | Yes
 extras | Array | Extra information about problem | No
 
-### Example response
+#### Example response
 
 ```json
 true
