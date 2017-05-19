@@ -27,7 +27,7 @@ test('Reporting a problem', async t => {
     context: 'Provider mode',
     extras: [
       'day' => 'It was on a sunday',
-      'weather' => 'It was on a rainy'
+      'weather' => 'It was rainy'
     ]
   )
 
