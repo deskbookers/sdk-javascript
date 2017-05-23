@@ -1,19 +1,9 @@
-import Account from './resources/account'
-import Cart from './resources/Cart'
-import Events from './resources/Events'
-import Workplaces from './resources/Workplaces'
+import resources from './resources'
 
 const API_HOST = 'backoffice.2cnnct.com'
 const API_VERSION = 1
 const API_LANGUAGE = 'en-gb'
 const API_RESELLER_ID = 10000
-
-const resources = {
-  account: Account,
-  cart: Cart,
-  events: Events,
-  workplaces: Workplaces
-}
 
 export default class Deskbookers {
   constructor ({
@@ -31,9 +21,9 @@ export default class Deskbookers {
     this.resellerId = resellerId
     this.session = null
 
-    // Init resources
-    for (let name in resources) {
-      this[name] = new resources[name](this)
+    // Initialise resources
+    for (const resource in resources) {
+      this[resource] = new resources[resource](this)
     }
   }
 }

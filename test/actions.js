@@ -19,17 +19,17 @@ test('Reporting a problem', async t => {
     process.env.LOGIN_PASSWORD
   )
 
-  const res = await deskbookers.actions.report(
+  const res = await deskbookers.actions.report({
     message: 'This function aint working!',
     category: 'Bugs',
     browser: 'IE6',
     page: '/home',
     context: 'Provider mode',
-    extras: [
-      'day' => 'It was on a sunday',
-      'weather' => 'It was rainy'
-    ]
-  )
+    extras: {
+      day: 'It was on a sunday',
+      weather: 'It was rainy'
+    }
+  })
 
   t.truthy(res)
 })
