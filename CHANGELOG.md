@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.0 - 2017-05-23
+### Added
+- `setTimezone`, `setLanguage` and `preferences` methods to `Account` resource
+- `Actions` resource with `report` method
+
 ## 2.0.1 - 2017-05-12
 ### Added
 - `createdAt` attribute to `Account` retrieval method
