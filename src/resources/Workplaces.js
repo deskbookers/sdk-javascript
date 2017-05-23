@@ -1,5 +1,5 @@
 import Resource from './Resource'
-import DeskbookersError from '../DeskbookersError'
+import { DeskbookersError } from '../errors'
 
 export default class Workplaces extends Resource {
   constructor (api) {

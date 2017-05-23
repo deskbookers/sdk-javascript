@@ -1,4 +1,4 @@
-import DeskbookersError from '../../DeskbookersError'
+import { DeskbookersError } from '../../errors'
 import Resource from '../Resource'
 import { pickAll } from 'ramda'
 

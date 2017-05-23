@@ -1,6 +1,8 @@
 import { signer, formatArgs } from '../utils/requests'
-import DeskbookersError from '../DeskbookersError'
-import InvalidResponseError from '../InvalidResponseError'
+import {
+  DeskbookersError,
+  InvalidResponseError
+} from '../errors'
 
 export default class Resource {
   constructor (api) {

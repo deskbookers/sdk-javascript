@@ -1,4 +1,5 @@
 import Account from './resources/account'
+import Actions from './resources/actions'
 import Cart from './resources/Cart'
 import Events from './resources/Events'
 import Workplaces from './resources/Workplaces'
@@ -10,6 +11,7 @@ const API_RESELLER_ID = 10000
 
 const resources = {
   account: Account,
+  actions: Actions,
   cart: Cart,
   events: Events,
   workplaces: Workplaces
@@ -32,8 +34,8 @@ export default class Deskbookers {
     this.session = null
 
     // Init resources
-    for (let name in resources) {
-      this[name] = new resources[name](this)
+    for (const resource in resources) {
+      this[resource] = new resources[resource](this)
     }
   }
 }
