@@ -7,7 +7,7 @@ Retrieves the unread count of the events, and returns a breakdown of unread coun
 const unread = await deskbookers.events.unread()
 ```
 
-### Example response
+#### Example response
 
 ```json
 {
@@ -39,7 +39,7 @@ for await (let currentBatch of eventsIterator) {
 }
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 tabId | Number | Tab id | Yes
@@ -53,7 +53,7 @@ Gets all the events for a specific user, if only events of certain type where to
 const res = await deskbookers.events.getAllEvents(30, 0, ['booking'])
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 limit | Number | Tab id | Yes
@@ -68,7 +68,7 @@ Gets all the events for a specific user, if only events of certain type where to
 const res = await deskbookers.events.markAllAsRead(['booking'])
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 tags | Array | Tags to filter the results | No

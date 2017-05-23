@@ -14,7 +14,7 @@ const urgency = await deskbookers.workplaces.urgency(12345, {
 })
 ```
 
-### Arguments
+#### Arguments
 Name | Type | Description | Required
 --- | --- | --- | ---
 id | Number | Workplace ID | Yes

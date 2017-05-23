@@ -1,7 +1,15 @@
-import Resource from './Resource'
+import Resource from '../Resource'
+import Preferences from './Preferences'
 import bcrypt from 'bcryptjs'
 
 export default class Account extends Resource {
+  constructor (api) {
+    super(api)
+
+    // Create sub-resources
+    this.preferences = new Preferences(api)
+  }
+
   async retrieveSalt (email) {
     return await this.request({
       method: 'GET',
@@ -134,6 +142,26 @@ export default class Account extends Resource {
       balance,
       createdAt: new Date(parseInt(createdAt) * 1e3)
     }
+  }
+
+  async setLanguage (language) {
+    return await this.request({
+      method: 'POST',
+      path: 'user/language',
+      params: {
+        lang: language
+      }
+    })
+  }
+
+  async setTimezone (timezone) {
+    return await this.request({
+      method: 'POST',
+      path: 'user/timezone',
+      params: {
+        timezone
+      }
+    })
   }
 
   async contexts ({ ...params } = {}) {

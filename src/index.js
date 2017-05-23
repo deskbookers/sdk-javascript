@@ -1,4 +1,4 @@
-import Account from './resources/Account'
+import Account from './resources/account'
 import Cart from './resources/Cart'
 import Events from './resources/Events'
 import Workplaces from './resources/Workplaces'

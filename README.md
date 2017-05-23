@@ -43,6 +43,14 @@ for (let workplace of workplaces) {
   * [`retrieve()`](docs/account.md#retrieve)
   * [`contexts(params)`](docs/account.md#contextsparams)
   * [`menu(context)`](docs/account.md#menucontext)
+  * [`setLanguage(language)`](docs/account.md#setlanguagelanguage)
+  * [`setTimezone(timezone)`](docs/account.md#settimezonetimezone)
+  * [`preferences`](docs/account.md#preferences)
+    * [`list(keys)`](docs/account.md#listkeys)
+    * [`retrieve(key)`](docs/account.md#retrievekey)
+    * [`update(params)`](docs/account.md#updateparams)
+* actions
+  * [`report(params)`](docs/actions.md#reportparams)
 * workplaces
   * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
 * events
