@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.2 - 2017-05-23
+### Fixed
+- Encoded slashes in `report` method parameters on `Actions` resource
+
 ## 2.1.1 - 2017-05-23
 ### Fixed
 - Attached `Actions` resource to global class

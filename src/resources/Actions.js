@@ -18,7 +18,7 @@ export default class Actions extends Resource {
         message,
         category,
         browser,
-        page,
+        page: encodeURIComponent(page),
         context,
         extras
       }
