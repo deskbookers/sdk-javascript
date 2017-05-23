@@ -2,16 +2,22 @@ import DeskbookersError from '../../DeskbookersError'
 import Resource from '../Resource'
 import { pickAll } from 'ramda'
 
-// Construct and return Map
-function constructMap (obj) {
+// Construct Map from object
+const constructMap = o => {
   const map = new Map()
 
-  for (const key in obj) {
-    map.set(key, obj[key])
+  for (const key in o) {
+    map.set(key, o[key])
   }
 
   return map
 }
+
+// Convert response array to object
+const parseResponse = res => res.reduce((o, pref) => {
+  o[pref.key] = pref.value
+  return o
+}, {})
 
 export default class Preferences extends Resource {
   constructor (api) {
@@ -25,7 +31,7 @@ export default class Preferences extends Resource {
       path: this.endpoint
     })
 
-    return JSON.parse(res)
+    return parseResponse(res)
   }
 
   /**
@@ -66,6 +72,6 @@ export default class Preferences extends Resource {
       }
     })
 
-    return constructMap(JSON.parse(res))
+    return constructMap(parseResponse(res))
   }
 }
