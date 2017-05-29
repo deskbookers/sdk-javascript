@@ -1,6 +1,8 @@
 import Resource from './Resource'
 
 export default class Availability extends Resource {
+  source = 'availability'
+
   async listEvents ({
     start,
     end,
@@ -8,7 +10,6 @@ export default class Availability extends Resource {
     noCache = false
   }) {
     return await this.request({
-      source: 'availability',
       path: `venues/${venueId}`,
       params: {
         noCache,

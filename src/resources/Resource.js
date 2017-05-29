@@ -6,18 +6,19 @@ import {
 } from '../errors'
 
 export default class Resource {
+  source = null
+
   constructor (api) {
     this.api = api
   }
 
-  getApiUrl (source) {
-    // Get vars
+  get apiUrl () {
     const { version, sources } = this.api
     let { host, https } = this.api
     let path = `/userapi/v${version}`
 
-    // Overwrite settings with source?
-    const sourceSettings = get(sources, source)
+    // Overwrite settings with source settings when set
+    const sourceSettings = get(sources, this.source)
     if (sourceSettings) {
       host = get(sourceSettings, 'host', host)
       path = `/${get(sourceSettings, 'path', path)}`.replace(/\/+$/, '')
@@ -35,8 +36,7 @@ export default class Resource {
     params = {},
     method = 'GET',
     mode = 'cors',
-    credentials = 'include',
-    source = null
+    credentials = 'include'
   }) {
     method = method.toUpperCase()
     const options = {
@@ -58,9 +58,9 @@ export default class Resource {
     if (options.method === 'POST') {
       options.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
       options.body = queryStr
-      url = `${this.getApiUrl(source)}/${pathFixed}`
+      url = `${this.apiUrl}/${pathFixed}`
     } else {
-      url = `${this.getApiUrl(source)}/${pathFixed}?${queryStr}`
+      url = `${this.apiUrl}/${pathFixed}?${queryStr}`
     }
 
     try {
