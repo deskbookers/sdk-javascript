@@ -52,7 +52,7 @@ for (let workplace of workplaces) {
 * actions
   * [`report(params)`](docs/actions.md#reportparams)
 * availability
-  * [`list(params)`](docs/availability.md#listparams)
+  * [`retrieve(params)`](docs/availability.md#retrieveparams)
 * workplaces
   * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
 * events

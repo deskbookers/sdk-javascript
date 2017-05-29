@@ -1,10 +1,10 @@
 # Availability
 
-## `list(params)`
-Receive availability for a given venue and date range.
+## `retrieve(params)`
+Retrieve availability for a given venue and date range.
 
 ```js
-await deskbookers.availability.list({
+await deskbookers.availability.retrieve({
   venueId: 12345,
   start: '2017-05-01',
   end: '2017-05-08'
