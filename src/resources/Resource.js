@@ -1,4 +1,5 @@
 import { signer, formatArgs } from '../utils/requests'
+import { get } from 'lodash'
 import {
   DeskbookersError,
   InvalidResponseError
@@ -9,10 +10,23 @@ export default class Resource {
     this.api = api
   }
 
-  get apiUrl () {
-    const protocol = this.api.https ? 'https' : 'http'
-    const url = `${protocol}://${this.api.host}/userapi/v${this.api.version}`
-    return url
+  getApiUrl (source) {
+    // Get vars
+    const { version, sources } = this.api
+    let { host, https } = this.api
+    let path = `/userapi/v${version}`
+
+    // Overwrite settings with source?
+    const sourceSettings = get(sources, source)
+    if (sourceSettings) {
+      host = get(sourceSettings, 'host', host)
+      path = `/${get(sourceSettings, 'path', path)}`.replace(/\/+$/, '')
+      https = get(sourceSettings, 'https', https)
+    }
+
+    // Build URL
+    const protocol = https ? 'https' : 'http'
+    return `${protocol}://${host}${path}`
   }
 
   async request ({
@@ -21,7 +35,8 @@ export default class Resource {
     params = {},
     method = 'GET',
     mode = 'cors',
-    credentials = 'include'
+    credentials = 'include',
+    source = null
   }) {
     method = method.toUpperCase()
     const options = {
@@ -43,9 +58,9 @@ export default class Resource {
     if (options.method === 'POST') {
       options.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
       options.body = queryStr
-      url = `${this.apiUrl}/${pathFixed}`
+      url = `${this.getApiUrl(source)}/${pathFixed}`
     } else {
-      url = `${this.apiUrl}/${pathFixed}?${queryStr}`
+      url = `${this.getApiUrl(source)}/${pathFixed}?${queryStr}`
     }
 
     try {
