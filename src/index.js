@@ -49,7 +49,7 @@ export default class Deskbookers {
  * @param String hash The hash to compare the check hash to
  * @return Bool
  */
-export function checkAuthentication (url, method, data, timestamp, privateKey, hash) {
+export function authenticate (url, method, data, timestamp, privateKey, hash) {
   const checkData = buildCheckData(url, { method }, data, timestamp)
   return signData(checkData, privateKey) === hash
 }
