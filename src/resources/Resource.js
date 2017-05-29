@@ -1,18 +1,33 @@
 import { signer, formatArgs } from '../utils/requests'
+import { get } from 'lodash'
 import {
   DeskbookersError,
   InvalidResponseError
 } from '../errors'
 
 export default class Resource {
+  source = null
+
   constructor (api) {
     this.api = api
   }
 
   get apiUrl () {
-    const protocol = this.api.https ? 'https' : 'http'
-    const url = `${protocol}://${this.api.host}/userapi/v${this.api.version}`
-    return url
+    const { version, sources } = this.api
+    let { host, https } = this.api
+    let path = `/userapi/v${version}`
+
+    // Overwrite settings with source settings when set
+    const sourceSettings = get(sources, this.source)
+    if (sourceSettings) {
+      host = get(sourceSettings, 'host', host)
+      path = `/${get(sourceSettings, 'path', path)}`.replace(/\/+$/, '')
+      https = get(sourceSettings, 'https', https)
+    }
+
+    // Build URL
+    const protocol = https ? 'https' : 'http'
+    return `${protocol}://${host}${path}`
   }
 
   async request ({

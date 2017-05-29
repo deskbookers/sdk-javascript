@@ -62,7 +62,6 @@ test('Retrieve', async t => {
   // Fail when logged out
   t.throws(deskbookers.account.retrieve())
 
-
   // Succeed when logged in
   await deskbookers.account.login(LOGIN_EMAIL, LOGIN_PASSWORD)
   t.notThrows(deskbookers.account.retrieve())

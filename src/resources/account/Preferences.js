@@ -1,4 +1,3 @@
-import { DeskbookersError } from '../../errors'
 import Resource from '../Resource'
 import { pickAll } from 'ramda'
 
@@ -49,7 +48,7 @@ export default class Preferences extends Resource {
     const current = await this.getCurrentPreferences()
 
     // Filter preferences based on desired keys
-    const prefs = keys.length ? pickAll(keys, current): current
+    const prefs = keys.length ? pickAll(keys, current) : current
 
     return constructMap(prefs)
   }
