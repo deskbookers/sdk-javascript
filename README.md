@@ -51,6 +51,8 @@ for (let workplace of workplaces) {
     * [`update(params)`](docs/account.md#updateparams)
 * actions
   * [`report(params)`](docs/actions.md#reportparams)
+* availability
+  * [`list(params)`](docs/availability.md#listparams)
 * workplaces
   * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
 * events
