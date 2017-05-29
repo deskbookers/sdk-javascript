@@ -41,7 +41,7 @@ test('listEvents', async t => {
   t.truthy(deskbookers.session)
 
   // List events
-  const data = await deskbookers.availability.listEvents({
+  const data = await deskbookers.availability.list({
     venueId: AVAILABILITY_VENUE_ID,
     start: AVAILABILITY_START,
     end: AVAILABILITY_END

@@ -1,9 +1,9 @@
 import Resource from './Resource'
 
 export default class Availability extends Resource {
-  source = 'availability'
+  source = 'availability';
 
-  async listEvents ({
+  async list ({
     start,
     end,
     venueId,
