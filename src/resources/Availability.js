@@ -3,7 +3,7 @@ import Resource from './Resource'
 export default class Availability extends Resource {
   source = 'availability';
 
-  async list ({
+  async retrieve ({
     start,
     end,
     venueId,
