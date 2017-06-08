@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.2.1 - 2017-06-08
+### Fixed
+- URL encoding in IE11 and lower
+
 ## 2.2.0 - 2017-05-29
 ### Added
 - `Availability` resource
