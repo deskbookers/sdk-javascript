@@ -35,7 +35,7 @@ async function client (login = false) {
   return deskbookers
 }
 
-test('listEvents', async t => {
+test('retrieve', async t => {
   // Prepare API
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
