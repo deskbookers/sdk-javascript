@@ -1,4 +1,5 @@
 import { signer, formatArgs } from '../utils/requests'
+import platform from 'platform'
 import { get } from 'lodash'
 import {
   DeskbookersError,
@@ -51,7 +52,9 @@ export default class Resource {
       __fields: fields,
       ...params
     }
-    const queryStr = formatArgs(args, options.method === 'POST')
+
+    const shouldEncodeArgs = options.method === 'POST' || (platform.name === 'IE' && parseFloat(platform.version) < 12)
+    const queryStr = formatArgs(args, shouldEncodeArgs)
     const pathFixed = path.replace(/^\/+|\/+$/, '')
 
     let url
