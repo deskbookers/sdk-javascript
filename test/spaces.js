@@ -12,6 +12,14 @@ function client () {
   })
 }
 
+test('Get space', async t => {
+  const deskbookers = client()
+
+  const id = 16301
+  const space = await deskbookers.spaces.retrieve(id)
+  t.is(id, space.id)
+})
+
 test('Urgency', async t => {
   const deskbookers = client()
 
@@ -26,7 +34,7 @@ test('Urgency', async t => {
     { type: 'visitors', city: 'amsterdam', start, end }
   ]
 
-  const response = await deskbookers.workplaces.urgency(17657, request)
+  const response = await deskbookers.spaces.urgency(17657, request)
 
   t.truthy(Array.isArray(response), `Expected response to be an array but got ${JSON.stringify(response)}`)
   t.truthy(response.length === request.length, 'Expected response to be the same length as the request')
