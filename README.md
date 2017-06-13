@@ -53,8 +53,9 @@ for (let workplace of workplaces) {
   * [`report(params)`](docs/actions.md#reportparams)
 * availability
   * [`retrieve(params)`](docs/availability.md#retrieveparams)
-* workplaces
-  * [`urgency(id, params)`](docs/workplaces.md#urgencyid-params)
+* spaces
+  * [`retrieve(id)`](docs/spaces.md#retrieveid)
+  * [`urgency(id, params)`](docs/spaces.md#urgencyid-params)
 * events
   * [`unread()`](docs/events.md#unread)
   * [`retrieve(tabId, limit)`](docs/events.md#retrievetabid-limit)
