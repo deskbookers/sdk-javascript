@@ -3,7 +3,7 @@ import Actions from './Actions'
 import Availability from './Availability'
 import Cart from './Cart'
 import Events from './Events'
-import Workplaces from './Workplaces'
+import Spaces from './Spaces'
 
 export default {
   account: Account,
@@ -11,5 +11,5 @@ export default {
   availability: Availability,
   cart: Cart,
   events: Events,
-  workplaces: Workplaces
+  spaces: Spaces
 }

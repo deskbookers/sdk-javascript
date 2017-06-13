@@ -1,16 +1,16 @@
 import Resource from './Resource'
 import { DeskbookersError } from '../errors'
 
-export default class Workplaces extends Resource {
+export default class Spaces extends Resource {
   constructor (api) {
     super(api)
     this.endpoint = 'workplace'
   }
 
-  async retrieve (workplaceId) {
+  async retrieve (spaceId) {
     return await this.request({
       method: 'GET',
-      path: `/${this.endpoint}/${workplaceId}`,
+      path: `/${this.endpoint}/${spaceId}`,
       fields: []
     })
   }
@@ -25,7 +25,7 @@ export default class Workplaces extends Resource {
     })
   }
 
-  async urgency (workplaceId, params) {
+  async urgency (spaceId, params) {
     const isArray = Array.isArray(params)
 
     // API expects params as []
@@ -39,7 +39,7 @@ export default class Workplaces extends Resource {
 
     return await this.request({
       method: 'GET',
-      path: `/${this.endpoint}/${workplaceId}/urgency`,
+      path: `/${this.endpoint}/${spaceId}/urgency`,
       params: { params }
     })
   }
