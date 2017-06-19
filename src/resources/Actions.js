@@ -4,7 +4,7 @@ export default class Actions extends Resource {
   async reportToSales (params) {
     const {
       context,
-      extras
+      extras = []
     } = params
 
     return await this.request({
