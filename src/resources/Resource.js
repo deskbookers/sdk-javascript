@@ -1,6 +1,6 @@
-import { signer, formatArgs } from '../utils/requests'
+import { signer, formatArgs, phpJsonEncode } from '../utils/requests'
 import platform from 'platform'
-import { get } from 'lodash'
+import { get, includes, isEmpty } from 'lodash'
 import {
   DeskbookersError,
   InvalidResponseError
@@ -37,46 +37,53 @@ export default class Resource {
     params = {},
     method = 'GET',
     mode = 'cors',
-    credentials = 'include'
+    credentials = 'include',
+    body = null
   }) {
     method = method.toUpperCase()
     const options = {
       mode,
       credentials,
       method,
-      headers: {}
+      headers: {},
+      body: ''
     }
-    const args = {
+    let args = {
       __resellerID: this.api.resellerId,
       __i18n: this.api.language,
       __fields: fields,
       ...params
     }
-
-    const shouldEncodeArgs = options.method === 'POST' || (platform.name === 'IE' && parseFloat(platform.version) < 12)
-    const queryStr = formatArgs(args, shouldEncodeArgs)
+    
+    let url
     const pathFixed = path.replace(/^\/+|\/+$/, '')
 
-    let url
-    if (options.method === 'POST') {
-      options.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
-      options.body = queryStr
+    if (!isEmpty(body)) {
+      options.headers['Content-Type'] = 'application/json'
+      options.body = phpJsonEncode(body)
+      options.rawBody = true
+      args = body
       url = `${this.apiUrl}/${pathFixed}`
     } else {
-      url = `${this.apiUrl}/${pathFixed}?${queryStr}`
+      const shouldEncodeArgs = options.method === 'POST' 
+        || (platform.name === 'IE' && parseFloat(platform.version) < 12)
+      const queryStr = formatArgs(args, shouldEncodeArgs)
+      if (includes(['POST', 'PUT'], options.method)) {
+        options.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+        options.body = queryStr
+        url = `${this.apiUrl}/${pathFixed}`
+      } else {
+        url = `${this.apiUrl}/${pathFixed}?${queryStr}`
+      }
     }
 
-    try {
-      const {
-        url: requestUrl,
-        options: requestOptions
-      } = await this.prepareRequest(url, options, args)
+    const {
+      url: requestUrl,
+      options: requestOptions
+    } = await this.prepareRequest(url, options, args)
 
-      const response = await fetch(requestUrl, requestOptions)
-      return this.parseResponse(response)
-    } catch (e) {
-      return false
-    }
+    const response = await fetch(requestUrl, requestOptions)
+    return this.parseResponse(response)
   }
 
   async parseResponse (response) {
@@ -117,11 +124,10 @@ export default class Resource {
       throw new DeskbookersError(msg)
 
     // If "errors" exists in response
-    } else if (errors) {
-      for (let error in errors) {
-        const msg = errors[error].title || errors[error].detail
-        throw new DeskbookersError(msg)
-      }
+  } else if (errors) {
+      errors.map(error => {
+        throw new DeskbookersError(`${error.title}: ${error.detail}`)
+      })
     }
 
     // Reject
