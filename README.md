@@ -64,8 +64,8 @@ for (let workplace of workplaces) {
 * features
   * [`list(type)`](docs/features.md#listtype)
   * [`create(feature)`](docs/features.md#createfeature)
-  * [`update(featureName, feature)`](docs/features.md#updatefeatureName-feature)
-  * [`delete(featureName)`](docs/features.md#deletefeatureName)
-  * [`listByVenue(venueId)`](docs/features.md#listByVenuevenueId)
-  * [`checkFeatureByVenue(venueId, featureName)`](docs/features.md#checkFeatureByVenuevenueId-featureName)
-  * [`updateFeatureByVenue(venueId, featureName, feature)`](docs/features.md#updateFeatureByVenuevenueId-featureName-feature)
+  * [`update(featureName, feature)`](docs/features.md#updatefeaturename-feature)
+  * [`delete(featureName)`](docs/features.md#deletefeaturename)
+  * [`listByVenue(venueId)`](docs/features.md#listbyvenuevenueid)
+  * [`checkFeatureByVenue(venueId, featureName)`](docs/features.md#checkfeaturebyvenuevenueid-featureName)
+  * [`updateFeatureByVenue(venueId, featureName, feature)`](docs/features.md#updatefeaturebyvenuevenueid-featurename-feature)
