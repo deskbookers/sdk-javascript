@@ -3,6 +3,7 @@ import { parse } from 'url'
 import { stringify } from 'qs'
 import jsonEncode from 'json_encode'
 import urlencode from 'phpurlencode'
+import { includes, isEmpty } from 'lodash'
 
 export const signer = ({ publicKey, privateKey }, url, options, args) => {
   // Prepare vars
@@ -45,8 +46,10 @@ export const buildCheckData = (url, options, args, timestamp) => [
   options.method.toUpperCase(),
   timestamp,
   parse(url).path,
-  options.method.toUpperCase() === 'POST'
-    ? phpJsonEncode(jsonifyArgs(args))
+  includes(['POST', 'PUT'], options.method)
+    ? !options.rawBody
+      ? phpJsonEncode(jsonifyArgs(args))
+      : phpJsonEncode(args)
     : phpJsonEncode([])
 ].join('\n')
 

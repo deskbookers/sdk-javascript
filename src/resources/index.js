@@ -3,6 +3,7 @@ import Actions from './Actions'
 import Availability from './Availability'
 import Cart from './Cart'
 import Events from './Events'
+import Features from './Features'
 import Spaces from './Spaces'
 
 export default {
@@ -11,5 +12,6 @@ export default {
   availability: Availability,
   cart: Cart,
   events: Events,
+  features: Features,
   spaces: Spaces
 }

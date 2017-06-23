@@ -61,3 +61,11 @@ for (let workplace of workplaces) {
   * [`retrieve(tabId, limit)`](docs/events.md#retrievetabid-limit)
   * [`list(limit, offset, tags)`](docs/events.md#listlimit-offset-tags)
   * [`markAllAsRead(tags)`](docs/events.md#mark-all-as-read)
+* features
+  * [`list(type)`](docs/features.md#listtype)
+  * [`create(feature)`](docs/features.md#createfeature)
+  * [`update(featureName, feature)`](docs/features.md#updatefeaturename-feature)
+  * [`delete(featureName)`](docs/features.md#deletefeaturename)
+  * [`listByVenue(venueId)`](docs/features.md#listbyvenuevenueid)
+  * [`checkFeatureByVenue(venueId, featureName)`](docs/features.md#checkfeaturebyvenuevenueid-featureName)
+  * [`updateFeatureByVenue(venueId, featureName, feature)`](docs/features.md#updatefeaturebyvenuevenueid-featurename-feature)
