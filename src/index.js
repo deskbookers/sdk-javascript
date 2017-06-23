@@ -5,8 +5,10 @@ const API_HOST = 'backoffice.2cnnct.com'
 const API_VERSION = 1
 const API_LANGUAGE = 'en-gb'
 const API_RESELLER_ID = 10000
-const API_AVAILABILITY_HOST = 'api-availability.2cnnct.com'
+const API_AVAILABILITY_HOST = 'api-availability.deskbookers.com'
 const API_AVAILABILITY_PATH = ''
+const API_FEATURE_HOST = 'api-features.deskbookers.com'
+const API_FEATURE_PATH = ''
 
 export default class Deskbookers {
   constructor ({
@@ -19,6 +21,10 @@ export default class Deskbookers {
       availability: {
         host: API_AVAILABILITY_HOST,
         path: API_AVAILABILITY_PATH
+      },
+      feature: {
+        host: API_FEATURE_HOST,
+        path: API_FEATURE_PATH
       }
     }
   }) {
@@ -49,7 +55,7 @@ export default class Deskbookers {
  * @param String hash The hash to compare the check hash to
  * @return Bool
  */
-export function authenticate (url, method, data, timestamp, privateKey, hash) {
-  const checkData = buildCheckData(url, { method }, data, timestamp)
+export function authenticate (url, method, data, timestamp, privateKey, hash, rawBody = false) {
+  const checkData = buildCheckData(url, { method, rawBody }, data, timestamp)
   return signData(checkData, privateKey) === hash
 }
