@@ -46,7 +46,7 @@ export default class Resource {
       credentials,
       method,
       headers: {},
-      body: ''
+      body: null
     }
     let args = {
       __resellerID: this.api.resellerId,
