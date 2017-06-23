@@ -67,6 +67,7 @@ test('check feature is enabled for venue', async t => {
   const data = await deskbookers.features.checkFeatureByVenue(
     1, 'regularCustumerDiscounts'
   )
+  console.log(data)
   t.truthy(data)
 })
 

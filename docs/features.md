@@ -188,35 +188,43 @@ const data = await deskbookers.feature.listByVenue(1)
 ```json
 [
   {
-    "description": "Regular customer discounts",
+    "description": "Regular custumer discounts",
+    "end": null,
     "features": [
       {
-        "description": "Regular customer discounts son 1",
+        "description": "Regular custumer discounts son 1",
+        "end": null,
         "features": [
-            {
-              "description": "Regular customer discounts grandson 1",
-              "id": 7,
-              "name": "rcdGrandson1",
-              "parentId": 5,
-              "type": "venue"
-            }
+          {
+            "description": "Regular custumer discounts grandson 1",
+            "end": "2017-07-20T10:37:17.313Z",
+            "id": 7,
+            "name": "rcdGrandson1",
+            "parentId": 5,
+            "start": "2017-06-20T10:37:17.313Z",
+            "type": "venue"
+          }
         ],
         "id": 5,
         "name": "rcdSon1",
         "parentId": 1,
+        "start": "2017-06-20T10:37:17.217Z",
         "type": "venue"
       },
       {
-        "description": "Regular customer discounts son 2",
+        "description": "Regular custumer discounts son 2",
+        "end": null,
         "id": 6,
         "name": "rcdSon2",
         "parentId": 1,
+        "start": "2017-06-20T10:37:17.260Z",
         "type": "venue"
       }
     ],
     "id": 1,
-    "name": "regularCustomerDiscounts",
+    "name": "regularCustumerDiscounts",
     "parentId": null,
+    "start": "2017-06-20T10:37:17.172Z",
     "type": "venue"
   }
 ]
@@ -233,9 +241,7 @@ List all active features for a given `venueId` and `featureName`.
 ```
 #### Example response
 ```json
-{
-  "enabled": false
-}
+false
 ```
 
 ## `updateFeatureByVenue(venueId, featureName, feature)`

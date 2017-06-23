@@ -65,7 +65,7 @@ export default class Resource {
       args = body
       url = `${this.apiUrl}/${pathFixed}`
     } else {
-      const shouldEncodeArgs = options.method === 'POST' 
+      const shouldEncodeArgs = includes(['POST', 'PUT'], options.method)
         || (platform.name === 'IE' && parseFloat(platform.version) < 12)
       const queryStr = formatArgs(args, shouldEncodeArgs)
       if (includes(['POST', 'PUT'], options.method)) {

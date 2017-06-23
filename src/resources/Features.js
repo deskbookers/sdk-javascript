@@ -86,12 +86,13 @@ export default class Features extends Resource {
    * @return {Object[]}
    */
   async checkFeatureByVenue (venueId, featureName, noCache = false) {
-    return await this.request({
+    const result = await this.request({
       path: `venues/${venueId}/features/${featureName}`,
       params: {
         noCache
       }
     })
+    return result.enabled
   }
 
   /**
