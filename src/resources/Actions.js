@@ -1,6 +1,22 @@
 import Resource from './Resource'
 
 export default class Actions extends Resource {
+  async reportToSales (params) {
+    const {
+      context,
+      extras = []
+    } = params
+
+    return await this.request({
+      method: 'POST',
+      path: 'report_sales',
+      params: {
+        context,
+        extras
+      }
+    })
+  }
+
   async report (params) {
     const {
       message,
