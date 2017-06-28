@@ -69,3 +69,9 @@ for (let workplace of workplaces) {
   * [`listByVenue(venueId)`](docs/features.md#listbyvenuevenueid)
   * [`checkFeatureByVenue(venueId, featureName)`](docs/features.md#checkfeaturebyvenuevenueid-featureName)
   * [`updateFeatureByVenue(venueId, featureName, feature)`](docs/features.md#updatefeaturebyvenuevenueid-featurename-feature)
+* notifications
+  * [`list(userId, start, limit, type, unread, noCache)`](docs/notifications.md#listuserId-start-limit-type-unread-noCache)
+  * [`count(userId, start, limit, type, unread, noCache)`](docs/notifications.md#countuserId-start-limit-type-unread-noCache)
+  * [`create(notification)`](docs/notifications.md#createnotification)
+  * [`update(userId, body)`](docs/notifications.md#updateuserId-body)
+  * [`delete()`](docs/notifications.md#delete)

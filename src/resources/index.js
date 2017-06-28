@@ -5,6 +5,7 @@ import Cart from './Cart'
 import Events from './Events'
 import Features from './Features'
 import Spaces from './Spaces'
+import Notifications from './Notifications'
 
 export default {
   account: Account,
@@ -13,5 +14,6 @@ export default {
   cart: Cart,
   events: Events,
   features: Features,
-  spaces: Spaces
+  spaces: Spaces,
+  notifications: Notifications
 }
