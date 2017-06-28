@@ -70,8 +70,8 @@ for (let workplace of workplaces) {
   * [`checkFeatureByVenue(venueId, featureName)`](docs/features.md#checkfeaturebyvenuevenueid-featureName)
   * [`updateFeatureByVenue(venueId, featureName, feature)`](docs/features.md#updatefeaturebyvenuevenueid-featurename-feature)
 * notifications
-  * [`list(userId, start, limit, type, unread, noCache)`](docs/notifications.md#listuserId-start-limit-type-unread-noCache)
-  * [`count(userId, start, limit, type, unread, noCache)`](docs/notifications.md#countuserId-start-limit-type-unread-noCache)
+  * [`list(userId, start, limit, type, unread, noCache)`](docs/notifications.md#listuserid-start-limit-type-unread-nocache)
+  * [`count(userId, start, limit, type, unread, noCache)`](docs/notifications.md#countuserid-start-limit-type-unread-noCache)
   * [`create(notification)`](docs/notifications.md#createnotification)
-  * [`update(userId, body)`](docs/notifications.md#updateuserId-body)
+  * [`update(userId, body)`](docs/notifications.md#updateuserid-body)
   * [`delete()`](docs/notifications.md#delete)
