@@ -57,7 +57,7 @@ export const phpJsonEncode = (val) => jsonEncode(
   typeof val === 'undefined'
     ? null
     : val
-)
+).replace(/(?!\\)\//g, '\\/')
 
 export const onlyAmpEncode = (str) => (str + '').toString()
   .replace('&', '%26')
