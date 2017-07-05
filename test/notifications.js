@@ -36,7 +36,8 @@ test('list notifications', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.list(999999999, 0, 10)
+  const data = await deskbookers.notifications.list({userId: 999999999, start: 0, limit: 10, noCache: true})
+  console.log('list notifications', data)
   t.truthy(data)
 })
 
@@ -45,7 +46,8 @@ test('list notifications by type', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.list(999999999, 0, 10, 'corgi')
+  const data = await deskbookers.notifications.list({userId: 999999999, start: 0, limit: 10, type: 'corgi', noCache: true})
+  console.log('list notifications by type', data)
   t.truthy(data)
 })
 
@@ -54,56 +56,58 @@ test('list unread notifications', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.list(999999999, 0, 10, null, true)
+  const data = await deskbookers.notifications.list({userId: 999999999, start: 0, limit: 10, type: null, unread: true, noCache: true})
+  console.log('list unread notifications', data)
   t.truthy(data)
 })
 
-test('list unread notifications', async t => {
+test('list unread notifications by type', async t => {
   // Prepare API
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.list(999999999, 0, 10, 'blue-corgi', false)
+  const data = await deskbookers.notifications.list({userId: 999999999, start: 0, limit: 10, type: 'blue-corgi', unread: false, noCache: true})
+  console.log('list unread notifications by type', data)
   t.truthy(data)
 })
 
-test('list notifications', async t => {
+test('count notifications', async t => {
   // Prepare API
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.count(999999999, 0, 10)
-  console.log(data)
+  const data = await deskbookers.notifications.count({userId: 999999999, start: 0, limit: 10, noCache: true})
+  console.log('count notifications', data)
   t.truthy(data)
 })
 
-test('list notifications by type', async t => {
+test('count notifications by type', async t => {
   // Prepare API
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.count(999999999, 0, 10, 'corgi')
-  console.log(data)
+  const data = await deskbookers.notifications.count({userId: 999999999, start: 0, limit: 10, type: 'corgi', noCache: true})
+  console.log('count notifications by type', data)
   t.truthy(data)
 })
 
-test('list unread notifications', async t => {
+test('count unread notifications', async t => {
   // Prepare API
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.count(999999999, 0, 10, null, true)
-  console.log(data)
+  const data = await deskbookers.notifications.count({userId: 999999999, start: 0, limit: 10, type: null, unread: true, noCache: true})
+  console.log('count unread notifications', data)
   t.truthy(data)
 })
 
-test('list unread notifications', async t => {
+test('count read notifications by type', async t => {
   // Prepare API
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.count(999999999, 0, 10, 'blue-corgi', false)
-  console.log(data)
+  const data = await deskbookers.notifications.count({userId: 999999999, start: 0, limit: 10, type: 'blue-corgi', unread: false, noCache: true})
+  console.log('count read notifications by type', data)
   t.truthy(data)
 })
 

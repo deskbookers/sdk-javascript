@@ -14,14 +14,14 @@ export default class Notifications extends Resource {
    * @param {bool} [noCache=false] - Flag to turn off the cache.
    * @return {Object[]} - Notifications.
    */
-  async list (
+  async list ({
     userId,
     start,
     limit,
     type,
     unread,
     noCache = false
-  ) {
+  } = {}) {
     const params = {
       userId,
       start,
@@ -48,7 +48,7 @@ export default class Notifications extends Resource {
    * @param {bool} [noCache=false] - Flag to turn off the cache.
    * @return {int} - Notifications.
    */
-  async count (
+  async count ({
     userId,
     start,
     limit,
@@ -87,7 +87,8 @@ export default class Notifications extends Resource {
   }
 
   /**
-   * Update notification
+   * Mark notification read 
+   * For a given `type`(optional) in the body as a json and for a given `userId`
    *
    * @param {Object} notification - Notification body.
    * @return {Object}
@@ -101,7 +102,7 @@ export default class Notifications extends Resource {
   }
 
   /**
-   * Delete notification
+   * Delete notifications created more than 15 days
    * 
    * @return {Object} - Status
    */

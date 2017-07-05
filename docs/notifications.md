@@ -15,7 +15,9 @@ List all avaiable notifications for a given `userId`, `type` or if `unread`
 | noCache | bool   | No       | Reset and rebuild cache   |
 
 ```js
-const data = await deskbookers.notifications.list(999999999, 0, 10, 'blue-corgi', false)
+const data = await deskbookers.notifications.list(
+  {userId: 999999999, start: 0, limit: 10, type: 'blue-corgi', unread: false}
+)
 ```
 
 #### Example response
@@ -63,7 +65,9 @@ Count all avaiable notifications for a given `userId`, `type` or if `unread`
 | noCache | bool   | No       | Reset and rebuild cache   |
 
 ```js
-const data = await deskbookers.notifications.count(999999999, 0, 10, 'blue-corgi', false)
+const data = await deskbookers.notifications.count(
+  {userId: 999999999, start: 0, limit: 10, type: 'blue-corgi', unread: false}
+)
 ```
 
 #### Example response

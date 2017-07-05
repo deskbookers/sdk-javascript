@@ -109,7 +109,13 @@ test('updateFeatureByVenue feature', async t => {
   let start = new Date().setDate(new Date().getDate()-20) 
   let end = null
   const data = await deskbookers.features.updateFeatureByVenue(
-    2, 'bookingTool', {enabled: true, start, end}
+    2,
+    'bookingTool',
+    {
+      enabled: true,
+      start,
+      end
+    }
   )
   t.truthy(data)
 })
