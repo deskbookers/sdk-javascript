@@ -30,7 +30,7 @@ async function client (login = false) {
   }
   return deskbookers
 }
-/*
+
 test('list notifications', async t => {
   // Prepare API
   const deskbookers = await client(true)
@@ -154,7 +154,7 @@ test.before('create notification', async t => {
   )
   t.truthy(data)
 })
-*/
+
 test('mark notification read by type', async t => {
   // Prepare API
   const deskbookers = await client(true)
