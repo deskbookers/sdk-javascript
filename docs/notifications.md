@@ -1,4 +1,4 @@
-# Features
+# Nofitications
 
 ## `list(userId, start, limit, type, unread, noCache)`
 List all avaiable notifications for a given `userId`, `type` or if `unread`
