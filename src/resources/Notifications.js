@@ -65,11 +65,10 @@ export default class Notifications extends Resource {
       noCache
     }
     clean(params)
-    const result = await this.request({
+    return await this.request({
       path: `notifications/count/${userId}`,
       params
     })
-    return Array.isArray(result) ? result[0].count : result
   }
 
   /**
