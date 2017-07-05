@@ -2,7 +2,7 @@ import { hmac, sha512 } from 'hash.js'
 import { parse } from 'url'
 import { stringify } from 'qs'
 import jsonEncode from 'json_encode'
-import urlencode from 'phpurlencode'
+import urlencode from 'deskbookers-phpurlencode'
 import { includes, isEmpty } from 'lodash'
 
 export const signer = ({ publicKey, privateKey }, url, options, args) => {

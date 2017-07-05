@@ -112,17 +112,12 @@ const data = await deskbookers.notifications.create(
 }
 ```
 
-## `update(userId, body)`
+## `flagAsRead(userId, type)`
 Mark notification read for a given `type`(optional) in the body as a json and for a given `userId`.
 
-#### Body
-
-| Name        | Type      | Required | Description                   |
-| ----------- | --------- | -------- | ----------------------------- |
-| type        | string    | No       | Filter update by type         |
 
 ```js
-const data = await deskbookers.notifications.update(2, {type: 'fluffycorgi'})
+const data = await deskbookers.notifications.flagAsRead(2, 'fluffycorgi')
 ```
 
 #### Example response
