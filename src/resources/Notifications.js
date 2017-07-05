@@ -55,7 +55,7 @@ export default class Notifications extends Resource {
     type,
     unread,
     noCache = false
-  ) {
+  }) {
     const params = {
       userId,
       start,
