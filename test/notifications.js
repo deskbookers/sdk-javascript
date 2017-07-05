@@ -133,6 +133,16 @@ test.before('create notification', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
+  await deskbookers.notifications.create(
+    {
+      userId: 3, 
+      type: 'fluffycorgi',
+      context: 'c12345',
+      meta:'{"clientName": "Chompers", "companyName": "Lambda3"}',
+      createdDate: 1496925186484
+    }
+  )
+
   const data = await deskbookers.notifications.create(
     {
       userId: 2, 
@@ -145,14 +155,21 @@ test.before('create notification', async t => {
   t.truthy(data)
 })
 
+test('mark notification read by type', async t => {
+  // Prepare API
+  const deskbookers = await client(true)
+  t.truthy(deskbookers.session)
+
+  const data = await deskbookers.notifications.update(2, 'fluffycorgi')
+  t.truthy(data)
+})
+
 test('mark notification read', async t => {
   // Prepare API
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.update(
-    2, {type: 'fluffycorgi'}
-  )
+  const data = await deskbookers.notifications.update(3)
   t.truthy(data)
 })
 

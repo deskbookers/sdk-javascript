@@ -93,11 +93,11 @@ export default class Notifications extends Resource {
    * @param {Object} notification - Notification body.
    * @return {Object}
    */
-  async update (userId, notification) {
+  async flagAsRead (userId, type) {
     return await this.request({
       method: 'PUT',
       path: `notifications/${userId}`,
-      body: notification
+      body: {type}
     })
   }
 
