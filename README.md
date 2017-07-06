@@ -69,3 +69,5 @@ for (let workplace of workplaces) {
   * [`listByVenue(venueId)`](docs/features.md#listbyvenuevenueid)
   * [`checkFeatureByVenue(venueId, featureName)`](docs/features.md#checkfeaturebyvenuevenueid-featureName)
   * [`updateFeatureByVenue(venueId, featureName, feature)`](docs/features.md#updatefeaturebyvenuevenueid-featurename-feature)
+* bookings
+  * [`month(date, venueId)`](docs/bookings.md#monthdate-venueid)
