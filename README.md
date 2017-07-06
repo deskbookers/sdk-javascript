@@ -75,3 +75,5 @@ for (let workplace of workplaces) {
   * [`create(notification)`](docs/notifications.md#createnotification)
   * [`update(userId, body)`](docs/notifications.md#updateuserid-body)
   * [`delete()`](docs/notifications.md#delete)
+* bookings
+  * [`month(date, venueId)`](docs/bookings.md#monthdate-venueid)

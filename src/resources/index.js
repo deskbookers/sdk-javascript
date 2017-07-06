@@ -6,6 +6,7 @@ import Events from './Events'
 import Features from './Features'
 import Spaces from './Spaces'
 import Notifications from './Notifications'
+import Bookings from './Bookings'
 
 export default {
   account: Account,
@@ -15,5 +16,6 @@ export default {
   events: Events,
   features: Features,
   spaces: Spaces,
-  notifications: Notifications
+  notifications: Notifications,
+  bookings: Bookings
 }
