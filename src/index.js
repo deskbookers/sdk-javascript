@@ -22,7 +22,11 @@ export default class Deskbookers {
         host: API_AVAILABILITY_HOST,
         path: API_AVAILABILITY_PATH
       },
-      feature: {
+      features: {
+        host: API_FEATURE_HOST,
+        path: API_FEATURE_PATH
+      },
+      notifications: {
         host: API_FEATURE_HOST,
         path: API_FEATURE_PATH
       }

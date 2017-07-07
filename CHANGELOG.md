@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.2.5 - 2017-06-30
+### Changes
+- Added `Notifications` resource
+
 ## 3.1.0 - 2017-06-22
 ### Changes
 - Added `Resources` resource

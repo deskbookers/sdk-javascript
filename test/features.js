@@ -31,7 +31,6 @@ async function client (login = false) {
   return deskbookers
 }
 
-
 test('list features', async t => {
   // Prepare API
   const deskbookers = await client(true)
@@ -67,7 +66,6 @@ test('check feature is enabled for venue', async t => {
   const data = await deskbookers.features.checkFeatureByVenue(
     1, 'regularCustumerDiscounts'
   )
-  console.log(data)
   t.truthy(data)
 })
 
@@ -109,9 +107,15 @@ test('updateFeatureByVenue feature', async t => {
   t.truthy(deskbookers.session)
 
   let start = new Date().setDate(new Date().getDate()-20) 
-  let end = new Date().setDate(new Date().getDate()+5) 
+  let end = null
   const data = await deskbookers.features.updateFeatureByVenue(
-    2, 'bookingTool', {enabled: true, start}
+    2,
+    'bookingTool',
+    {
+      enabled: true,
+      start,
+      end
+    }
   )
   t.truthy(data)
 })
