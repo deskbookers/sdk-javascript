@@ -50,7 +50,7 @@ const data = await deskbookers.notifications.list(
 ]
 ```
 
-## `count({userId, start, limit, type, unread, noCache})`
+## `count({userId, type, unread, noCache})`
 Count all avaiable notifications for a given `userId`, `type` or if `unread`
 
 #### Params
