@@ -1,6 +1,6 @@
 # Notifications
 
-## `list(userId, start, limit, type, unread, noCache)`
+## `list({userId, start, limit, type, unread, noCache})`
 List all avaiable notifications for a given `userId`, `type` or if `unread`
 
 #### Params
@@ -50,7 +50,7 @@ const data = await deskbookers.notifications.list(
 ]
 ```
 
-## `count(userId, start, limit, type, unread, noCache)`
+## `count({userId, start, limit, type, unread, noCache})`
 Count all avaiable notifications for a given `userId`, `type` or if `unread`
 
 #### Params
@@ -58,15 +58,13 @@ Count all avaiable notifications for a given `userId`, `type` or if `unread`
 | Name    | Type   | Required | Description               |
 | ------- | ------ | -------- | ------------------------- |
 | userId  | int    | Yes      | ID of the venue           |
-| start   | string | Yes      | Start row                 |
-| limit   | string | Yes      | Limit results per request |
 | type    | string | No       | Filter results by type    |
 | unread  | bool   | No       | Filter results by unread  |
 | noCache | bool   | No       | Reset and rebuild cache   |
 
 ```js
 const data = await deskbookers.notifications.count(
-  {userId: 999999999, start: 0, limit: 10, type: 'blue-corgi', unread: false}
+  {userId: 999999999, type: 'blue-corgi', unread: false}
 )
 ```
 

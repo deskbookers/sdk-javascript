@@ -41,8 +41,6 @@ export default class Notifications extends Resource {
    * Count notifications by user
    *
    * @param {int} userId - Filter features by userId.
-   * @param {int} start- Starting row for pagination.
-   * @param {int} limit - Limit results per request.
    * @param {string} [type=''] - Filter results by type.
    * @param {bool} [unread=''] - Filter results by unread.
    * @param {bool} [noCache=false] - Flag to turn off the cache.
@@ -50,16 +48,12 @@ export default class Notifications extends Resource {
    */
   async count ({
     userId,
-    start,
-    limit,
     type,
     unread,
     noCache = false
   }) {
     const params = {
       userId,
-      start,
-      limit,
       type,
       unread,
       noCache
