@@ -9,6 +9,8 @@ const API_AVAILABILITY_HOST = 'api-availability.deskbookers.com'
 const API_AVAILABILITY_PATH = ''
 const API_FEATURE_HOST = 'api-features.deskbookers.com'
 const API_FEATURE_PATH = ''
+const API_NOTIFICATIONS_HOST = 'api-notifications.deskbookers.com'
+const API_NOTIFICATIONS_PATH = ''
 
 export default class Deskbookers {
   constructor ({
@@ -27,8 +29,8 @@ export default class Deskbookers {
         path: API_FEATURE_PATH
       },
       notifications: {
-        host: API_FEATURE_HOST,
-        path: API_FEATURE_PATH
+        host: API_NOTIFICATIONS_HOST,
+        path: API_NOTIFICATIONS_PATH
       }
     }
   }) {
