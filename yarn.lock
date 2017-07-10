@@ -1513,6 +1513,10 @@ delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
 
+deskbookers-phpurlencode@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/deskbookers-phpurlencode/-/deskbookers-phpurlencode-1.0.0.tgz#3fbdba2ec9ebcc2ca06ecbf840432fadeb772ad2"
+
 detect-indent@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-4.0.0.tgz#f76d064352cdf43a1cb6ce619c4ee3a9475de208"
@@ -2536,10 +2540,6 @@ path-type@^1.0.0:
     graceful-fs "^4.1.2"
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
-
-phpurlencode@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/phpurlencode/-/phpurlencode-1.0.0.tgz#4b1152c98963b4eb711ca44695a86bd791a3e77d"
 
 pify@^2.0.0:
   version "2.3.0"
