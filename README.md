@@ -71,9 +71,9 @@ for (let workplace of workplaces) {
   * [`updateFeatureByVenue(venueId, featureName, feature)`](docs/features.md#updatefeaturebyvenuevenueid-featurename-feature)
 * notifications
   * [`list(userId, start, limit, type, unread, noCache)`](docs/notifications.md#listuserid-start-limit-type-unread-nocache)
-  * [`count(userId, start, limit, type, unread, noCache)`](docs/notifications.md#countuserid-start-limit-type-unread-nocache)
+  * [`count(userId, type, unread, noCache)`](docs/notifications.md#countuserid-start-limit-type-unread-nocache)
   * [`create(notification)`](docs/notifications.md#createnotification)
-  * [`update(userId, body)`](docs/notifications.md#updateuserid-body)
+  * [`flagAsRead(userId, body, id)`](docs/notifications.md#flagasreaduserid-body-id)
   * [`delete()`](docs/notifications.md#delete)
 * bookings
   * [`month(date, venueId)`](docs/bookings.md#monthdate-venueid)

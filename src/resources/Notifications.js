@@ -81,16 +81,29 @@ export default class Notifications extends Resource {
 
   /**
    * Mark notification read 
-   * For a given `type`(optional) in the body as a json and for a given `userId`
+   * For a given `type`(optional) or notification `id`(optional) 
+   * in the body as a json and for a given `userId`.
    *
-   * @param {Object} notification - Notification body.
+   * @param {int} userId - Filter features by userId.
+   * @param {string} [type=''] - Filter results by type.
+   * @param {int} id - Filter by notifications id.
    * @return {Object}
    */
-  async flagAsRead (userId, type) {
+  async flagAsRead ({
+    userId,
+    type,
+    id
+  }) {
+    const body = {
+      type,
+      id
+    }
+    clean(body)
+    console.log(userId, body)
     return await this.request({
       method: 'PUT',
       path: `notifications/${userId}`,
-      body: {type}
+      body: {body}
     })
   }
 
