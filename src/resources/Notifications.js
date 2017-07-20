@@ -99,11 +99,10 @@ export default class Notifications extends Resource {
       id
     }
     clean(body)
-    console.log(userId, body)
     return await this.request({
       method: 'PUT',
       path: `notifications/${userId}`,
-      body: {body}
+      body
     })
   }
 
