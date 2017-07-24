@@ -8,13 +8,15 @@ export default class Features extends Resource {
    *
    * @param {string} [type=''] - Filter features by type.
    * @param {bool} [noCache=false] - Flag to turn off the cache.
+   * @param {string} [country=''] - Country for retriving prices.
    * @return {Object[]} - Features.
    */
-  async list (type = '', noCache = false) {
+  async list ({type = '', noCache = false, country = ''} = {}) {
     return await this.request({
       path: `features/${type}`,
       params: {
-        noCache
+        noCache, 
+        country
       }
     })
   }
