@@ -45,7 +45,16 @@ test('list features by type', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.features.list('booking')
+  const data = await deskbookers.features.list({type: 'booking'})
+  t.truthy(data)
+})
+
+test('list features with country', async t => {
+  // Prepare API
+  const deskbookers = await client(true)
+  t.truthy(deskbookers.session)
+
+  const data = await deskbookers.features.list({country: 'Hyrule'})
   t.truthy(data)
 })
 
@@ -55,17 +64,6 @@ test('list venue features', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.features.listByVenue(1)
-  t.truthy(data)
-})
-
-test('check feature is enabled for venue', async t => {
-  // Prepare API
-  const deskbookers = await client(true)
-  t.truthy(deskbookers.session)
-
-  const data = await deskbookers.features.checkFeatureByVenue(
-    1, 'regularCustumerDiscounts'
-  )
   t.truthy(data)
 })
 
@@ -116,6 +114,17 @@ test('updateFeatureByVenue feature', async t => {
       start,
       end
     }
+  )
+  t.truthy(data)
+})
+
+test('check feature is enabled for venue', async t => {
+  // Prepare API
+  const deskbookers = await client(true)
+  t.truthy(deskbookers.session)
+
+  const data = await deskbookers.features.checkFeatureByVenue(
+    2, 'bookingTool'
   )
   t.truthy(data)
 })
