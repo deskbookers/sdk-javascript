@@ -1,7 +1,7 @@
 # Features
 
 ## `list(type)`
-List all avaiable features for a given `type`(optional).
+List all avaiable features for a given `type`(optional) or `country`(optional).
 
 ```js
 const data = await deskbookers.feature.list()
@@ -82,6 +82,32 @@ const data = await deskbookers.feature.list()
 ]
 ```
 
+```js
+const data = await deskbookers.feature.list({type: 'booking'})
+```
+#### Example response
+```json
+[
+  {
+    "description": "Booking tool",
+    "features": [
+      {
+        "description": "Booking Tool Son 1",
+        "id": 8,
+        "name": "btSon1",
+        "parentId": 2,
+        "readonly": true,
+        "type": "booking"
+      }
+    ],
+    "id": 2,
+    "name": "bookingTool",
+    "parentId": null,
+    "readonly": true,
+    "type": "booking"
+  }
+]
+```
 ```js
 const data = await deskbookers.feature.list('booking')
 ```

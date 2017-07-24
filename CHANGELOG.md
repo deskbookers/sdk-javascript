@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 5.0.0 - 2017-07-24
+### Changes
+- Added parameter `country` on `Features` list and changed for object parameters
+
 ## 3.2.5 - 2017-06-30
 ### Changes
 - Added `Notifications` resource
