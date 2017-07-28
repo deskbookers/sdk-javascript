@@ -41,4 +41,4 @@ await deskbookers.venues.savePaymentSettings(11710, {
 Name | Type | Description | Required
 --- | --- | --- | ---
 id | Number | Venue ID | Yes
-params | `Array` or `Object` | Query options | Yes
+params | `Object` | PaymentSettings | Yes
