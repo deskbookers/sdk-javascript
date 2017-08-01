@@ -1,5 +1,25 @@
 # Venues
 
+## `retrieve(venueId, { fields, params })`
+Retrieves a single venue.
+
+```js
+const venueId = 11710
+const fields = ['id', 'image_urls']
+const params = { width: 360, height: 240 }
+await deskbookers.venues.retrieve(venueId, { fields, params })
+```
+
+#### Arguments
+Name | Type | Description | Required
+--- | --- | --- | ---
+venueId | Number | Venue ID | Yes
+fields | Array|Object | Fields whitelist | No
+params | Object | Extra arguments | No
+
+## `savePaymentSettings(venueId, params)`
+Retrieves the payment settings data for a venue.
+
 ## `getPaymentSettings(venueId)`
 Retrieves a single space.
 
