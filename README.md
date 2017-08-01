@@ -78,5 +78,6 @@ for (let workplace of workplaces) {
 * bookings
   * [`month(date, venueId)`](docs/bookings.md#monthdate-venueid)
 * venues
+  * [`retrieve(venueId, { fields, params })`](docs/venues.md#retrievevenueid--fields-params-)
   * [`getPaymentSettings(venueId)`](docs/venues.md#getpaymentsettings-venueId)
   * [`savePaymentSettings(venueId, params)`](docs/venues.md#savepaymentsettings-venueId-params)
