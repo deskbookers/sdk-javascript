@@ -40,7 +40,8 @@ export default class Venues extends Resource {
    * Retrieve a venue
    *
    * @param {int} venueId - Venue Id
-   * @param
+   * @param {Array|Object} fields - Fields whitelist
+   * @param {Object} params - Extra arguments
    * @return {Object}
    */
   async retrieve (venueId, { fields = [], params = {} } = {}) {
