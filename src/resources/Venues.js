@@ -4,6 +4,7 @@ import { DeskbookersError } from '../errors'
 export default class Venues extends Resource {
   constructor (api) {
     super(api)
+    this.endpoint = 'location'
   }
 
   /**
@@ -32,6 +33,22 @@ export default class Venues extends Resource {
       params: {
         data: paymentSettings
       }
+    })
+  }
+
+  /**
+   * Retrieve a venue
+   *
+   * @param {int} venueId - Venue Id
+   * @param
+   * @return {Object}
+   */
+  async retrieve (venueId, { fields = [], params = {} } = {}) {
+    return await this.request({
+      method: 'GET',
+      path: `/${this.endpoint}/${venueId}`,
+      fields,
+      params
     })
   }
 }
