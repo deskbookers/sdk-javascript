@@ -234,3 +234,42 @@ test('payments create subscriptions for user', async t => {
   console.log('create subscriptions for user', data)
   t.truthy(data)
 })
+
+test('list user sources', async t => {
+  // Prepare API
+  const deskbookers = await client(true)
+  t.truthy(deskbookers.session)
+
+  const data = await deskbookers.payments.users.listSources({
+    userId: 'rb5',
+    limit: 1
+  })
+  console.log('list user sources', data)
+  t.truthy(data)
+})
+
+test('delete user source', async t => {
+  // Prepare API
+  const deskbookers = await client(true)
+  t.truthy(deskbookers.session)
+
+  const data = await deskbookers.payments.users.deleteSource({
+    userId: 'rb5',
+    sourceId: 'src_1AmliGGAwNnYLy52m399REmA'
+  })
+  console.log('delete user source', data)
+  t.truthy(data)
+})
+
+test('set user source source', async t => {
+  // Prepare API
+  const deskbookers = await client(true)
+  t.truthy(deskbookers.session)
+
+  const data = await deskbookers.payments.users.setDefaultSource({
+    userId: 'rb5',
+    sourceId: 'src_1AmleQGAwNnYLy52BVGHaUfn'
+  })
+  console.log('set user source source', data)
+  t.truthy(data)
+})

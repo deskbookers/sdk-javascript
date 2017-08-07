@@ -111,6 +111,52 @@ export default class Users extends Resource {
   }
 
   /**
+   * Get user souces
+   *
+   * @param {int} userId - User Id.
+   * @param {int} limit - Pagination limit.
+   * @param {string} lastId - Pagination lastId.
+   * @return {Object[]} - sources.
+   */
+  async listSources ({userId, limit, lastId} = {}) {
+    return await this.request({
+      path: `${this.endpoint}/${userId}/sources`,
+      params: {
+        limit,
+        lastId
+      }
+    })
+  }
+
+  /**
+   * Delete user source
+   *
+   * @param {int} userId - User Id.
+   * @param {string} sourceId - Source Id.
+   * @return {Object[]} - sources.
+   */
+  async deleteSource ({userId, sourceId} = {}) {
+    return await this.request({
+      method: 'DELETE',
+      path: `${this.endpoint}/${userId}/sources/${sourceId}`
+    })
+  }
+
+  /**
+   * Set Default user source
+   *
+   * @param {int} userId - User Id.
+   * @param {string} sourceId - Source Id.
+   * @return {Object[]} - default source.
+   */
+  async setDefaultSource ({userId, sourceId} = {}) {
+    return await this.request({
+      method: 'PUT',
+      path: `${this.endpoint}/${userId}/defaultsource/${sourceId}`
+    })
+  }
+
+  /**
    * Create Charge for users
    *
    * @param {int} userId - User Id.
