@@ -8,6 +8,7 @@ import Spaces from './Spaces'
 import Notifications from './Notifications'
 import Bookings from './Bookings'
 import Venues from './Venues'
+import Payments from './payments'
 
 export default {
   account: Account,
@@ -19,5 +20,6 @@ export default {
   spaces: Spaces,
   notifications: Notifications,
   bookings: Bookings,
-  venues: Venues
+  venues: Venues,
+  payments: Payments
 }

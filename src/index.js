@@ -11,6 +11,8 @@ const API_FEATURE_HOST = 'api-features.deskbookers.com'
 const API_FEATURE_PATH = ''
 const API_NOTIFICATIONS_HOST = 'api-notifications.deskbookers.com'
 const API_NOTIFICATIONS_PATH = ''
+const API_PAYMENTS_HOST = 'api-payments.deskbookers.com'
+const API_PAYMENTS_PATH = ''
 
 export default class Deskbookers {
   constructor ({
@@ -31,6 +33,10 @@ export default class Deskbookers {
       notifications: {
         host: API_NOTIFICATIONS_HOST,
         path: API_NOTIFICATIONS_PATH
+      },
+      payments: {
+        host: API_PAYMENTS_HOST,
+        path: API_PAYMENTS_PATH
       }
     }
   }) {
