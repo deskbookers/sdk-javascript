@@ -112,7 +112,7 @@ Get user for a given `userId`
 
 | Name           | Type   | Required | Description         |
 | -------------- | ------ | -------- | ------------------- |
-| userId         | int    | Yes      | User Id             |
+| userId         | string | Yes      | User Id             |
 
 ```js
 const data = await deskbookers.payments.users.get(
@@ -127,7 +127,7 @@ Get user subscriptions for a given `userId`
 
 | Name           | Type   | Required | Description         |
 | -------------- | ------ | -------- | ------------------- |
-| userId         | int    | Yes      | User Id             |
+| userId         | string | Yes      | User Id             |
 
 ```js
 const data = await deskbookers.payments.users.subscriptions(
@@ -142,7 +142,7 @@ Get user invoices for a given `userId`
 
 | Name           | Type   | Required | Description         |
 | -------------- | ------ | -------- | ------------------- |
-| userId         | int    | Yes      | User Id             |
+| userId         | string | Yes      | User Id             |
 
 ```js
 const data = await deskbookers.payments.users.invoices(
@@ -157,7 +157,7 @@ Get user payments for a given `userId`
 
 | Name           | Type   | Required | Description         |
 | -------------- | ------ | -------- | ------------------- |
-| userId         | int    | Yes      | User Id             |
+| userId         | string | Yes      | User Id             |
 
 ```js
 const data = await deskbookers.payments.users.payments(
@@ -172,7 +172,7 @@ Create / Update user payments for a given `userId` and `user`
 
 | Name           | Type   | Required | Description         |
 | -------------- | ------ | -------- | ------------------- |
-| userId         | int    | Yes      | User Id             |
+| userId         | string | Yes      | User Id             |
 | user           | object | Yes      | User Object         |
 
 #### User
@@ -197,7 +197,7 @@ Create source for a given `userId`
 
 | Name           | Type   | Required | Description         |
 | -------------- | ------ | -------- | ------------------- |
-| userId         | int    | Yes      | User Id             |
+| userId         | string | Yes      | User Id             |
 | token          | object | Yes      | Source Token        |
 | email          | string | No       | Source email        |
 | setDefault     | bool   | No       | Source is default   |
@@ -218,7 +218,7 @@ Create subscriptions for a given `userId`
 
 | Name           | Type   | Required | Description         |
 | -------------- | ------ | -------- | ------------------- |
-| userId         | int    | Yes      | User Id             |
+| userId         | string | Yes      | User Id             |
 | subscription   | object | Yes      | Subscription Object |
 
 #### Subscription
@@ -280,7 +280,7 @@ Create a charge for a given `userId` and `charge`
 
 | Name           | Type   | Required | Description         |
 | -------------- | ------ | -------- | ------------------- |
-| userId         | int    | Yes      | User Id             |
+| userId         | string | Yes      | User Id             |
 | charge         | object | Yes      | User Object         |
 
 #### Charge
@@ -306,4 +306,59 @@ const data = await deskbookers.payments.users.createCharge({
     meta: { a: 1, b: 2 }
   }
 })
+```
+
+## `users.listSources({userId, limit, lastId})`
+List sources for a given `userId`
+
+#### Params
+
+| Name    | Type   | Required | Description               |
+| ------- | ------ | -------- | ------------------------- |
+| userId  | string | Yes      | User Id                   |
+| limit   | int    | No       | Limit results per request |
+| lastId  | string | No       | Used for Pagination       |
+
+
+```js
+  const data = await deskbookers.payments.users.listSources({
+    userId: 'rb5',
+    limit: 10
+  })
+```
+
+## `users.deleteSource({userId, sourceId})`
+List sources for a given `userId`
+
+#### Params
+
+| Name     | Type   | Required | Description               |
+| -------- | ------ | -------- | ------------------------- |
+| userId   | string | Yes      | User Id                   |
+| sourceId | string | No       | Used for Pagination       |
+
+
+```js
+  const data = await deskbookers.payments.users.deleteSource({
+    userId: 'rb5',
+    sourceId: 'src_1AmliGGAwNnYLy52m399REmA'
+  })
+```
+
+## `users.setDefaultSource({userId, sourceId})`
+Set source as default for a given `userId`
+
+#### Params
+
+| Name     | Type   | Required | Description               |
+| -------- | ------ | -------- | ------------------------- |
+| userId   | string | Yes      | User Id                   |
+| sourceId | string | No       | Used for Pagination       |
+
+
+```js
+  const data = await deskbookers.payments.users.setDefaultSource({
+    userId: 'rb5',
+    sourceId: 'src_1AmleQGAwNnYLy52BVGHaUfn'
+  })
 ```

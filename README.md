@@ -97,3 +97,6 @@ for (let workplace of workplaces) {
   * [`users.createSource({userId, token, email, setDefault})`](docs/payments.md#users.createSourceuserid-token-email-setdefault)
   * [`users.createSubscription({userId, subscription})`](docs/payments.md#users.createsubscriptionuserid-subscription)
   * [`users.createCharge({userId, charge})`](docs/payments.md#users.createchargeuserid-charge)
+  * [`users.listSources({userId, limit, lastId})`](docs/payments.md#users.listsourcesuserid-limit-lastid)
+  * [`users.deleteSource({userId, sourceId})`](docs/payments.md#users.deletesourceuserid-sourceid)
+  * [`users.setDefaultSource({userId, sourceId})`](docs/payments.md#users.setdefaultsourceuserid-sourceid)
