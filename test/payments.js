@@ -1,5 +1,6 @@
 
 import dotenv from 'dotenv'
+import { get } from 'lodash'
 import 'fetch-everywhere'
 import test from 'ava'
 import Deskbookers from '../src'
@@ -38,7 +39,6 @@ test('payments invoices list', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.invoices.list({})
-  console.log('list invoices', data)
   t.truthy(data)
 })
 
@@ -50,7 +50,6 @@ test('payments invoices list', async t => {
   const data = await deskbookers.payments.invoices.get(
     {invoiceId: 'in_1AmlLiGAwNnYLy52pW4WN9p1'}
   )
-  console.log('get invoice', data)
   t.truthy(data)
 })
 
@@ -60,7 +59,6 @@ test('payments plans list', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.plans.list({})
-  console.log('list plans', data)
   t.truthy(data)
 })
 
@@ -72,9 +70,8 @@ test('payments plan', async t => {
   const data = await deskbookers.payments.plans.get(
     {planId: 'bookingTool-9900-1x-month-0'}
   )
-  console.log('get plan', data)
   t.truthy(data)
-}) 
+})
 
 test('payments subscriptions plan', async t => {
   // Prepare API
@@ -84,7 +81,6 @@ test('payments subscriptions plan', async t => {
   const data = await deskbookers.payments.plans.subscriptions(
     {planId: 'bookingTool-9900-1x-month-0'}
   )
-  console.log('subscriptions plan', data)
   t.truthy(data)
 })
 
@@ -94,7 +90,6 @@ test('payments subscriptions list', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.subscriptions.list({limit: 1, status: 'active'})
-  console.log('list subscriptions', data)
   t.truthy(data)
 })
 
@@ -104,7 +99,6 @@ test('payments get subscription', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.subscriptions.get({subscriptionId: 'sub_B93SRrYAV6KF7V'})
-  console.log('get subscription', data)
   t.truthy(data)
 })
 
@@ -116,7 +110,6 @@ test('payments user', async t => {
   const data = await deskbookers.payments.users.get(
     {userId: 'rb5'}
   )
-  console.log('get user', data)
   t.truthy(data)
 })
 
@@ -128,7 +121,6 @@ test('payments user subscriptions', async t => {
   const data = await deskbookers.payments.users.subscriptions({
     userId: 'rb5'
   })
-  console.log('get user', data)
   t.truthy(data)
 })
 
@@ -140,7 +132,6 @@ test('payments user invoices', async t => {
   const data = await deskbookers.payments.users.invoices({
     userId: 'rb5'
   })
-  console.log('get user', data)
   t.truthy(data)
 })
 
@@ -152,7 +143,6 @@ test('payments user payments', async t => {
   const data = await deskbookers.payments.users.payments({
     userId: 'rb5'
   })
-  console.log('get user', data)
   t.truthy(data)
 })
 
@@ -165,7 +155,6 @@ test('payments create user', async t => {
     userId: 'rb6',
     user: {email: 'lomoa@lamao.comoa'}
   })
-  console.log('create user', data)
   t.truthy(data)
 })
 
@@ -180,7 +169,6 @@ test('payments create source for user', async t => {
     email: 'lomoa@lamao.comoa',
     setDefault: true
   })
-  console.log('create source for user', data)
   t.truthy(data)
 })
 
@@ -211,11 +199,12 @@ test('payments create subscriptions for user', async t => {
       ]
     }
   })
-  console.log('create subscriptions for user', data)
+
   t.truthy(data)
+  t.is(get(data, 'meta.userUid'), 'rb6-features')
 })
 
-test('payments create subscriptions for user', async t => {
+test('payments create charge for user', async t => {
   // Prepare API
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
@@ -231,7 +220,6 @@ test('payments create subscriptions for user', async t => {
       meta: { a: 1, b: 2 }
     }
   })
-  console.log('create subscriptions for user', data)
   t.truthy(data)
 })
 
@@ -244,7 +232,6 @@ test('list user sources', async t => {
     userId: 'rb5',
     limit: 1
   })
-  console.log('list user sources', data)
   t.truthy(data)
 })
 
@@ -253,11 +240,18 @@ test('delete user source', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
+  // Create a source
+  const source = await deskbookers.payments.users.createSource({
+    userId: 'rb5',
+    token: 'tok_br',
+    email: 'lomoa@lamao.comoa',
+    setDefault: true
+  })
+
   const data = await deskbookers.payments.users.deleteSource({
     userId: 'rb5',
-    sourceId: 'src_1AmliGGAwNnYLy52m399REmA'
+    sourceId: source.id
   })
-  console.log('delete user source', data)
   t.truthy(data)
 })
 
@@ -270,6 +264,5 @@ test('set user source source', async t => {
     userId: 'rb5',
     sourceId: 'src_1AmleQGAwNnYLy52BVGHaUfn'
   })
-  console.log('set user source source', data)
   t.truthy(data)
 })
