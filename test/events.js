@@ -20,7 +20,8 @@ test('Unread count', async t => {
   )
 
   const unread = await deskbookers.events.unread()
-  t.truthy(unread.total)
+
+  t.is(typeof unread.total, 'number')
 })
 
 test('Events', async t => {

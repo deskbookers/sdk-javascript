@@ -23,7 +23,7 @@ async function client (login = false) {
 test('Get booking', async t => {
   const deskbookers = await client(true)
   const date = moment().subtract(2, 'months').calendar();
-  
+
   let booking = await deskbookers.bookings.month(date, 12686)
-  console.dir(booking)
+  t.truthy(booking)
 })

@@ -111,6 +111,23 @@ export default class Users extends Resource {
   }
 
   /**
+   * Create subscription for users
+   *
+   * @param {int} userId - User Id.
+   * @param {string} token - Source token.
+   * @param {string} email - Email Source token.
+   * @param {bool} setDefault - Default flag token.
+   * @return {Object[]} - sources.
+   */
+  async createSubscription ({userId, subscription} = {}) {
+    return await this.request({
+      method: 'POST',
+      path: `${this.endpoint}/${userId}/subscriptions`,
+      body: subscription || {}
+    })
+  }
+
+  /**
    * Get user souces
    *
    * @param {int} userId - User Id.
