@@ -42,13 +42,13 @@ test('payments invoices list', async t => {
   t.truthy(data)
 })
 
-test('payments invoices list', async t => {
+test('payments invoices get', async t => {
   // Prepare API
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.invoices.get(
-    {invoiceId: 'in_1AmlLiGAwNnYLy52pW4WN9p1'}
+    {invoiceId: 'in_1AqhEsGAwNnYLy52Ces9TQVZ'}
   )
   t.truthy(data)
 })
@@ -98,7 +98,7 @@ test('payments get subscription', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.payments.subscriptions.get({subscriptionId: 'sub_B93SRrYAV6KF7V'})
+  const data = await deskbookers.payments.subscriptions.get({subscriptionId: 'sub_BD7TzpiYW9PSlz'})
   t.truthy(data)
 })
 
@@ -216,7 +216,7 @@ test('payments create charge for user', async t => {
       amount: 1,
       currency: 'eur',
       description: 'Pay dude!',
-      source: 'card_1An6aVGAwNnYLy52pblSpdCQ',
+      source: 'card_1AqhDlGAwNnYLy52VpBAZjRD',
       meta: { a: 1, b: 2 }
     }
   })
@@ -261,8 +261,8 @@ test('set user source source', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.users.setDefaultSource({
-    userId: 'rb5',
-    sourceId: 'src_1AmleQGAwNnYLy52BVGHaUfn'
+    userId: 'rb6',
+    sourceId: 'card_1AqhEiGAwNnYLy52Pz0eWvxm'
   })
   t.truthy(data)
 })
