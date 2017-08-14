@@ -68,7 +68,7 @@ test('payments plan', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.plans.get(
-    {planId: 'bookingTool-9900-1x-month-0'}
+    {planId: 'bookingTool-9900-1x-month-0-eur'}
   )
   t.truthy(data)
 })
@@ -79,7 +79,7 @@ test('payments subscriptions plan', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.plans.subscriptions(
-    {planId: 'bookingTool-9900-1x-month-0'}
+    {planId: 'bookingTool-9900-1x-month-0-eur'}
   )
   t.truthy(data)
 })
@@ -196,7 +196,8 @@ test('payments create subscriptions for user', async t => {
           name: 'Booking tool',
           amount: 99.0
         }
-      ]
+      ],
+      meta: {target: 'features'}
     }
   })
 
@@ -216,8 +217,8 @@ test('payments create charge for user', async t => {
       amount: 1,
       currency: 'eur',
       description: 'Pay dude!',
-      source: 'card_1AqhDlGAwNnYLy52VpBAZjRD',
-      meta: { a: 1, b: 2 }
+      source: 'card_1Aqk38GAwNnYLy52ViCI6J2d',
+      meta: { a: 1, b: 2, target: 'features' }
     }
   })
   t.truthy(data)
