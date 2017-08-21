@@ -54,7 +54,7 @@ export default class Resource {
       __fields: fields,
       ...params
     }
-    
+
     let url
     const pathFixed = path.replace(/^\/+|\/+$/, '')
 
@@ -83,10 +83,10 @@ export default class Resource {
     } = await this.prepareRequest(url, options, args)
 
     const response = await fetch(requestUrl, requestOptions)
-    return this.parseResponse(response)
+    return this.parseResponse(response, requestUrl)
   }
 
-  async parseResponse (response) {
+  async parseResponse (response, url) {
     // In case of an incorrect response we want to know that the raw response
     // was. Because of this we can't use response.json()
     let text = await response.text()
@@ -94,7 +94,7 @@ export default class Resource {
     try {
       data = JSON.parse(text)
     } catch (e) {
-      throw new InvalidResponseError(text)
+      throw new InvalidResponseError(text, url)
     }
 
     const {
@@ -124,7 +124,7 @@ export default class Resource {
       throw new DeskbookersError(msg)
 
     // If "errors" exists in response
-  } else if (errors) {
+    } else if (errors) {
       errors.map(error => {
         throw new DeskbookersError(`${error.title}: ${error.detail}`)
       })

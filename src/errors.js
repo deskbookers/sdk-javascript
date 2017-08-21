@@ -8,15 +8,16 @@ export class DeskbookersError extends Error {
 }
 
 export class InvalidResponseError extends DeskbookersError {
-  constructor (text) {
+  constructor (text, url = null) {
     // Prepare text
     text = `${text || ''}`
-
-    if (text.length > MAX_ERROR_LENGTH) {
-      text = `${text.substr(0, MAX_ERROR_LENGTH)}...`
+    let shortText = text
+    if (shortText.length > MAX_ERROR_LENGTH) {
+      shortText = `${shortText.substr(0, MAX_ERROR_LENGTH)}...`
     }
 
-    super(`Invalid API response received: ${text}`)
+    super(`Invalid API response received ${url ? `from ${url}` : ''}: ${shortText}`)
     this.name = 'InvalidResponseError'
+    this.text = text
   }
 }
