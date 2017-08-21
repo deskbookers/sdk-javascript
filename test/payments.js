@@ -152,7 +152,7 @@ test('payments create user', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.users.upsert({
-    userId: 'rb6',
+    userId: 'v10112',
     user: {email: 'lomoa@lamao.comoa'}
   })
   t.truthy(data)
@@ -164,7 +164,7 @@ test('payments create source for user', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.users.createSource({
-    userId: 'rb6',
+    userId: 'v10112',
     token: 'tok_br',
     email: 'lomoa@lamao.comoa',
     setDefault: true
@@ -178,7 +178,7 @@ test('payments create subscriptions for user', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.users.createSubscription({
-    userId: 'rb6',
+    userId: 'v10112',
     subscription: {
       currency: 'eur',
       userUid: 'features',
@@ -202,7 +202,7 @@ test('payments create subscriptions for user', async t => {
   })
 
   t.truthy(data)
-  t.is(get(data, 'meta.userUid'), 'rb6-features')
+  t.is(get(data, 'meta.userUid'), 'v10112-features')
 })
 
 test('payments create charge for user', async t => {
@@ -211,13 +211,13 @@ test('payments create charge for user', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.users.createCharge({
-    userId: 'rb6',
+    userId: 'v10112',
     charge: {
       email: 'test@email.domain',
       amount: 1,
       currency: 'eur',
       description: 'Pay dude!',
-      source: 'card_1Aqk38GAwNnYLy52ViCI6J2d',
+      source: 'card_1Ar02gGAwNnYLy52LneHCS81',
       meta: { a: 1, b: 2, target: 'features' }
     }
   })
@@ -262,7 +262,7 @@ test('set user source source', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.payments.users.setDefaultSource({
-    userId: 'rb6',
+    userId: 'v10112',
     sourceId: 'card_1AqhEiGAwNnYLy52Pz0eWvxm'
   })
   t.truthy(data)
