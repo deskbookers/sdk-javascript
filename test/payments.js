@@ -1,6 +1,6 @@
 
 import dotenv from 'dotenv'
-import { get } from 'lodash'
+import get from 'lodash/get'
 import 'fetch-everywhere'
 import test from 'ava'
 import Deskbookers from '../src'

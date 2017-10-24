@@ -1,5 +1,5 @@
 import Resource from '../Resource'
-import { pickAll } from 'ramda'
+import pickAll from 'ramda/src/pickAll'
 
 // Construct Map from object
 const constructMap = o => {

@@ -1,6 +1,8 @@
 import { signer, formatArgs, phpJsonEncode } from '../utils/requests'
 import platform from 'platform'
-import { get, includes, isEmpty } from 'lodash'
+import get from 'lodash/get'
+import includes from 'lodash/includes'
+import isEmpty from 'lodash/isEmpty'
 import {
   DeskbookersError,
   InvalidResponseError
