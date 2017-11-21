@@ -9,6 +9,7 @@ import Notifications from './Notifications'
 import Bookings from './Bookings'
 import Venues from './Venues'
 import Payments from './payments'
+import Reports from './reports'
 
 export default {
   account: Account,
@@ -21,5 +22,6 @@ export default {
   notifications: Notifications,
   bookings: Bookings,
   venues: Venues,
-  payments: Payments
+  payments: Payments,
+  reports: Reports
 }
