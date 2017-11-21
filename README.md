@@ -53,6 +53,7 @@ for (let workplace of workplaces) {
   * [`report(params)`](docs/actions.md#reportparams)
 * availability
   * [`retrieve(params)`](docs/availability.md#retrieveparams)
+  * [`retrieveForFullCalendar(params)`](docs/availability.md#retrieveforfullcalendarparams)
 * spaces
   * [`retrieve(id)`](docs/spaces.md#retrieveid)
   * [`urgency(id, params)`](docs/spaces.md#urgencyid-params)

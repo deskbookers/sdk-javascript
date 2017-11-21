@@ -18,4 +18,20 @@ export default class Availability extends Resource {
       }
     })
   }
+
+  async retrieveForFullCalendar({
+    start,
+    end,
+    spaceId,
+    noCache = false
+  }) {
+    return await this.request({
+      path: `spaces/${spaceId}/fullCalendar`,
+      params: {
+        noCache,
+        start,
+        end
+      }
+    })
+  }
 }
