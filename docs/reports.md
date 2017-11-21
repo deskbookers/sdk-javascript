@@ -38,7 +38,7 @@ data if available.
 | -------------- | ------ | -------- | ------------------- |
 | venueId        | int    | Yes      | Venue Id            |
 | type           | string | Yes      | Report type         |
-| task           | bool   | No       | Req. async process  |
+| jobId          | int    | Yes      | Async job id        |
 
 ```js
 const data = await deskbookers.reports.bookings.retrieve({

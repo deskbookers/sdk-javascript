@@ -94,5 +94,5 @@ for (let workplace of workplaces) {
   * [`users.deleteSource({userId, sourceId})`](docs/payments.md#users.deletesourceuserid-sourceid)
   * [`users.setDefaultSource({userId, sourceId})`](docs/payments.md#users.setdefaultsourceuserid-sourceid)
 * reports
-  * [`reports.bookings.enquire({venueId, type, start, end, task})`](docs/reports.md#bookings-enquire)
-  * [`reports.bookings.retrieve({venueId, type, jobId})`](docs/reports.md#bookings-retrieve)
+  * [`reports.bookings.enquire({venueId, type, start, end, task})`](docs/reports.md#bookingsenquirevenueid-type-start-end-task)
+  * [`reports.bookings.retrieve({venueId, type, jobId})`](docs/reports.md#bookingsretrievevenueid-type-jobid)
