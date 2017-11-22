@@ -41,9 +41,8 @@ test('enquire and booking report', async t => {
     type: 'month_overview',
     start: '2017-09-01',
     end: '2017-11-01',
-    task: true
+    task: false
   })
-  console.log(data)
   t.truthy(data)
 })
 
@@ -56,7 +55,6 @@ test('request and booking report', async t => {
     type: 'month_overview',
     jobId: 13
   })
-  console.log(data)
   t.truthy(data)
 })
 

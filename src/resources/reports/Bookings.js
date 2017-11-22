@@ -19,7 +19,7 @@ export default class Bookings extends Resource {
    * @param {bool} task
    * @return {Object[]} - job / result.
    */
-  async enquire ({ venueId, type, start, end, interval, task } = {}) {
+  async enquire ({ venueId, type, start, end, interval, task = false } = {}) {
     return await this.request({
       method: 'POST',
       path: `${this.endpoint}/${venueId}/${type}?task=${task.toString()}`,
