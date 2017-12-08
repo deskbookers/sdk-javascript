@@ -1,7 +1,7 @@
 import Resource from '../Resource'
 
 export default class Users extends Resource {
-  source = 'payments'
+  source = 'payments';
 
   constructor (api) {
     super(api)

@@ -1,7 +1,7 @@
 import Resource from '../Resource'
 
 export default class Bookings extends Resource {
-  source = 'reports'
+  source = 'reports';
 
   constructor (api) {
     super(api)
