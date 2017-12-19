@@ -58,7 +58,7 @@ export default class Resource {
     }
 
     let url
-    const pathFixed = path.replace(/^\/+|\/+$/, '')
+    const pathFixed = `${path || ''}`.replace(/^\/+|\/+$/, '')
 
     if (!isEmpty(body)) {
       options.headers['Content-Type'] = 'application/json'
@@ -115,25 +115,25 @@ export default class Resource {
       const { errors } = result
       if (errors) {
         for (let error in errors) {
-          throw new DeskbookersError(errors[error])
+          throw new DeskbookersError(`${errors[error]} (${url})`)
         }
       }
       return result
 
     // If "error" exists in response
     } else if (error) {
-      const msg = data.errorMessage || 'An error occurred'
+      const msg = `${data.errorMessage || 'An error occurred'} (${url})`
       throw new DeskbookersError(msg)
 
     // If "errors" exists in response
     } else if (errors) {
       errors.map(error => {
-        throw new DeskbookersError(`${error.title}: ${error.detail}`)
+        throw new DeskbookersError(`${error.title}: ${error.detail} (${url})`)
       })
     }
 
     // Reject
-    throw new DeskbookersError('Invalid response received')
+    throw new DeskbookersError(`Invalid response received (${url})`)
   }
 
   prepareRequest (url, options, args) {
