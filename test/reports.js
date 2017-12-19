@@ -65,10 +65,15 @@ test('enquire an auto resolving booking referrers report', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
+  let progress = 0
   const data = await deskbookers.reports.bookingReferrers.enquire({
     start: '2017-09-01',
-    end: '2017-09-02'
+    end: '2017-09-02',
+    onProgress: (job) => {
+      progress++
+    }
   })
+  t.truthy(progress)
   t.truthy(data.url)
   t.truthy(data.jobInfo)
   t.truthy(data.jobInfo.id)
