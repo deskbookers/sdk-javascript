@@ -28,10 +28,10 @@ const data = await deskbookers.reports.bookings.enquire({
 
 ### `bookings.retrieve({venueId, type, jobId})`
 
-Get async booking reports for a given `venueId` and `jobId`, 
-if `task` was sent as `true` on `booking.enquire`, an `jobId` 
+Get async booking reports for a given `venueId` and `jobId`,
+if `task` was sent as `true` on `booking.enquire`, an `jobId`
 is returned and when passed to `retrieve` it will get the actual
-processing state and return the percentage, status and the actual 
+processing state and return the percentage, status and the actual
 data if available.
 
 #### Params
@@ -52,17 +52,17 @@ const data = await deskbookers.reports.bookings.retrieve({
 
 ## Booking referrers
 
-### `bookingReferrers.enquire({start, end, autoResolve})`
+### `bookingReferrers.enquire({start, end, autoRetrieve})`
 
 Get booking referrers report for a given date range.
 
 #### Params
 
-| Name        | Type   | Required | Description                              |
-| ----------- | ------ | -------- | ---------------------------------------- |
-| start       | string | No       | Only consider data after this start date |
-| end         | string | No       | Only consider data untul this end date   |
-| autoResolve | bool   | No       | Auto retrieve the result of the report and return everything as a promise (enabled by default) |
+| Name         | Type   | Required | Description                              |
+| ------------ | ------ | -------- | ---------------------------------------- |
+| start        | string | No       | Only consider data after this start date |
+| end          | string | No       | Only consider data untul this end date   |
+| autoRetrieve | bool   | No       | Auto retrieve the result of the report and return everything as a promise (enabled by default) |
 
 ```js
 const data = await deskbookers.reports.bookingReferrers.enquire({
@@ -84,7 +84,7 @@ Get async booking referrers reports for a given `jobId`.
 ```js
 const { jobInfo } = await deskbookers.reports.bookingReferrers.enquire({
   start: '2017-09-01',
-  autoResolve: false
+  autoRetrieve: false
 })
 let data
 do {

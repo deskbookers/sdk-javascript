@@ -82,7 +82,7 @@ test('enquire an non auto resolving booking referrers report', async t => {
   const data = await deskbookers.reports.bookingReferrers.enquire({
     start: '2017-09-01',
     end: '2017-09-02',
-    autoResolve: false
+    autoRetrieve: false
   })
   t.falsy(data.url)
   t.truthy(data.jobInfo)
@@ -97,7 +97,7 @@ test('retrieve a booking referrers report', async t => {
   const data = await deskbookers.reports.bookingReferrers.enquire({
     start: '2017-09-01',
     end: '2017-09-02',
-    autoResolve: false
+    autoRetrieve: false
   })
   const data2 = await deskbookers.reports.bookingReferrers.retrieve({
     jobId: get(data, 'jobInfo.id')
