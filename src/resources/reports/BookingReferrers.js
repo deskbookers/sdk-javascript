@@ -17,9 +17,10 @@ export default class BookingReferrers extends Resource {
    * @param {date} start
    * @param {date} end
    * @param {bool} autoRetrieve
+   * @param {callback} onProgress
    * @return {Promise<Object>} Promise resolving with object with info about the end result
    */
-  async enquire ({ start, end, autoRetrieve = true } = {}) {
+  async enquire ({ start, end, autoRetrieve = true, onProgress = null } = {}) {
     let jobInfo = await this.request({
       method: 'POST',
       path: this.endpoint,
@@ -34,6 +35,11 @@ export default class BookingReferrers extends Resource {
       do {
         await wait(AUTO_RETRIEVE_TIMEOUT)
         job = await this.retrieve({ jobId: get(job, 'jobInfo.id') })
+
+        if (onProgress) {
+          onProgress(job)
+        }
+
       } while (!isFinalState(get(job, 'jobInfo.state')))
     }
 

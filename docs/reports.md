@@ -52,21 +52,25 @@ const data = await deskbookers.reports.bookings.retrieve({
 
 ## Booking referrers
 
-### `bookingReferrers.enquire({start, end, autoRetrieve})`
+### `bookingReferrers.enquire({start, end, autoRetrieve, onProgress})`
 
 Get booking referrers report for a given date range.
 
 #### Params
 
-| Name         | Type   | Required | Description                              |
-| ------------ | ------ | -------- | ---------------------------------------- |
-| start        | string | No       | Only consider data after this start date |
-| end          | string | No       | Only consider data untul this end date   |
-| autoRetrieve | bool   | No       | Auto retrieve the result of the report and return everything as a promise (enabled by default) |
+| Name         | Type     | Required | Description                                      |
+| ------------ | -------- | -------- | ------------------------------------------------ |
+| start        | string   | No       | Only consider data after this start date         |
+| end          | string   | No       | Only consider data untul this end date           |
+| onProgress   | callback | No       | Get updates about latest state of the report job |
+| autoRetrieve | bool     | No       | Auto retrieve the result of the report and return everything as a promise (enabled by default) |
 
 ```js
 const data = await deskbookers.reports.bookingReferrers.enquire({
-  start: '2017-09-01'
+  start: '2017-09-01',
+  onProgress: ({ jobInfo, logs }) => {
+    console.log(jobInfo.progress)
+  }
 })
 console.log(data.url) // URL to download the report
 ```

@@ -96,5 +96,5 @@ for (let workplace of workplaces) {
 * reports
   * [`reports.bookings.enquire({venueId, type, start, end, task})`](docs/reports.md#bookingsenquirevenueid-type-start-end-task)
   * [`reports.bookings.retrieve({venueId, type, jobId})`](docs/reports.md#bookingsretrievevenueid-type-jobid)
-  * [`bookingReferrers.enquire({start, end, autoResolve})`](docs/reports.md#bookingreferrersenquirestart-end-autoresolve)
+  * [`bookingReferrers.enquire({start, end, autoResolve, onProgress})`](docs/reports.md#bookingreferrersenquirestart-end-autoresolve-onprogress)
   * [`bookingReferrers.retrieve({jobId})`](docs/reports.md#bookingreferrersretrievejobid)
