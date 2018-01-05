@@ -32,6 +32,23 @@ async function client (login = false) {
   return deskbookers
 }
 
+test('enquire a count products using filter', async t => {
+  // Prepare API
+  const deskbookers = await client(true)
+  t.truthy(deskbookers.session)
+
+  const data = await deskbookers.reports.bookings.enquire({
+    venueId: 13998,
+    type: 'count_products',
+    start: '2017-11-01',
+    end: '2017-12-01',
+    filter: 'commission',
+    task: false
+  })
+  console.log(data)
+  t.truthy(data)
+})
+
 test('enquire a booking report', async t => {
   // Prepare API
   const deskbookers = await client(true)
