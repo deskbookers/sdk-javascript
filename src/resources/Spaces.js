@@ -43,4 +43,8 @@ export default class Spaces extends Resource {
       params: { params }
     })
   }
+
+  async search (params) {
+    return await this.api.search.spaces(params)
+  }
 }

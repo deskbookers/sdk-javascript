@@ -15,6 +15,8 @@ const API_PAYMENTS_HOST = 'api-payments.deskbookers.com'
 const API_PAYMENTS_PATH = ''
 const API_REPORTS_HOST = 'api-reports.deskbookers.com'
 const API_REPORTS_PATH = ''
+const API_SEARCH_HOST = 'api-search.deskbookers.com'
+const API_SEARCH_PATH = ''
 
 export default class Deskbookers {
   constructor ({
@@ -43,6 +45,10 @@ export default class Deskbookers {
       reports: {
         host: API_REPORTS_HOST,
         path: API_REPORTS_PATH
+      },
+      search: {
+        host: API_SEARCH_HOST,
+        path: API_SEARCH_PATH
       }
     }
   }) {
