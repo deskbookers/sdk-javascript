@@ -10,6 +10,7 @@ import Bookings from './Bookings'
 import Venues from './Venues'
 import Payments from './payments'
 import Reports from './reports'
+import Search from './Search'
 
 export default {
   account: Account,
@@ -23,5 +24,6 @@ export default {
   bookings: Bookings,
   venues: Venues,
   payments: Payments,
-  reports: Reports
+  reports: Reports,
+  search: Search
 }
