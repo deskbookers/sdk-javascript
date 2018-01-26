@@ -37,7 +37,9 @@ test('Signup', async t => {
     password: 'p4ssw0rd'
   })
 
-  t.truthy(signup.id)
+  t.truthy(signup)
+  t.truthy(deskbookers.session)
+  t.is(signup.id, deskbookers.session.user.id)
 })
 
 test('Forgot', async t => {

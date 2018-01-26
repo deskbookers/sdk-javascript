@@ -70,7 +70,8 @@ export default class Account extends Resource {
     firstName: suppliedFirstName,
     lastName: suppliedLastName,
     email: suppliedEmail,
-    password: suppliedPassword = ''
+    password: suppliedPassword = '',
+    backoffice = false
   }) {
     const salt = await this.retrieveSalt() || ''
     const hash = await bcrypt.hash(suppliedPassword, salt)
@@ -85,21 +86,18 @@ export default class Account extends Resource {
       }
     })
 
-    const {
-      id,
-      email,
-      name: fullName,
-      first_name: firstName,
-      lastName
-    } = result.user
-
-    return {
-      id,
-      email,
-      fullName,
-      firstName,
-      lastName
+    // Set session on parent class
+    this.api.session = {
+      privateKey: result.privateKey,
+      publicKey: result.publicKey,
+      user: result.user
     }
+
+    if (backoffice) {
+      await this.backofficeLogin()
+    }
+
+    return await this.retrieve()
   }
 
   async logout () {
