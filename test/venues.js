@@ -31,7 +31,7 @@ test('save financial settings', async t => {
     process.env.LOGIN_PASSWORD
   )
 
-  let payment = {
+  const payment = {
     name: 'aaa222',
     bankInfo: 'NL01BANK012345222',
     bic: 'ABCDEF22',
@@ -53,6 +53,31 @@ test('save financial settings', async t => {
   const paymentSettings = await deskbookers.venues.getPaymentSettings(11710)
 
   t.truthy(saved)
+  t.is(paymentSettings.address.place, payment.address.place)
+
+  const payment2 = {
+    name: 'aaa222',
+    bankInfo: 'NL01BANK012345222',
+    bic: 'ABCDEF22',
+    tax: '1234222',
+    company: 'hockerson2',
+    debtor: '1234522',
+    mark: 'rarara22',
+    address:
+    { country: 'The Netherlands',
+      addressLine1: 'a2',
+      postalcode: '2222AK',
+      place: 'lolala3',
+      telephonenumber: '+31610512222',
+      telephonenumber2: '+31123412222',
+      email: 'e2@e2.c2'
+    }
+  }
+  const saved2 = await deskbookers.venues.savePaymentSettings(11710, payment2)
+  const paymentSettings2 = await deskbookers.venues.getPaymentSettings(11710)
+
+  t.truthy(saved2)
+  t.is(paymentSettings2.address.place, payment2.address.place)
 })
 
 test('retrieve a venue', async t => {

@@ -1,5 +1,4 @@
 import Resource from './Resource'
-import { DeskbookersError } from '../errors'
 
 export default class Venues extends Resource {
   constructor (api) {
