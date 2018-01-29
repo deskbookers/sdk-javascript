@@ -4,7 +4,6 @@ import { stringify } from 'qs'
 import jsonEncode from 'json_encode'
 import urlencode from 'deskbookers-phpurlencode'
 import includes from 'lodash/includes'
-import isEmpty from 'lodash/isEmpty'
 
 export const signer = ({ publicKey, privateKey }, url, options, args) => {
   // Prepare vars

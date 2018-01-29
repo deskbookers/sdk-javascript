@@ -73,7 +73,7 @@ test.before('create new feature', async t => {
   t.truthy(deskbookers.session)
 
   const data = await deskbookers.features.create(
-    {name: 'testName',  description: 'teste description', type: 'venue'}
+    { name: 'testName', description: 'teste description', type: 'venue' }
   )
   t.truthy(data)
 })
@@ -82,10 +82,10 @@ test('update feature', async t => {
   // Prepare API
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
-  
+
   const data = await deskbookers.features.update(
     'testName',
-    {name: 'testName',  description: 'teste description 2', type: 'venue2', parentId: null}
+    { name: 'testName', description: 'teste description 2', type: 'venue2', parentId: null }
   )
   t.truthy(data)
 })
@@ -104,7 +104,7 @@ test('updateFeatureByVenue feature', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  let start = new Date().setDate(new Date().getDate()-20) 
+  let start = new Date().setDate(new Date().getDate() - 20)
   let end = null
   const data = await deskbookers.features.updateFeatureByVenue(
     2,

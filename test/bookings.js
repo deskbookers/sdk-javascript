@@ -4,8 +4,6 @@ import test from 'ava'
 import moment from 'moment'
 import Deskbookers from '../src'
 
-import util from 'util'
-
 dotenv.load()
 
 async function client (login = false) {
@@ -22,7 +20,7 @@ async function client (login = false) {
 
 test('Get booking', async t => {
   const deskbookers = await client(true)
-  const date = moment().subtract(2, 'months').calendar();
+  const date = moment().subtract(2, 'months').calendar()
 
   let booking = await deskbookers.bookings.month(date, 12686)
   t.truthy(booking)
