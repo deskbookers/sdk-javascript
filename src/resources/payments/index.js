@@ -6,6 +6,7 @@ export default class Payments extends Resource {
 
   constructor (api) {
     super(api)
+
     // Create sub-resources
     this.users = new Users(api)
   }

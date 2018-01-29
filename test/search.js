@@ -4,6 +4,9 @@ import test from 'ava'
 import Deskbookers from '../src'
 dotenv.load()
 
+const TYPE_GOOGLE_MAPS = 'GOOGLE_MAPS'
+const TYPE_SEARCH_RESULT = 'SEARCH_RESULT'
+
 const {
   API_SEARCH_HOST,
   API_SEARCH_PATH,
@@ -68,3 +71,44 @@ test('spaces', async t => {
   t.is(result.facets.price.min < result.facets.price.max, true)
   t.truthy(result.facets.spaceFacilities)
 })
+
+test('space suggestions without resolveBounds', async t => {
+  // Prepare API
+  const deskbookers = await client()
+
+  const result = await deskbookers.search.spaceSuggestions({
+    text: 'Amsterdam',
+    resolveBounds: false
+  })
+
+  // Test results
+  t.truthy(Array.isArray(result))
+  t.is(result.filter(
+    hit => hit.type === TYPE_GOOGLE_MAPS && hit.northEast
+  ).length, 0)
+  t.is(result.filter(
+    hit => !(hit.formatted && hit.id && isValidType(hit.type))
+  ).length, 0)
+})
+
+test('space suggestions with resolveBounds', async t => {
+  // Prepare API
+  const deskbookers = await client()
+
+  const result = await deskbookers.search.spaceSuggestions({
+    text: 'Amsterdam',
+    resolveBounds: true
+  })
+
+  // Test results
+  t.truthy(Array.isArray(result))
+  t.is(result.filter(
+    hit => hit.type === TYPE_GOOGLE_MAPS && !hit.northEast
+  ).length, 0)
+  t.is(result.filter(
+    hit => !(hit.formatted && hit.id && isValidType(hit.type))
+  ).length, 0)
+})
+
+const isValidType = type =>
+  [TYPE_GOOGLE_MAPS, TYPE_SEARCH_RESULT].includes(type)

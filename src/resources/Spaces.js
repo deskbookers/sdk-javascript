@@ -47,4 +47,8 @@ export default class Spaces extends Resource {
   async search (params) {
     return await this.api.search.spaces(params)
   }
+
+  async suggestions (params) {
+    return await this.api.search.spaceSuggestions(params)
+  }
 }

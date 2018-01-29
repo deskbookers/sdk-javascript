@@ -113,7 +113,7 @@ test('create new notification', async t => {
       userId: 2,
       type: 'fluffycorgi',
       context: 'c12345',
-      meta:'{"clientName": "Chompers", "companyName": "Lambda3"}',
+      meta: '{"clientName": "Chompers", "companyName": "Lambda3"}',
       createdDate: 1498653156259
     }
   )
@@ -130,7 +130,7 @@ test.before('create notification', async t => {
       userId: 3,
       type: 'fluffycorgi',
       context: 'c12345',
-      meta:'{"clientName": "Chompers", "companyName": "Lambda3"}',
+      meta: '{"clientName": "Chompers", "companyName": "Lambda3"}',
       createdDate: 1498653156259
     }
   )
@@ -140,7 +140,7 @@ test.before('create notification', async t => {
       userId: 2,
       type: 'fluffycorgi',
       context: 'c12345',
-      meta:'{"clientName": "Chompers", "companyName": "Lambda3"}',
+      meta: '{"clientName": "Chompers", "companyName": "Lambda3"}',
       createdDate: 1496925186484
     }
   )
@@ -152,7 +152,7 @@ test('mark notification read by id', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.flagAsRead({userId: 2, id: 1})
+  const data = await deskbookers.notifications.flagAsRead({ userId: 2, id: 1 })
   t.truthy(data)
 })
 
@@ -161,7 +161,7 @@ test('mark notification read by type', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.flagAsRead({userId: 2, type: 'fluffycorgi'})
+  const data = await deskbookers.notifications.flagAsRead({ userId: 2, type: 'fluffycorgi' })
   t.truthy(data)
 })
 
@@ -170,7 +170,7 @@ test('mark notification read', async t => {
   const deskbookers = await client(true)
   t.truthy(deskbookers.session)
 
-  const data = await deskbookers.notifications.flagAsRead({userId:3})
+  const data = await deskbookers.notifications.flagAsRead({ userId: 3 })
   t.truthy(data)
 })
 

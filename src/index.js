@@ -41,7 +41,7 @@ export default class Deskbookers {
       payments: {
         host: API_PAYMENTS_HOST,
         path: API_PAYMENTS_PATH
-       },
+      },
       reports: {
         host: API_REPORTS_HOST,
         path: API_REPORTS_PATH
