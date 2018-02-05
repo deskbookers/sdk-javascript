@@ -177,4 +177,38 @@ export default class Account extends Resource {
       path: `user/menu/${context}`
     })
   }
+
+  async groups () {
+    return await this.request({
+      path: 'user/groups'
+    })
+  }
+
+  async toggleFavorite (spaceId, favorite, auto = false) {
+    if (favorite) {
+      return await this.request({
+        method: 'POST',
+        path: 'user/favorite',
+        params: {
+          workplaceId: spaceId,
+          auto
+        }
+      })
+    } else {
+      return await this.request({
+        method: 'POST',
+        path: 'user/unfavorite',
+        params: {
+          workplaceId: spaceId
+        }
+      })
+    }
+  }
+
+  async favorites() {
+    return await this.request({
+      method: 'GET',
+      path: 'user/favorites'
+    })
+  }
 }

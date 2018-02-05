@@ -3,11 +3,14 @@ import 'fetch-everywhere'
 import test from 'ava'
 import Deskbookers from '../src'
 import faker from 'faker'
+import InternalApi from 'deskbookers-api/internal'
 dotenv.load()
 
 const {
+  INTERNAL_API_SECRET,
   LOGIN_EMAIL,
-  LOGIN_PASSWORD
+  LOGIN_PASSWORD,
+  FAVORITE_SPACE_ID
 } = process.env
 
 async function client (login = false) {
@@ -21,6 +24,57 @@ async function client (login = false) {
   }
 
   return deskbookers
+}
+
+function createInternalApi () {
+  return new InternalApi({
+    secret: INTERNAL_API_SECRET,
+    https: false,
+    sources: {
+      api: { host: '2cnnct.deskbookers.local', path: 'api/v1' }
+    },
+    fetch
+  })
+}
+
+async function addMemberToGroup (client, internalApi, add = true) {
+  const user = client.session.user
+
+  // Find a random group
+  const [ group ] = await internalApi.request({
+    path: 'group',
+    source: 'api',
+    method: 'GET',
+    params: {
+      __resellerID: 10000,
+      '$limit': 1,
+      '$order': 'id'
+    }
+  })
+
+  // Add member
+  if (add) {
+    await internalApi.request({
+      path: `group/${group.id}/members`,
+      method: 'POST',
+      source: 'api',
+      body: {
+        __resellerID: 10000,
+        email: user.email
+      }
+    })
+  } else {
+    await internalApi.request({
+      path: `group/${group.id}/members/${user.id}/remove`,
+      method: 'POST',
+      source: 'api',
+      body: {
+        __resellerID: 10000
+      }
+    })
+  }
+
+  return group.id
 }
 
 test('Login', async t => {
@@ -67,6 +121,38 @@ test('Retrieve', async t => {
   // Succeed when logged in
   await deskbookers.account.login(LOGIN_EMAIL, LOGIN_PASSWORD)
   t.notThrows(deskbookers.account.retrieve())
+})
+
+test('Groups', async t => {
+  const deskbookers = await client(true)
+  const internalApi = createInternalApi()
+
+  const group1 = await addMemberToGroup(deskbookers, internalApi, true)
+  const result1 = await deskbookers.account.groups()
+  const group2 = await addMemberToGroup(deskbookers, internalApi, false)
+  const result2 = await deskbookers.account.groups()
+
+  t.is(group1, group2)
+  t.is(Array.isArray(result1), true)
+  t.is(Array.isArray(result2), true)
+  t.is(result1.map(r => r.id).includes(group1), true)
+  t.is(result2.map(r => r.id).includes(group2), false)
+})
+
+test('Favorites', async t => {
+  const deskbookers = await client(true)
+
+  const id = parseInt(FAVORITE_SPACE_ID, 10)
+
+  await deskbookers.account.toggleFavorite(id, true)
+  const result1 = await deskbookers.account.favorites()
+  await deskbookers.account.toggleFavorite(id, false)
+  const result2 = await deskbookers.account.favorites()
+
+  t.is(Array.isArray(result1), true)
+  t.is(Array.isArray(result2), true)
+  t.is(result1.includes(id), true)
+  t.is(result2.includes(id), false)
 })
 
 test('Set language', async t => {
