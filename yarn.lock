@@ -1798,6 +1798,10 @@ deskbookers-phpurlencode@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/deskbookers-phpurlencode/-/deskbookers-phpurlencode-1.0.0.tgz#3fbdba2ec9ebcc2ca06ecbf840432fadeb772ad2"
 
+deskbookers-phpurlencode@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/deskbookers-phpurlencode/-/deskbookers-phpurlencode-1.1.2.tgz#45190f7e39716b67466cd04987b3b3c7f5134147"
+
 deskbookers@^5.2.3:
   version "5.8.0"
   resolved "https://registry.yarnpkg.com/deskbookers/-/deskbookers-5.8.0.tgz#40e56557470e0b992aa60f2e4237908e260569aa"
