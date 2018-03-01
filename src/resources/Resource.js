@@ -84,6 +84,7 @@ export default class Resource {
       options: requestOptions
     } = await this.prepareRequest(url, options, args)
 
+    requestOptions.body = requestOptions.body || undefined
     const response = await fetch(requestUrl, requestOptions)
     return this.parseResponse(response, requestUrl)
   }
