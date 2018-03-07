@@ -23,6 +23,8 @@ export default class Availability extends Resource {
     start,
     end,
     spaceId,
+    enableOpenHours = false,
+    remapToSimple = false,
     noCache = false
   }) {
     return await this.request({
@@ -30,7 +32,9 @@ export default class Availability extends Resource {
       params: {
         noCache,
         start,
-        end
+        end,
+        enableOpenHours,
+        remapToSimple
       }
     })
   }
