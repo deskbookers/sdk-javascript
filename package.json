@@ -1,6 +1,6 @@
 {
   "name": "deskbookers",
-  "version": "5.9.2",
+  "version": "5.9.3",
   "description": "Deskbookers API JavaScript SDK",
   "main": "dist/index.js",
   "scripts": {
@@ -44,9 +44,9 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-latest": "^6.22.0",
     "babel-preset-stage-2": "^6.18.0",
+    "deskbookers-api": "ssh://git@github.com/deskbookers/deskbookers-api.git#v4.7.1",
     "faker": "^4.1.0",
-    "fetch-everywhere": "^1.0.5",
-    "deskbookers-api": "ssh://git@github.com/deskbookers/deskbookers-api.git#v4.7.1"
+    "fetch-everywhere": "^1.0.5"
   },
   "ava": {
     "require": [
