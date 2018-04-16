@@ -1,5 +1,5 @@
 # Deskbookers JavaScript SDK
-JavaScript library to connect to the Deskbookers API. Available to use server-side or client-side, but you must bring your own `fetch` polyfill ([`fetch-everywhere`](https://github.com/lucasfeliciano/fetch-everywhere) recommended).
+JavaScript library to connect to the [Deskbookers](https://www.deskbookers.com/) API. Available to use server-side or client-side, but you must bring your own `fetch` polyfill ([`fetch-everywhere`](https://github.com/lucasfeliciano/fetch-everywhere) recommended).
 
 ## Installation
 ```bash
