@@ -11,6 +11,7 @@ import Venues from './Venues'
 import Payments from './payments'
 import Reports from './reports'
 import Search from './Search'
+import TermsAndConditions from './TermsAndConditions'
 
 export default {
   account: Account,
@@ -25,5 +26,6 @@ export default {
   venues: Venues,
   payments: Payments,
   reports: Reports,
-  search: Search
+  search: Search,
+  termsAndConditions: TermsAndConditions
 }
