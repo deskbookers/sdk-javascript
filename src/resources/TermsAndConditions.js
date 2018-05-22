@@ -40,4 +40,30 @@ export default class TermsAndConditions extends Resource {
       }
     })
   }
+
+  async venuePending (venueId) {
+    return await this.request({
+      method: 'GET',
+      path: `/${this.endpoint}/venuePending`,
+      params: {venueId}
+    })
+  }
+
+  async venueAccepted (venueId) {
+    return await this.request({
+      method: 'GET',
+      path: `/${this.endpoint}/venueAccepted`,
+      params: {venueId}
+    })
+  }
+
+  async venueAccept ({venueId, tcId}) {
+    return await this.request({
+      method: 'POST',
+      path: `/${this.endpoint}/venueAccept`,
+      params: {
+        venueId, tcId
+      }
+    })
+  }
 }

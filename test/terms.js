@@ -50,3 +50,27 @@ test('Get accepted terms by user', async t => {
   //})
   //console.log('user accepted', ok)
 //})
+
+test('Get pending terms by venue', async t => {
+  const deskbookers = await client(true)
+
+  const terms = await deskbookers.termsAndConditions.venuePending(11707)
+  console.log('venue pending', terms)
+})
+
+test('Get accepted terms by venue', async t => {
+  const deskbookers = await client(true)
+
+  const terms = await deskbookers.termsAndConditions.venueAccepted(11707)
+  console.log('venue accepted', terms)
+})
+
+//test('Post accepted terms by venue', async t => {
+  //const deskbookers = await client(true)
+
+  //const ok = await deskbookers.termsAndConditions.venueAccept({
+    //venueId: 11707,
+    //tcId: 11
+  //})
+  //console.log('venue accepted', ok)
+//})
