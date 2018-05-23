@@ -24,21 +24,21 @@ test('Get active terms', async t => {
   const deskbookers = await client(true)
 
   const terms = await deskbookers.termsAndConditions.listActive()
-  console.log('active', terms)
+  console.log('active', JSON.stringify(terms))
 })
 
 test('Get pending terms by user', async t => {
   const deskbookers = await client(true)
 
   const terms = await deskbookers.termsAndConditions.userPending(49889)
-  console.log('user pending', terms)
+  console.log('user pending', JSON.stringify(terms))
 })
 
 test('Get accepted terms by user', async t => {
   const deskbookers = await client(true)
 
   const terms = await deskbookers.termsAndConditions.userAccepted(49889)
-  console.log('user accepted', terms)
+  console.log('user accepted', JSON.stringify(terms))
 })
 
 //test('Post accepted terms by user', async t => {
@@ -55,14 +55,14 @@ test('Get pending terms by venue', async t => {
   const deskbookers = await client(true)
 
   const terms = await deskbookers.termsAndConditions.venuePending(11707)
-  console.log('venue pending', terms)
+  console.log('venue pending', JSON.stringify(terms))
 })
 
 test('Get accepted terms by venue', async t => {
   const deskbookers = await client(true)
 
   const terms = await deskbookers.termsAndConditions.venueAccepted(11707)
-  console.log('venue accepted', terms)
+  console.log('venue accepted', JSON.stringify(terms))
 })
 
 //test('Post accepted terms by venue', async t => {
