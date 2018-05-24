@@ -41,16 +41,16 @@ test('Get accepted terms by user', async t => {
   console.log('user accepted', JSON.stringify(terms))
 })
 
-//test('Post accepted terms by user', async t => {
-//const deskbookers = await client(true)
+test('Post accepted terms by user', async t => {
+  const deskbookers = await client(true)
 
-//const ok = await deskbookers.termsAndConditions.userAccept({
-//userId: 49889,
-//tcId: 7
-//})
-//console.log('user accepted', ok)
-//})
-//
+  const ok = await deskbookers.termsAndConditions.userAccept({
+    userId: 49889,
+    tcId: 1
+  })
+  console.log('user accepted', ok)
+})
+
 test('Get email settings', async t => {
   const deskbookers = await client(true)
   const settings = await deskbookers.termsAndConditions.emailSettings(
