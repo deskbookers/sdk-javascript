@@ -2,12 +2,12 @@ import Resource from './Resource'
 import { DeskbookersError } from '../errors'
 
 export default class TermsAndConditions extends Resource {
-  constructor (api) {
+  constructor(api) {
     super(api)
     this.endpoint = 'tc'
   }
 
-  async listActive () {
+  async listActive() {
     return await this.request({
       method: 'GET',
       path: `/${this.endpoint}/active`,
@@ -15,55 +15,73 @@ export default class TermsAndConditions extends Resource {
     })
   }
 
-  async userPending (userId) {
+  async userPending(userId) {
     return await this.request({
       method: 'GET',
       path: `/${this.endpoint}/userPending`,
-      params: {userId}
+      params: { userId }
     })
   }
 
-  async userAccepted (userId) {
+  async userAccepted(userId) {
     return await this.request({
       method: 'GET',
       path: `/${this.endpoint}/userAccepted`,
-      params: {userId}
+      params: { userId }
     })
   }
 
-  async userAccept ({userId, tcId}) {
+  async userAccept({ userId, tcId }) {
     return await this.request({
       method: 'POST',
       path: `/${this.endpoint}/userAccept`,
       params: {
-        userId, tcId
+        userId,
+        tcId
       }
     })
   }
 
-  async venuePending (venueId) {
+  async venuePending(venueId) {
     return await this.request({
       method: 'GET',
       path: `/${this.endpoint}/venuePending`,
-      params: {venueId}
+      params: { venueId }
     })
   }
 
-  async venueAccepted (venueId) {
+  async venueAccepted(venueId) {
     return await this.request({
       method: 'GET',
       path: `/${this.endpoint}/venueAccepted`,
-      params: {venueId}
+      params: { venueId }
     })
   }
 
-  async venueAccept ({venueId, tcId}) {
+  async venueAccept({ venueId, tcId }) {
     return await this.request({
       method: 'POST',
       path: `/${this.endpoint}/venueAccept`,
       params: {
-        venueId, tcId
+        venueId,
+        tcId
       }
+    })
+  }
+
+  async emailSettings(userId) {
+    return await this.request({
+      method: 'GET',
+      path: `/${this.endpoint}/emailSettings`,
+      params: { userId }
+    })
+  }
+
+  async saveEmailSettings({ userId, emails }) {
+    return await this.request({
+      method: 'POST',
+      path: `/${this.endpoint}/emailSettings`,
+      params: { userId, emails }
     })
   }
 }

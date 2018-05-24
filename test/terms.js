@@ -5,7 +5,7 @@ import moment from 'moment'
 import Deskbookers from '../src'
 dotenv.load()
 
-async function client (login = false) {
+async function client(login = false) {
   const deskbookers = new Deskbookers({
     https: process.env.API_HTTPS === 'true',
     host: process.env.API_HOST
@@ -42,13 +42,36 @@ test('Get accepted terms by user', async t => {
 })
 
 //test('Post accepted terms by user', async t => {
-  //const deskbookers = await client(true)
+//const deskbookers = await client(true)
 
-  //const ok = await deskbookers.termsAndConditions.userAccept({
-    //userId: 49889,
-    //tcId: 7
+//const ok = await deskbookers.termsAndConditions.userAccept({
+//userId: 49889,
+//tcId: 7
+//})
+//console.log('user accepted', ok)
+//})
+//
+test('Get email settings', async t => {
+  const deskbookers = await client(true)
+  const settings = await deskbookers.termsAndConditions.emailSettings(
+    deskbookers.session.user.id
+  )
+  console.log('email settings', JSON.stringify(settings))
+})
+
+//test('Save email settings', async t => {
+  //const deskbookers = await client(true)
+  //const emails = [
+    //{ category: 'Promotions', enabled: true },
+    //{ category: 'Participants', enabled: false },
+    //{ category: 'Reviews', enabled: true }
+  //]
+
+  //const settings = await deskbookers.termsAndConditions.saveEmailSettings({
+    //userId: deskbookers.session.user.id,
+    //emails
   //})
-  //console.log('user accepted', ok)
+  //console.log('email settings', JSON.stringify(settings))
 //})
 
 test('Get pending terms by venue', async t => {
@@ -66,11 +89,11 @@ test('Get accepted terms by venue', async t => {
 })
 
 //test('Post accepted terms by venue', async t => {
-  //const deskbookers = await client(true)
+//const deskbookers = await client(true)
 
-  //const ok = await deskbookers.termsAndConditions.venueAccept({
-    //venueId: 11707,
-    //tcId: 11
-  //})
-  //console.log('venue accepted', ok)
+//const ok = await deskbookers.termsAndConditions.venueAccept({
+//venueId: 11707,
+//tcId: 11
+//})
+//console.log('venue accepted', ok)
 //})
