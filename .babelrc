@@ -1,7 +1,8 @@
 {
   "plugins": [
     "add-module-exports",
-    "transform-es2015-modules-umd"
+    "transform-es2015-modules-umd",
+    "transform-runtime"
   ],
   "presets": [
     "latest",
