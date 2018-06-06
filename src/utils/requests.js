@@ -33,9 +33,14 @@ export const jsonifyArgs = (args) => {
   return formatted
 }
 
-export const formatArgs = (args, encode) => stringify(
-  jsonifyArgs(args),
+export const formatQuery = (query, encode) => stringify(
+  query,
   { encoder: encode ? phpUrlEncode : onlyAmpEncode }
+)
+
+export const formatArgs = (args, encode) => formatQuery(
+  jsonifyArgs(args),
+  encode
 )
 
 export const signData = (data, privateKey) => hmac(sha512, privateKey)

@@ -1,4 +1,4 @@
-import { signer, formatArgs, phpJsonEncode, phpUrlEncode } from '../utils/requests'
+import { signer, formatArgs, phpJsonEncode, formatQuery } from '../utils/requests'
 import { stringify } from 'qs'
 import platform from 'platform'
 import get from 'lodash/get'
@@ -70,14 +70,14 @@ export default class Resource {
       url = `${this.apiUrl}/${pathFixed}`
     } else {
       const postish = includes(['POST', 'PUT'], options.method)
-      const shouldEncodeArgs = postish || (
+      const shouldEncode = postish || (
         platform.name === 'IE' &&
         parseFloat(platform.version) < 12
       )
 
       const queryStr = postish || query === null
-        ? formatArgs(args, shouldEncodeArgs)
-        : stringify(query, { encoder: phpUrlEncode })
+        ? formatArgs(args, shouldEncode)
+        : formatQuery(query, shouldEncode)
 
       if (postish) {
         options.headers[
