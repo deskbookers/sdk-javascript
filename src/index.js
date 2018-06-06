@@ -17,6 +17,8 @@ const API_REPORTS_HOST = 'api-reports.deskbookers.com'
 const API_REPORTS_PATH = ''
 const API_SEARCH_HOST = 'api-search.deskbookers.com'
 const API_SEARCH_PATH = ''
+const API_SEO_HOST = 'api-seo.deskbookers.com'
+const API_SEO_PATH = ''
 
 export default class Deskbookers {
   constructor ({
@@ -49,6 +51,10 @@ export default class Deskbookers {
       search: {
         host: API_SEARCH_HOST,
         path: API_SEARCH_PATH
+      },
+      seo: {
+        host: API_SEO_HOST,
+        path: API_SEO_PATH
       }
     }
   }) {

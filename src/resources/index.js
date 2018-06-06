@@ -12,6 +12,7 @@ import Payments from './payments'
 import Reports from './reports'
 import Search from './Search'
 import TermsAndConditions from './TermsAndConditions'
+import Seo from './Seo'
 
 export default {
   account: Account,
@@ -27,5 +28,6 @@ export default {
   payments: Payments,
   reports: Reports,
   search: Search,
-  termsAndConditions: TermsAndConditions
+  termsAndConditions: TermsAndConditions,
+  seo: Seo
 }
