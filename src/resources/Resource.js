@@ -1,4 +1,5 @@
-import { signer, formatArgs, phpJsonEncode } from '../utils/requests'
+import { signer, formatArgs, phpJsonEncode, formatQuery } from '../utils/requests'
+import { stringify } from 'qs'
 import platform from 'platform'
 import get from 'lodash/get'
 import includes from 'lodash/includes'
@@ -37,6 +38,7 @@ export default class Resource {
     path,
     fields = [],
     params = {},
+    query = null,
     method = 'GET',
     mode = 'cors',
     credentials = 'include',
@@ -67,11 +69,20 @@ export default class Resource {
       args = body
       url = `${this.apiUrl}/${pathFixed}`
     } else {
-      const shouldEncodeArgs = includes(['POST', 'PUT'], options.method)
-        || (platform.name === 'IE' && parseFloat(platform.version) < 12)
-      const queryStr = formatArgs(args, shouldEncodeArgs)
-      if (includes(['POST', 'PUT'], options.method)) {
-        options.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+      const postish = includes(['POST', 'PUT'], options.method)
+      const shouldEncode = postish || (
+        platform.name === 'IE' &&
+        parseFloat(platform.version) < 12
+      )
+
+      const queryStr = postish || query === null
+        ? formatArgs(args, shouldEncode)
+        : formatQuery(query, shouldEncode)
+
+      if (postish) {
+        options.headers[
+          'Content-Type'
+        ] = 'application/x-www-form-urlencoded;charset=UTF-8'
         options.body = queryStr
         url = `${this.apiUrl}/${pathFixed}`
       } else {
