@@ -4,10 +4,11 @@ import { DeskbookersError } from '../errors'
 export default class Seo extends Resource {
   source = 'seo';
 
-  async overviewMainCities (lang) {
+  async overviewMainCities (lang, count = null) {
     return await this.request({
       method: 'GET',
-      path: `/overview/mainCities/${lang}`
+      path: `/overview/mainCities/${lang}`,
+      query: count ? { count } : null
     })
   }
 
