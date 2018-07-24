@@ -51,4 +51,12 @@ export default class Spaces extends Resource {
   async suggestions (params) {
     return await this.api.search.spaceSuggestions(params)
   }
+
+  async types (params = {}) {
+    return await this.request({
+      method: 'GET',
+      path: `/${this.endpoint}/types`,
+      params
+    })
+  }
 }
