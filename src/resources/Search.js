@@ -48,7 +48,8 @@ export default class Search extends Resource {
     return await this.request({
       method: 'GET',
       path: '/spaces/suggestions',
-      params
+      params,
+      fields:["name", "geometry.location", "place_id", "formatted_address"]
     })
   }
 }
