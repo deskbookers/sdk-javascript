@@ -196,3 +196,10 @@ Set source as default for a given `userId`
     sourceId: 'src_1AmleQGAwNnYLy52BVGHaUfn'
   })
 ```
+
+## `users.createSetupIntent()`
+Create setup Intent object for Stripe payments
+
+```js
+  const data = await deskbookers.payments.users.createSetupIntent()
+```
