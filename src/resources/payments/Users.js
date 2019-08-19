@@ -171,4 +171,14 @@ export default class Users extends Resource {
       body: charge
     })
   }
+
+  /**
+   * Create setup intents for user
+   *
+   */
+  async createSetupIntent () {
+    return await this.request({
+      path: `${this.endpoint}/${userId}/setupIntents`
+    })
+  }
 }
