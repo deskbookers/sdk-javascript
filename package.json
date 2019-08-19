@@ -1,6 +1,6 @@
 {
   "name": "deskbookers",
-  "version": "5.15.0",
+  "version": "5.15.1",
   "description": "Deskbookers API JavaScript SDK",
   "homepage": "https://www.deskbookers.com/",
   "main": "dist/index.js",
