@@ -176,7 +176,7 @@ export default class Users extends Resource {
    * Create setup intents for user
    *
    */
-  async createSetupIntent () {
+  async createSetupIntent ({userId} = {}) {
     return await this.request({
       path: `${this.endpoint}/${userId}/setupIntents`
     })
