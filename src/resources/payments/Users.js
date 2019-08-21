@@ -193,4 +193,22 @@ export default class Users extends Resource {
       body: { paymentMethodId }
     })
   }
+
+  /**
+   * Get user payment methods
+   *
+   * @param {int} userId - User Id.
+   * @param {int} limit - Pagination limit.
+   * @param {string} lastId - Pagination lastId.
+   * @return {Object[]} - payment methods.
+   */
+  async listPaymentMethods ({userId, limit, lastId} = {}) {
+    return await this.request({
+      path: `${this.endpoint}/${userId}/lsitPaymentMethods`,
+      params: {
+        limit,
+        lastId
+      }
+    })
+  }
 }
