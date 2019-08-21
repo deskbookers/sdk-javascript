@@ -181,4 +181,16 @@ export default class Users extends Resource {
       path: `${this.endpoint}/${userId}/setupIntents`
     })
   }
+
+  /**
+   * Attach payment method to user
+   *
+   */
+  async attachPaymentMethod ({userId, paymentMethodId} = {}) {
+    return await this.request({
+      method: 'POST',
+      path: `${this.endpoint}/${userId}/attachPaymentMethod`,
+      body: { paymentMethodId }
+    })
+  }
 }
