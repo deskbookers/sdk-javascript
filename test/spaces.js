@@ -5,10 +5,11 @@ import moment from 'moment'
 import Deskbookers from '../src'
 dotenv.load()
 
-function client () {
+function client (lang = 'en-gb') {
   return new Deskbookers({
     https: process.env.API_HTTPS === 'true',
-    host: process.env.API_HOST
+    host: process.env.API_HOST,
+    language: lang
   })
 }
 
@@ -18,6 +19,18 @@ test('Get space', async t => {
   const id = 16301
   const space = await deskbookers.spaces.retrieve(id)
   t.is(id, space.id)
+})
+
+test('Types', async t => {
+  const typesNl = await client('nl-nl').spaces.types()
+  const typesDe = await client('de-de').spaces.types()
+  const typesEn = await client('en-gb').spaces.types()
+
+  t.is(typeof typesNl, 'object')
+  t.is(typeof typesDe, 'object')
+  t.is(typeof typesEn, 'object')
+  t.not(JSON.stringify(typesNl), JSON.stringify(typesDe))
+  t.not(JSON.stringify(typesEn), JSON.stringify(typesDe))
 })
 
 test('Urgency', async t => {
