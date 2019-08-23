@@ -181,4 +181,48 @@ export default class Users extends Resource {
       path: `${this.endpoint}/${userId}/setupIntents`
     })
   }
+
+  /**
+   * Attach payment method to user
+   *
+   */
+  async attachPaymentMethod ({userId, paymentMethodId} = {}) {
+    return await this.request({
+      method: 'POST',
+      path: `${this.endpoint}/${userId}/attachPaymentMethod`,
+      body: { paymentMethodId }
+    })
+  }
+
+  /**
+   * Detach payment method from user
+   *
+   * @param {int} userId - User Id.
+   * @param {string} paymentMethodId - Payment method Id.
+   * @return {Object[]} - sources.
+   */
+  async detachPaymentMethod ({userId, paymentMethodId} = {}) {
+    return await this.request({
+      method: 'DELETE',
+      path: `${this.endpoint}/${userId}/detachPaymentMethod/${paymentMethodId}`
+    })
+  }
+
+  /**
+   * Get user payment methods
+   *
+   * @param {int} userId - User Id.
+   * @param {int} limit - Pagination limit.
+   * @param {string} lastId - Pagination lastId.
+   * @return {Object[]} - payment methods.
+   */
+  async listPaymentMethods ({userId, limit, lastId} = {}) {
+    return await this.request({
+      path: `${this.endpoint}/${userId}/listPaymentMethods`,
+      params: {
+        limit,
+        lastId
+      }
+    })
+  }
 }
