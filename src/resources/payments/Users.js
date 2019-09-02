@@ -158,6 +158,21 @@ export default class Users extends Resource {
   }
 
   /**
+   * Set Default payment method for user
+   *
+   * @param {int} userId - User Id.
+   * @param {string} methodId - method Id.
+   * @return {Object[]} - default method.
+   */
+  async setDefaultPaymentMethod ({userId, methodId} = {}) {
+    return await this.request({
+      method: 'PUT',
+      path: `${this.endpoint}/${userId}/defaultpaymentmethod/${methodId}`,
+      body: { methodId }
+    })
+  }
+
+  /**
    * Create Charge for users
    *
    * @param {int} userId - User Id.
